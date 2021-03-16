@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\DomainServices\" />
-    <Folder Include="Contracts\Repository\" />
-    <Folder Include="Entities\" />
-    <Folder Include="EntitiesValidators\" />
-    <Folder Include="ValuesObject\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="FluentValidation" Version="9.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Verbos\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
