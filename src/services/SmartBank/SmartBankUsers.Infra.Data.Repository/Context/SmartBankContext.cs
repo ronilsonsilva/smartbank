@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartBank.Infra.Data.Repository.Context.Map;
 
 namespace SmartBank.Infra.Data.Repository.Context
 {
@@ -15,7 +16,7 @@ namespace SmartBank.Infra.Data.Repository.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new ClienteMap());
 
             base.OnModelCreating(modelBuilder);
         }

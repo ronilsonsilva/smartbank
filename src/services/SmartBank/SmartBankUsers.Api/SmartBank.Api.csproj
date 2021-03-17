@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartBankUsers.Application\SmartBank.Application.csproj" />
+    <ProjectReference Include="..\SmartBankUsers.Infra.CrossCutting.Ioc\SmartBank.Infra.CrossCutting.Ioc.csproj" />
   </ItemGroup>
 
 </Project>

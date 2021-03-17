@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartBank.Domain\SmartBank.Domain.csproj" />
+    <ProjectReference Include="..\SmartBankUsers.Infra.Data.Repository\SmartBank.Infra.Data.Repository.csproj" />
   </ItemGroup>
 
 </Project>
