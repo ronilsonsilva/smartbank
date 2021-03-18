@@ -1,0 +1,44 @@
+{
+  "nome": "Ronilson de Sousa Silva",
+  "cpf": "05634289106",
+  "rg": "6729308",
+  "cnh": "",
+  "dataNascimento": "1996-01-27",
+  "sexo": 1,
+  "contato": {
+    "email": "rs.ronilsonsilva@gmail.com",
+    "telefoneFixo": "",
+    "telefoneCelular": "62984188541"
+  },
+  "endereco": {
+    "cep": "74020-090",
+    "logradouro": "Rua 20-A",
+    "complemento": "Casa 5",
+    "numero": "79",
+    "bairro": "Setor Central",
+    "cidade": "Goiânia",
+    "codigoIBGE": 7456
+  },
+  "nomeMae": "Maria Ionilde Oliveria de Sousa",
+  "nomePai": "Romildo Arruda da Silva",
+  "escolaridade": 5,
+  "empresaTrabalho": {
+    "nomeFantasia": "FUNDAHC",
+    "razaoSocial": "FUNDAHC",
+    "cnpj": "",
+    "endereco": {
+      "cep": "",
+      "logradouro": "",
+      "complemento": "",
+      "numero": "",
+      "bairro": "",
+      "cidade": "",
+      "codigoIBGE": 4568
+    },
+    "contato": {
+      "email": "",
+      "telefoneFixo": "",
+      "telefoneCelular": ""
+    }
+  }
+}
