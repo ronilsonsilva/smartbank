@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SmartBank.Api.Extensions;
 using SmartBank.Api.Filters;
@@ -19,21 +20,21 @@ namespace SmartBank.Api.Configurations
 
             #region [Configurações do IdentityServer]
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = "http://sso.ronilson.dev";
-                o.Audience = "api_teste";
-                o.RequireHttpsMetadata = false;
-            });
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer(o =>
+                {
+                    o.Authority = "https://sso.ronilson.dev";
+                    o.Audience = "api_teste";
+                    o.RequireHttpsMetadata = false;
+                    o.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                });
 
             services.AddAuthorization(options =>
             {
-                //options.AddPolicy("ApiReader", policy => policy.RequireClaim("scope", "api.read"));
-                //options.AddPolicy("Consumer", policy => policy.RequireClaim(ClaimTypes.Role, "consumer"));
+                //options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "movieClient", "movies_mvc_client"));
             });
 
             #endregion
@@ -54,6 +55,9 @@ namespace SmartBank.Api.Configurations
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
