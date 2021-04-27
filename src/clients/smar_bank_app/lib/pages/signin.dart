@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:smar_bank_app/pages/home.dart';
 import 'package:smar_bank_app/pages/reset_password.dart';
+import 'package:smar_bank_app/pages/signout.dart';
 import 'package:smar_bank_app/utils/colors.dart';
 import 'package:smar_bank_app/utils/images.dart';
 import 'package:smar_bank_app/utils/strings.dart';
@@ -50,17 +52,14 @@ class _BankingSignInState extends State<SignIn> {
                   textContent: lbl_SignIn,
                   onPressed: () {
                     finish(context);
-                    //BankingDashboard().launch(context);
+                    Home().launch(context);
                   },
                 ),
                 16.height,
                 Column(
                   children: [
                     Text(lbl_register, style: primaryTextStyle(size: 16, color: TextColorSecondary))
-                        .onTap(
-                            () {
-                              //Chamar tela de registros
-                            }),
+                        .onTap(() => SignOut().launch(context)),
                     16.height,
                     Image.asset(ic_face_id, color: Primary, height: 40, width: 40),
                   ],

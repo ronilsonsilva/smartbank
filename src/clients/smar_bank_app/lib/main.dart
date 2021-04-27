@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smar_bank_app/pages/home.dart';
 import 'package:smar_bank_app/pages/reset_password.dart';
 import 'package:smar_bank_app/pages/signin.dart';
 import 'package:smar_bank_app/utils/app_routes.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smart Bank',
+      title: 'Smart Finace',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,9 +26,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignIn(),
+      home: Home(),
       routes: {
-        //AppRoutes.HOME : (ctx) => {},
+        AppRoutes.HOME : (ctx) => Home(),
         AppRoutes.FORGOT_PASSWORD : (ctx) => ForgotPassword(),
         AppRoutes.SIGN_IN : (ctx) => SignIn(),
       },
