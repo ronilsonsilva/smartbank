@@ -19,15 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Integrations", "5 - Int
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9 - Tests", "9 - Tests", "{DB6EC195-9C45-4C66-B5FB-A115A5C6FAE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.Domain", "SmartBank.Domain\SmartBank.Domain.csproj", "{3687545F-F2B7-48F1-8D83-BB18C3F3D9FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.Domain", "SmartBank.Domain\SmartBank.Domain.csproj", "{3687545F-F2B7-48F1-8D83-BB18C3F3D9FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.Application", "SmartBankUsers.Application\SmartBank.Application.csproj", "{9BC15411-8B20-47FA-870D-5498139BFE62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.Application", "SmartBankUsers.Application\SmartBank.Application.csproj", "{9BC15411-8B20-47FA-870D-5498139BFE62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.Infra.Data.Repository", "SmartBankUsers.Infra.Data.Repository\SmartBank.Infra.Data.Repository.csproj", "{4727AC50-9E42-4257-AF2E-BDD9856FF386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.Infra.Data.Repository", "SmartBankUsers.Infra.Data.Repository\SmartBank.Infra.Data.Repository.csproj", "{4727AC50-9E42-4257-AF2E-BDD9856FF386}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.Infra.CrossCutting.Ioc", "SmartBankUsers.Infra.CrossCutting.Ioc\SmartBank.Infra.CrossCutting.Ioc.csproj", "{2CC347B9-DAB7-464A-97A2-E32F0923CF1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.Infra.CrossCutting.Ioc", "SmartBankUsers.Infra.CrossCutting.Ioc\SmartBank.Infra.CrossCutting.Ioc.csproj", "{2CC347B9-DAB7-464A-97A2-E32F0923CF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.Api", "SmartBankUsers.Api\SmartBank.Api.csproj", "{E53152ED-760C-4CFB-BF87-4DB0D4A06956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.Api", "SmartBankUsers.Api\SmartBank.Api.csproj", "{E53152ED-760C-4CFB-BF87-4DB0D4A06956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.AuthIntegration", "SmartBank.AuthIntegration\SmartBank.AuthIntegration.csproj", "{D7478E34-CE57-4EF8-B5EA-69A098783EC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{E53152ED-760C-4CFB-BF87-4DB0D4A06956}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E53152ED-760C-4CFB-BF87-4DB0D4A06956}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E53152ED-760C-4CFB-BF87-4DB0D4A06956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7478E34-CE57-4EF8-B5EA-69A098783EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7478E34-CE57-4EF8-B5EA-69A098783EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7478E34-CE57-4EF8-B5EA-69A098783EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7478E34-CE57-4EF8-B5EA-69A098783EC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{4727AC50-9E42-4257-AF2E-BDD9856FF386} = {7D55400D-8167-46BE-B77F-2D8706D0E2D3}
 		{2CC347B9-DAB7-464A-97A2-E32F0923CF1E} = {A13E19F7-430C-4C08-8E16-39925D4BB77B}
 		{E53152ED-760C-4CFB-BF87-4DB0D4A06956} = {C9ECB25C-88E0-49A2-822A-301F2AB34798}
+		{D7478E34-CE57-4EF8-B5EA-69A098783EC7} = {70118515-03C1-475C-9F60-52C00DD5B4EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91362E17-497C-4A86-AAF7-1F6D80C61860}

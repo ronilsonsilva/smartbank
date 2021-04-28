@@ -17,5 +17,7 @@ namespace SmartBank.Application.ViewModels
         public string NomePai { get; set; }
         public GrauEscolaridade Escolaridade { get; set; }
         public ClienteEmpresaValueObject EmpresaTrabalho { get; set; }
+        public string Usuario { get; set; }
+        public string Password { get; set; }
     }
 }
