@@ -20,9 +20,16 @@ namespace SmartBank.Infra.Data.Repository.Repositories
 
         public virtual async Task<TEntity> Adicionar(TEntity entity)
         {
-            this._context.Set<TEntity>().Add(entity);
-            await this._context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                this._context.Set<TEntity>().Add(entity);
+                await this._context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public virtual async Task<TEntity> Atualizar(TEntity entity)

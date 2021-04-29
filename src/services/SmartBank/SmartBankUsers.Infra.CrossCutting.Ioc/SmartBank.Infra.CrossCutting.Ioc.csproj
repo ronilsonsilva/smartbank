@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBank.AuthIntegration\SmartBank.AuthIntegration.csproj" />
     <ProjectReference Include="..\SmartBank.Domain\SmartBank.Domain.csproj" />
     <ProjectReference Include="..\SmartBankUsers.Application\SmartBank.Application.csproj" />
     <ProjectReference Include="..\SmartBankUsers.Infra.Data.Repository\SmartBank.Infra.Data.Repository.csproj" />
