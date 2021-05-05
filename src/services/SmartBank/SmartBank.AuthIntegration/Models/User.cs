@@ -18,9 +18,14 @@ namespace SmartBank.AuthIntegration.Models
 
         public User(string userName, string email, string phoneNumber)
         {
-            UserName = userName;
-            Email = email;
-            PhoneNumber = phoneNumber;
+            this.UserName = userName;
+            this.Email = email;
+            this.PhoneNumber = phoneNumber;
+            this.EmailConfirmed = true;
+            this.LockoutEnabled = false;
+            this.PhoneNumberConfirmed = true;
+            this.TwoFactorEnabled = false;
+            this.LockoutEnd = DateTime.Now;
         }
 
         #endregion
@@ -56,5 +61,4 @@ namespace SmartBank.AuthIntegration.Models
         [JsonProperty("id")]
         public string Id { get; set; }
     }
-
 }

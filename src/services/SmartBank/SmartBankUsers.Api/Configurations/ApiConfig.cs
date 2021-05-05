@@ -24,7 +24,7 @@ namespace SmartBank.Api.Configurations
                 .AddJwtBearer(o =>
                 {
                     o.Authority = "https://sso.ronilson.dev";
-                    o.Audience = "api_teste";
+                    o.Audience = "api_cliente_smart_bank";
                     o.RequireHttpsMetadata = false;
                     o.TokenValidationParameters = new TokenValidationParameters
                     {

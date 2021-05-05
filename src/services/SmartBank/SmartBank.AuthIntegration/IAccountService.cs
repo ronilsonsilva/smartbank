@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using SmartBank.AuthIntegration.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +14,18 @@ namespace SmartBank.AuthIntegration
         Task<string> AdicionarUsuario(string userName, string email, string phoneNumber, string password);
     }
 
-    public class AccountServices : IAccountService
+    public class AccountService : IAccountService
     {
+        private ResponseToken _token;
+        public AccountService()
+        {
+            this.GetToken();
+        }
+
         public async Task<string> AdicionarUsuario(string userName, string email, string phoneNumber, string password)
         {
-            var usuario = new Models.User(userName: userName, email: email, phoneNumber: phoneNumber);
-            Models.User userRetorno = AdicionarUsuario(usuario);
+            var usuario = new User(userName: userName, email: email, phoneNumber: phoneNumber);
+            User userRetorno = AdicionarUsuario(usuario);
 
             IRestResponse response = AlterarSenha(password, userRetorno);
 
@@ -27,27 +35,49 @@ namespace SmartBank.AuthIntegration
             return userRetorno.Id;
         }
 
-        private static IRestResponse AlterarSenha(string password, Models.User userRetorno)
+        private IRestResponse AlterarSenha(string password, Models.User userRetorno)
         {
-            var client = new RestClient("https://apiaccount.ronilson.dev//api/Users/ChangePassword");
+            var client = new RestClient("https://apiaccount.ronilson.dev/api/Users/ChangePassword");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(new Models.UserChangePassword(userRetorno.Id, password, password)), ParameterType.RequestBody);
+            request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
+            request.AddParameter("application/json", JsonConvert.SerializeObject(new Models.UserChangePassword(userRetorno.Id, password, password)), ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             return response;
         }
 
-        private static Models.User AdicionarUsuario(Models.User usuario)
+        private Models.User AdicionarUsuario(Models.User usuario)
         {
-            var client = new RestClient("https://apiaccount.ronilson.dev//api/Users");
+            var client = new RestClient("https://apiaccount.ronilson.dev/api/Users");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(usuario), ParameterType.RequestBody);
+            request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
+            request.AddParameter("application/json", JsonConvert.SerializeObject(usuario), ParameterType.RequestBody);
             IRestResponse response = client.Execute<Models.User>(request);
-            var userRetorno = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.User>(response.Content);
+            if (response.StatusCode != System.Net.HttpStatusCode.Created)
+                return null;
+
+            var userRetorno = JsonConvert.DeserializeObject<Models.User>(response.Content);
             return userRetorno;
+        }
+
+        private void GetToken()
+        {
+            var client = new RestClient("https://sso.ronilson.dev/connect/token");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("client_id", "client_smart_bank");
+            request.AddParameter("client_secret", "cT/nfDPBEGIcx9InWhrbx37JZXbZ9rbX8cpNAnG5viE=");
+            request.AddParameter("scope", "clientAdmin_api");
+            request.AddParameter("grant_type", "password");
+            request.AddParameter("username", "usersmartbank");
+            request.AddParameter("password", "Sig@2021");
+            IRestResponse response = client.Execute(request);
+
+            this._token = JsonConvert.DeserializeObject<ResponseToken>(response.Content);
         }
     }
 }

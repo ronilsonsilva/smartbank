@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartBank.Application.Contracts;
 using SmartBank.Application.Services;
 using SmartBank.Application.ViewModels;
+using SmartBank.AuthIntegration;
 using SmartBank.Domain.Contracts.DomainServices;
 using SmartBank.Domain.Contracts.Repository;
 using SmartBank.Domain.Entities;
@@ -52,6 +53,12 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             #region [Services Repositories]
 
             services.AddScoped<IRepository<Cliente>, RepositoryBase<Cliente>>();
+
+            #endregion
+
+            #region [Integrações]
+
+            services.AddScoped<IAccountService, AccountService>();
 
             #endregion
         }
