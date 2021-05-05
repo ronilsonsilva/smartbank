@@ -23,3 +23,5 @@ const spacing_standard_new = 16.0;
 const spacing_large = 24.0;
 const spacing_xlarge = 32.0;
 const spacing_xxLarge = 40.0;
+
+const api_cliente_base_uri = 'https://localhost:44358/api';

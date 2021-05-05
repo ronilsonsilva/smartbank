@@ -1,4 +1,8 @@
-class cliente {
+import 'contato.dart';
+import 'empresaTrabalho.dart';
+import 'endereco.dart';
+
+class Cliente {
   String id;
   String cadastro;
   String atualizado;
@@ -17,7 +21,7 @@ class cliente {
   String usuario;
   String password;
 
-  cliente(
+  Cliente(
       {this.id,
         this.cadastro,
         this.atualizado,
@@ -36,7 +40,7 @@ class cliente {
         this.usuario,
         this.password});
 
-  cliente.fromJson(Map<String, dynamic> json) {
+  Cliente.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     cadastro = json['cadastro'];
     atualizado = json['atualizado'];
@@ -90,105 +94,3 @@ class cliente {
   }
 }
 
-class Contato {
-  String email;
-  String telefoneFixo;
-  String telefoneCelular;
-
-  Contato({this.email, this.telefoneFixo, this.telefoneCelular});
-
-  Contato.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    telefoneFixo = json['telefoneFixo'];
-    telefoneCelular = json['telefoneCelular'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['telefoneFixo'] = this.telefoneFixo;
-    data['telefoneCelular'] = this.telefoneCelular;
-    return data;
-  }
-}
-
-class Endereco {
-  String cep;
-  String logradouro;
-  String complemento;
-  String numero;
-  String bairro;
-  String cidade;
-  int codigoIBGE;
-
-  Endereco(
-      {this.cep,
-        this.logradouro,
-        this.complemento,
-        this.numero,
-        this.bairro,
-        this.cidade,
-        this.codigoIBGE});
-
-  Endereco.fromJson(Map<String, dynamic> json) {
-    cep = json['cep'];
-    logradouro = json['logradouro'];
-    complemento = json['complemento'];
-    numero = json['numero'];
-    bairro = json['bairro'];
-    cidade = json['cidade'];
-    codigoIBGE = json['codigoIBGE'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cep'] = this.cep;
-    data['logradouro'] = this.logradouro;
-    data['complemento'] = this.complemento;
-    data['numero'] = this.numero;
-    data['bairro'] = this.bairro;
-    data['cidade'] = this.cidade;
-    data['codigoIBGE'] = this.codigoIBGE;
-    return data;
-  }
-}
-
-class EmpresaTrabalho {
-  String nomeFantasia;
-  String razaoSocial;
-  String cnpj;
-  Endereco endereco;
-  Contato contato;
-
-  EmpresaTrabalho(
-      {this.nomeFantasia,
-        this.razaoSocial,
-        this.cnpj,
-        this.endereco,
-        this.contato});
-
-  EmpresaTrabalho.fromJson(Map<String, dynamic> json) {
-    nomeFantasia = json['nomeFantasia'];
-    razaoSocial = json['razaoSocial'];
-    cnpj = json['cnpj'];
-    endereco = json['endereco'] != null
-        ? new Endereco.fromJson(json['endereco'])
-        : null;
-    contato =
-    json['contato'] != null ? new Contato.fromJson(json['contato']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nomeFantasia'] = this.nomeFantasia;
-    data['razaoSocial'] = this.razaoSocial;
-    data['cnpj'] = this.cnpj;
-    if (this.endereco != null) {
-      data['endereco'] = this.endereco.toJson();
-    }
-    if (this.contato != null) {
-      data['contato'] = this.contato.toJson();
-    }
-    return data;
-  }
-}

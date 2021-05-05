@@ -19,6 +19,7 @@ namespace SmartBank.Api.Controllers
             _accountServices = accountServices;
         }
 
+        [AllowAnonymous]
         public override async Task<IActionResult> Post([FromBody] ClienteViewModel viewModel)
         {
             //Precisa ser evoluido

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\services",
+    "\\src\\services\\SmartBank"
   ],
+  "SelectedNode": "\\src\\services\\SmartBank\\SmartBank.sln",
   "PreviewInSolutionExplorer": false
 }
