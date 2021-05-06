@@ -1,20 +1,34 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:smar_bank_app/utils/Constantes.dart';
 import './../models/cliente.dart';
-import 'customDio.dart';
+import 'package:http/http.dart' as http;
 
 class ClienteService {
-  var _dio = CustomDio().instance;
 
   Future<Cliente> AdicionarCliente(Cliente cliente) async {
     try {
       var json = cliente.toJson();
-      var response = await _dio.post('/cliente', data: json);
+      final response = await http.post(
+        Uri.parse(api_cliente_base_uri+'/cliente'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(json),
+      );
       print(response);
-      return Future(() => Cliente.fromJson(response.data));
-    } on DioError catch (e) {
+      return Future(() => Cliente.fromJson(jsonDecode(response.body)));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> AdicionarCliente1() async {
+    try {
+      final url = Uri.parse('https://jsonplaceholder.typicode.comalbums');
+      final response = await http.get(url);
+      print(response);
+    } catch (e) {
       print(e);
     }
   }

@@ -31,19 +31,32 @@ class _SignOutState extends State<SignOut> {
       return;
     }
 
+    //var cliente = Cliente(
+    //  nome: this._formData['nome'],
+    //  contato: Contato(
+    //    email: _formData['email'],
+    //  ),
+    //  cpf: _formData['cpf'],
+    //  rg: _formData['rg'],
+    //  cnh: _formData['cnh'],
+    //  nomeMae: _formData['nome_mae'],
+    //);
+
     var cliente = Cliente(
-      nome: this._formData['nome'],
+      nome: 'Roberto Contoso',
       contato: Contato(
-        email: _formData['email'],
+        email: 'roberto@contoso.com',
       ),
-      cpf: _formData['cpf'],
-      rg: _formData['rg'],
-      cnh: _formData['cnh'],
-      nomeMae: _formData['nome_mae'],
+      cpf: '00000000',
+      rg: '000000',
+      cnh: '0000000',
+      nomeMae: 'Filizberta Contoso',
+      sexo: 1,
+      password: 'Sig@2021'
     );
 
-    var response = await this._clienteService.AdicionarCliente(cliente);
-
+    //var response = await this._clienteService.AdicionarCliente(cliente);
+    await this._clienteService.AdicionarCliente1();
   }
 
   @override
