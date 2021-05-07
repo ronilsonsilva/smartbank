@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/pages/home.dart';
+import 'package:smar_bank_app/models/cliente.dart';
+import 'package:smar_bank_app/models/contato.dart';
+import 'package:smar_bank_app/services/clienteService.dart';
 import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/app_routes.dart';
 import 'package:smar_bank_app/utils/colors.dart';
 import 'package:smar_bank_app/utils/strings.dart';
 import 'package:smar_bank_app/widgets/buttons.dart';
@@ -15,17 +16,48 @@ class SignOut extends StatefulWidget {
 }
 
 class _SignOutState extends State<SignOut> {
+  final _clienteService = ClienteService();
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   final _emailFocusNode = FocusNode();
-  final _telefoneFocusNode = FocusNode();
   final _cpfFocusNode = FocusNode();
   final _rgFocusNode = FocusNode();
   final _cnhFocusNode = FocusNode();
   final _nomeMaeFocusNode = FocusNode();
   final _nomePaiFocusNode = FocusNode();
 
-  Future<void> _saveForm() {}
+  Future<void> _saveForm() async {
+    if(!_form.currentState.validate()){
+      return;
+    }
+
+    //var cliente = Cliente(
+    //  nome: this._formData['nome'],
+    //  contato: Contato(
+    //    email: _formData['email'],
+    //  ),
+    //  cpf: _formData['cpf'],
+    //  rg: _formData['rg'],
+    //  cnh: _formData['cnh'],
+    //  nomeMae: _formData['nome_mae'],
+    //);
+
+    var cliente = Cliente(
+      nome: 'Roberto Contoso',
+      contato: Contato(
+        email: 'roberto@contoso.com',
+      ),
+      cpf: '00000000',
+      rg: '000000',
+      cnh: '0000000',
+      nomeMae: 'Filizberta Contoso',
+      sexo: 1,
+      password: 'Sig@2021'
+    );
+
+    //var response = await this._clienteService.AdicionarCliente(cliente);
+    await this._clienteService.AdicionarCliente1();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +86,7 @@ class _SignOutState extends State<SignOut> {
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_emailFocusNode),
                       onSaved: (value) => _formData['nome'] = value,
+                      onChanged: (value) => _formData['nome'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -74,6 +107,7 @@ class _SignOutState extends State<SignOut> {
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_cpfFocusNode),
                       onSaved: (value) => _formData['email'] = value,
+                      onChanged: (value) => _formData['email'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -94,6 +128,7 @@ class _SignOutState extends State<SignOut> {
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_rgFocusNode),
                       onSaved: (value) => _formData['cpf'] = value,
+                      onChanged: (value) => _formData['cpf'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -114,6 +149,7 @@ class _SignOutState extends State<SignOut> {
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_cnhFocusNode),
                       onSaved: (value) => _formData['rg'] = value,
+                      onChanged: (value) => _formData['rg'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -133,7 +169,8 @@ class _SignOutState extends State<SignOut> {
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => FocusScope.of(context)
                           .requestFocus(_nomeMaeFocusNode),
-                      onSaved: (value) => _formData['rg'] = value,
+                      onSaved: (value) => _formData['cnh'] = value,
+                      onChanged: (value) => _formData['cnh'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -154,19 +191,7 @@ class _SignOutState extends State<SignOut> {
                       onFieldSubmitted: (_) => FocusScope.of(context)
                           .requestFocus(_nomePaiFocusNode),
                       onSaved: (value) => _formData['nome_mae'] = value,
-                      validator: (value) {
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'Nome do Pai'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => _saveForm(),
-                      onSaved: (value) => _formData['nome_pai'] = value,
+                      onChanged: (value) => _formData['nome_mae'] = value,
                       validator: (value) {
                         return null;
                       },
@@ -177,9 +202,10 @@ class _SignOutState extends State<SignOut> {
                     child: Button(
                       textContent: lbl_register,
                       onPressed: () {
-                        finish(context);
-                        Navigator.of(context)
-                            .pushReplacementNamed(AppRoutes.HOME);
+                        // finish(context);
+                        // Navigator.of(context)
+                        //     .pushReplacementNamed(AppRoutes.HOME);
+                        this._saveForm();
                       },
                     ),
                   ),
