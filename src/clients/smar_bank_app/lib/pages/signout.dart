@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/models/cliente.dart';
-import 'package:smar_bank_app/models/contato.dart';
+import 'package:smar_bank_app/components/sb_alert_dialog.dart';
+import 'package:smar_bank_app/models/cliente/cadastrar_cliente_command.dart';
+import 'package:smar_bank_app/models/cliente/cliente.dart';
+import 'package:smar_bank_app/models/cliente/contato.dart';
 import 'package:smar_bank_app/services/clienteService.dart';
 import 'package:smar_bank_app/utils/Constantes.dart';
 import 'package:smar_bank_app/utils/colors.dart';
@@ -24,39 +26,39 @@ class _SignOutState extends State<SignOut> {
   final _rgFocusNode = FocusNode();
   final _cnhFocusNode = FocusNode();
   final _nomeMaeFocusNode = FocusNode();
-  final _nomePaiFocusNode = FocusNode();
+  final _senhaFocusNode = FocusNode();
+  final _confirmarSenhaFocusNode = FocusNode();
+  final _alertSenhaIncosistente = SbAlertDialog(
+      titulo: 'Senhas Inconsistente',
+      mensage:
+          'Sua confirmação de senha está inconsistente, por favor preencha novamente.',
+      textoConfirma: 'OK',
+      onConfirma: () => {});
 
-  Future<void> _saveForm() async {
-    if(!_form.currentState.validate()){
+  Future<void> _saveForm(BuildContext context) async {
+    if (!_form.currentState.validate()) {
       return;
     }
 
-    //var cliente = Cliente(
-    //  nome: this._formData['nome'],
-    //  contato: Contato(
-    //    email: _formData['email'],
-    //  ),
-    //  cpf: _formData['cpf'],
-    //  rg: _formData['rg'],
-    //  cnh: _formData['cnh'],
-    //  nomeMae: _formData['nome_mae'],
-    //);
+    if (_formData['senha'] != _formData['confirmar_senha']) {
+      this._alertSenhaIncosistente.show(context);
+      return;
+    }
 
-    var cliente = Cliente(
-      nome: 'Roberto Contoso',
+    var cliente = CadastrarCliente(
+      nome: this._formData['nome'],
       contato: Contato(
-        email: 'roberto@contoso.com',
+        email: _formData['email'],
       ),
-      cpf: '00000000',
-      rg: '000000',
-      cnh: '0000000',
-      nomeMae: 'Filizberta Contoso',
-      sexo: 1,
-      password: 'Sig@2021'
+      cpf: _formData['cpf'],
+      rg: _formData['rg'],
+      cnh: _formData['cnh'],
+      nomeMae: _formData['nome_mae'],
+      password: _formData['senha'],
     );
 
-    //var response = await this._clienteService.AdicionarCliente(cliente);
-    await this._clienteService.AdicionarCliente1();
+    var response = await this._clienteService.AdicionarCliente(cliente);
+    print(response);
   }
 
   @override
@@ -188,10 +190,42 @@ class _SignOutState extends State<SignOut> {
                       initialValue: '',
                       decoration: InputDecoration(labelText: 'Nome da Mãe'),
                       textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => FocusScope.of(context)
-                          .requestFocus(_nomePaiFocusNode),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).requestFocus(_senhaFocusNode),
                       onSaved: (value) => _formData['nome_mae'] = value,
                       onChanged: (value) => _formData['nome_mae'] = value,
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      initialValue: '',
+                      decoration: InputDecoration(labelText: 'Senha'),
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (_) => FocusScope.of(context)
+                          .requestFocus(_confirmarSenhaFocusNode),
+                      onSaved: (value) => _formData['senha'] = value,
+                      onChanged: (value) => _formData['senha'] = value,
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      initialValue: '',
+                      decoration: InputDecoration(labelText: 'Confirme Senha'),
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (_) => this._saveForm(context),
+                      onSaved: (value) => _formData['confirmar_senha'] = value,
+                      onChanged: (value) =>
+                          _formData['confirmar_senha'] = value,
                       validator: (value) {
                         return null;
                       },
@@ -201,12 +235,7 @@ class _SignOutState extends State<SignOut> {
                     padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
                     child: Button(
                       textContent: lbl_register,
-                      onPressed: () {
-                        // finish(context);
-                        // Navigator.of(context)
-                        //     .pushReplacementNamed(AppRoutes.HOME);
-                        this._saveForm();
-                      },
+                      onPressed: () => this._saveForm(context),
                     ),
                   ),
                 ],

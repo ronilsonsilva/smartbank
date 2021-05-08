@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:smar_bank_app/utils/Constantes.dart';
 import 'package:smar_bank_app/utils/colors.dart';
 
-
 class EditText extends StatefulWidget {
   var isPassword;
   var isSecure;
@@ -14,19 +13,20 @@ class EditText extends StatefulWidget {
   var text;
   var maxLine;
   TextEditingController mController;
+  Function(String value) onChange;
 
   VoidCallback onPressed;
 
-  EditText({
-    var this.fontSize = textSizeNormal,
-    var this.textColor = TextColorPrimary,
-    var this.fontFamily = fontRegular,
-    var this.isPassword = true,
-    var this.isSecure = false,
-    var this.text = "",
-    var this.mController,
-    var this.maxLine = 1,
-  });
+  EditText(
+      {var this.fontSize = textSizeNormal,
+      var this.textColor = TextColorPrimary,
+      var this.fontFamily = fontRegular,
+      var this.isPassword = true,
+      var this.isSecure = false,
+      var this.text = "",
+      var this.mController,
+      var this.maxLine = 1,
+      this.onChange});
 
   @override
   State<StatefulWidget> createState() {
@@ -43,7 +43,11 @@ class EditTextState extends State<EditText> {
           obscureText: widget.isPassword,
           cursorColor: Primary,
           maxLines: widget.maxLine,
-          style: TextStyle(fontSize: widget.fontSize, color: TextColorPrimary, fontFamily: widget.fontFamily),
+          onChanged: (value) => widget.onChange(value),
+          style: TextStyle(
+              fontSize: widget.fontSize,
+              color: TextColorPrimary,
+              fontFamily: widget.fontFamily),
           decoration: InputDecoration(
             hintText: widget.text,
             hintStyle: TextStyle(fontSize: textSizeMedium),
@@ -59,7 +63,11 @@ class EditTextState extends State<EditText> {
         controller: widget.mController,
         obscureText: widget.isPassword,
         cursorColor: Primary,
-        style: TextStyle(fontSize: widget.fontSize, color: TextColorPrimary, fontFamily: widget.fontFamily),
+        onChanged: (value) => widget.onChange(value),
+        style: TextStyle(
+            fontSize: widget.fontSize,
+            color: TextColorPrimary,
+            fontFamily: widget.fontFamily),
         decoration: InputDecoration(
             hintText: widget.text,
             hintStyle: TextStyle(fontSize: textSizeMedium),
