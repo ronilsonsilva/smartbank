@@ -18,3 +18,4 @@ bin-release/
 # information for Eclipse / Flash Builder.
 /.vs/smartbank/v16
 /.vs
+/src/services/SmartBank/.vs/SmartBank
