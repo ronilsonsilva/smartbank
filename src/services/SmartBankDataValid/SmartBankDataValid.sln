@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.DataValid.api", "SmartBank.DataValid.api\SmartBank.DataValid.api.csproj", "{A52452A2-6101-42DA-ACAC-EEFB30ABEDCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A52452A2-6101-42DA-ACAC-EEFB30ABEDCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52452A2-6101-42DA-ACAC-EEFB30ABEDCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52452A2-6101-42DA-ACAC-EEFB30ABEDCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52452A2-6101-42DA-ACAC-EEFB30ABEDCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5B6A3BC-8178-4C9F-A920-4D58455C60AA}
+	EndGlobalSection
+EndGlobal

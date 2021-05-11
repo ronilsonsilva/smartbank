@@ -19,3 +19,4 @@ bin-release/
 /.vs/smartbank/v16
 /.vs
 /src/services/SmartBank/.vs/SmartBank
+/src/services/SmartBankDataValid/.vs/SmartBankDataValid/v16
