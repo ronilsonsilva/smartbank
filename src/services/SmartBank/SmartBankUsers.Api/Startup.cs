@@ -59,6 +59,8 @@ namespace SmartBankUsers.Api
         private static void RegisterServices(IServiceCollection services, IConfiguration configuration)
         {
             NativeInjectorBootStrapper.RegisterServices(services, configuration);
+            services.AddMessageBusConfiguration(configuration);
+
         }
     }
 }

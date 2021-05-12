@@ -2,8 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
-namespace SmartBank.DataValid.Api.Configurations
+namespace SmartBank.Email.Api.Configurations
 {
     public static class SwaggerConfig
     {
@@ -13,12 +14,14 @@ namespace SmartBank.DataValid.Api.Configurations
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "SmartBank API DataValid",
-                    Version = "1.0",
-                    Description = "API para validação de dados dos clientes",
+                    Title = "SmartBank API E-mail",
+                    Version = "v1",
+                    Description = "API para evnio de e-mail aos clientes",
                     Contact = new OpenApiContact() { Name = "Ronilson Silva", Email = "ronilson@sousasilva.eng.br" },
-                    License = new OpenApiLicense() { Name = "Privada", Url = new Uri("http://sousasilva.eng.br/") }
+                    License = new OpenApiLicense() { Name = "Privada", Url = new Uri("http://sousasilva.eng.br/") },
                 });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -54,7 +57,7 @@ namespace SmartBank.DataValid.Api.Configurations
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "API - SmartObras V0.0.001");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartBank API E-mail v1");
             });
 
             return app;

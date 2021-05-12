@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
@@ -23,6 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartBank.MessageBus\SmartBank.MessageBus.csproj" />
+    <ProjectReference Include="..\..\SmartBank.Shared\SmartBank.Shared.csproj" />
     <ProjectReference Include="..\SmartBank.AuthIntegration\SmartBank.AuthIntegration.csproj" />
     <ProjectReference Include="..\SmartBankUsers.Application\SmartBank.Application.csproj" />
     <ProjectReference Include="..\SmartBankUsers.Infra.CrossCutting.Ioc\SmartBank.Infra.CrossCutting.Ioc.csproj" />
