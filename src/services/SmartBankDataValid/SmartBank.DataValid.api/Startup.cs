@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SmartBank.DataValid.Api.Configurations;
+using SmartBank.DataValid.Api.Integrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,8 @@ namespace SmartBank.DataValid.api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartBank.DataValid.api", Version = "v1" });
             });
+
+            this.ResolveDependencias(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +58,20 @@ namespace SmartBank.DataValid.api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void ResolveDependencias(IServiceCollection services)
+        {
+            var dataValid = new DataValidConfig()
+            {
+                ConsumerKey = this.Configuration.GetSection("DATA_VALID:CONSUMER_KEY").ToString(),
+                ConsumerSecret = this.Configuration.GetSection("DATA_VALID:CONSUMER_SECRET").ToString(),
+                UriBase = this.Configuration.GetSection("DATA_VALID:URI_BASE").ToString(),
+            };
+            services.AddSingleton<DataValidConfig>(dataValid);
+
+            services.AddSingleton<IDataValidIntegrationServices, DataValidIntegrationServices>();
+
         }
     }
 }
