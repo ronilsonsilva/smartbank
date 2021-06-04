@@ -17,6 +17,8 @@ namespace SmartBank.Infra.Data.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new ClienteSolicitacaoMap());
+            modelBuilder.ApplyConfiguration(new ClienteSolicitacaoPendenciaMap());
 
             base.OnModelCreating(modelBuilder);
         }

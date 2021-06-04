@@ -1,5 +1,6 @@
 ﻿using SmartBank.Domain.ValuesObject;
 using System;
+using System.Collections.Generic;
 
 namespace SmartBank.Application.ViewModels
 {
@@ -19,5 +20,6 @@ namespace SmartBank.Application.ViewModels
         public ClienteEmpresaValueObject EmpresaTrabalho { get; set; }
         public string Usuario { get; set; }
         public string Password { get; set; }
+        public IList<ClienteSolicitacaoViewModel> Solicitacoes { get; set; }
     }
 }

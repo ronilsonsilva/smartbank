@@ -26,13 +26,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: SignIn(),
       routes: {
-        AppRoutes.HOME : (ctx) => Home(),
-        AppRoutes.FORGOT_PASSWORD : (ctx) => ForgotPassword(),
-        AppRoutes.SIGN_IN : (ctx) => SignIn(),
+        AppRoutes.HOME: (ctx) => Home(),
+        AppRoutes.FORGOT_PASSWORD: (ctx) => ForgotPassword(),
+        AppRoutes.SIGN_IN: (ctx) => SignIn(),
       },
     );
   }
 }
-

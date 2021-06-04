@@ -10,6 +10,9 @@ import 'package:smar_bank_app/utils/colors.dart';
 import 'package:smar_bank_app/utils/strings.dart';
 import 'package:smar_bank_app/widgets/buttons.dart';
 
+import '../services/auth_services.dart';
+import 'home.dart';
+
 class SignOut extends StatefulWidget {
   static var tag = "/SignOut";
 
@@ -58,6 +61,16 @@ class _SignOutState extends State<SignOut> {
     );
 
     var response = await this._clienteService.AdicionarCliente(cliente);
+    if (response.ok) {
+      var autenticado = await AuthService()
+          .Autentique(_formData['usuario'], _formData['senha']);
+      if (autenticado) {
+        finish(context);
+        Home().launch(context);
+      } else {
+        this._alertSenhaIncosistente.show(context);
+      }
+    } else {}
     print(response);
   }
 

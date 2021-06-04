@@ -1,6 +1,7 @@
 ﻿using SmartBank.Domain.EntitiesValidators;
 using SmartBank.Domain.ValuesObject;
 using System;
+using System.Collections.Generic;
 
 namespace SmartBank.Domain.Entities
 {
@@ -24,5 +25,6 @@ namespace SmartBank.Domain.Entities
         public GrauEscolaridade Escolaridade { get; set; }
         public ClienteEmpresaValueObject EmpresaTrabalho { get; set; }
         public string Usuario { get; set; }
+        public IList<ClienteSolicitacao> Solicitacoes { get; set; }
     }
 }

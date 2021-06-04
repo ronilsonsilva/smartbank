@@ -41,18 +41,24 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             #region [Application Services]
 
             services.AddScoped<IApplicationServices<ClienteViewModel>, ApplicationServices<ClienteViewModel, Cliente>>();
+            services.AddScoped<IApplicationServices<ClienteSolicitacaoViewModel>, ApplicationServices<ClienteSolicitacaoViewModel, ClienteSolicitacao>>();
+            services.AddScoped<IApplicationServices<ClienteSolicitacaoPendeciaViewModel>, ApplicationServices<ClienteSolicitacaoPendeciaViewModel, ClienteSolicitacaoPendecia>>();
 
             #endregion
 
             #region [Domain Services]
 
             services.AddScoped<IDomainServices<Cliente>, DomainServices<Cliente>>();
+            services.AddScoped<IDomainServices<ClienteSolicitacao>, DomainServices<ClienteSolicitacao>>();
+            services.AddScoped<IDomainServices<ClienteSolicitacaoPendecia>, DomainServices<ClienteSolicitacaoPendecia>>();
 
             #endregion
 
             #region [Services Repositories]
 
             services.AddScoped<IRepository<Cliente>, RepositoryBase<Cliente>>();
+            services.AddScoped<IRepository<ClienteSolicitacao>, RepositoryBase<ClienteSolicitacao>>();
+            services.AddScoped<IRepository<ClienteSolicitacaoPendecia>, RepositoryBase<ClienteSolicitacaoPendecia>>();
 
             #endregion
 
