@@ -1,10 +1,14 @@
+import 'dart:io';
+
+import 'package:SmarBank/pages/home.dart';
+import 'package:SmarBank/pages/reset_password.dart';
+import 'package:SmarBank/utils/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:smar_bank_app/pages/home.dart';
-import 'package:smar_bank_app/pages/reset_password.dart';
-import 'package:smar_bank_app/pages/signin.dart';
-import 'package:smar_bank_app/utils/app_routes.dart';
+
+import 'pages/signin.dart';
 
 void main() {
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(MyApp());
 }
 
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smart Finance',
+      title: 'Smart Bank',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -33,5 +37,14 @@ class MyApp extends StatelessWidget {
         AppRoutes.SIGN_IN: (ctx) => SignIn(),
       },
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

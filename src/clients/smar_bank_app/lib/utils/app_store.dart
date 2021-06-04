@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/utils/colors.dart';
 
+import 'colors.dart';
 
 class AppStore = AppStoreBase with Store;
 
@@ -43,7 +43,7 @@ abstract class AppStoreBase with Store {
   @observable
   var selectedDrawerItem = -1;
 
-  AppStore(){
+  AppStore() {
     //isDarkModeOn = value ?? !isDarkModeOn;
     isDarkModeOn = true;
 
@@ -89,7 +89,6 @@ abstract class AppStoreBase with Store {
 
     //setValue(isDarkModeOnPref, isDarkModeOn);
   }
-
 
   @action
   void setLanguage(String aLanguage) => selectedLanguage = aLanguage;

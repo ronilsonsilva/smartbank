@@ -1,11 +1,11 @@
+import 'package:SmarBank/components/account.dart';
+import 'package:SmarBank/components/dashboard.dart';
+import 'package:SmarBank/components/notificacoes.dart';
+import 'package:SmarBank/components/nova_solicitacao.dart';
+import 'package:SmarBank/pages/signin.dart';
+import 'package:SmarBank/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/components/account.dart';
-import 'package:smar_bank_app/components/dashboard.dart';
-import 'package:smar_bank_app/components/notificacoes.dart';
-import 'package:smar_bank_app/components/nova_solicitacao.dart';
-import 'package:smar_bank_app/pages/signin.dart';
-import 'package:smar_bank_app/utils/colors.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Smart Finance"),
+        title: Text("Smart Bank"),
         backgroundColor: app_palColor,
       ),
       body: telas[_indiceAtual],

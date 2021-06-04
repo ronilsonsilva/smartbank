@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:SmarBank/models/auth/response_token.dart';
+import 'package:SmarBank/models/cliente/cliente.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smar_bank_app/models/auth/response_token.dart';
-import 'package:smar_bank_app/models/cliente/cliente.dart';
 
 class AppSharedPreference {
   final String _key_token = 'token';

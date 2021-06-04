@@ -1,11 +1,11 @@
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/colors.dart';
+import 'package:SmarBank/utils/strings.dart';
+import 'package:SmarBank/widgets/EditTextWidgets.dart';
+import 'package:SmarBank/widgets/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/colors.dart';
-import 'package:smar_bank_app/utils/strings.dart';
-import 'package:smar_bank_app/widgets/EditTextWidgets.dart';
-import 'package:smar_bank_app/widgets/buttons.dart';
 
 class CodigoRedefinicao extends StatefulWidget {
   static var tag = "/CodigoRedefinicao";
@@ -20,11 +20,7 @@ class _CodigoRedefinicaoState extends State<CodigoRedefinicao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Nova Senha",
-            style: TextStyle(
-                color: TextColorWhite,
-              fontSize: 24
-            )
-        ),
+            style: TextStyle(color: TextColorWhite, fontSize: 24)),
         centerTitle: true,
         backgroundColor: app_palColor,
       ),
@@ -38,7 +34,11 @@ class _CodigoRedefinicaoState extends State<CodigoRedefinicao> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   34.height,
-                  Text(lbl_Nova_Senha, style: primaryTextStyle(color: TextColorSecondary, fontFamily: fontSemiBold, size: 16)),
+                  Text(lbl_Nova_Senha,
+                      style: primaryTextStyle(
+                          color: TextColorSecondary,
+                          fontFamily: fontSemiBold,
+                          size: 16)),
                   16.height,
                   EditText(text: "Código", isPassword: false),
                   16.height,
@@ -46,9 +46,9 @@ class _CodigoRedefinicaoState extends State<CodigoRedefinicao> {
                   16.height,
                   EditText(text: "Confirma Senha", isPassword: true),
                   16.height,
-                  Button(textContent: lbl_Enviar,
-                      onPressed: ()
-                      {
+                  Button(
+                      textContent: lbl_Enviar,
+                      onPressed: () {
                         //Chamar tela de inserir código de redefinição de senha
                       }),
                 ],
@@ -59,7 +59,10 @@ class _CodigoRedefinicaoState extends State<CodigoRedefinicao> {
               alignment: Alignment.bottomCenter,
               child: Text(
                 lbl_app_Name.toUpperCase(),
-                style: primaryTextStyle(color: TextColorSecondary, size: 16, fontFamily: fontRegular),
+                style: primaryTextStyle(
+                    color: TextColorSecondary,
+                    size: 16,
+                    fontFamily: fontRegular),
               ).paddingOnly(bottom: 16)),
         ],
       ),
