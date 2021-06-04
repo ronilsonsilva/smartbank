@@ -26,5 +26,6 @@ namespace SmartBank.Domain.Entities
         public ClienteEmpresaValueObject EmpresaTrabalho { get; set; }
         public string Usuario { get; set; }
         public IList<ClienteSolicitacao> Solicitacoes { get; set; }
+        public IList<ClienteBiometriaDigital> BiometriasDigital { get; set; }
     }
 }

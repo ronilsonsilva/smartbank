@@ -43,12 +43,15 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             services.AddScoped<IApplicationServices<ClienteViewModel>, ApplicationServices<ClienteViewModel, Cliente>>();
             services.AddScoped<IApplicationServices<ClienteSolicitacaoViewModel>, ApplicationServices<ClienteSolicitacaoViewModel, ClienteSolicitacao>>();
             services.AddScoped<IApplicationServices<ClienteSolicitacaoPendeciaViewModel>, ApplicationServices<ClienteSolicitacaoPendeciaViewModel, ClienteSolicitacaoPendecia>>();
+            services.AddScoped<IApplicationServices<ClienteBiometriaDigitalViewModel>, ApplicationServices<ClienteBiometriaDigitalViewModel, ClienteBiometriaDigital>>();
+            services.AddScoped<IClienteBiometriaDigitalApplication, ClienteBiometriaDigitalApplication>();
 
             #endregion
 
             #region [Domain Services]
 
             services.AddScoped<IDomainServices<Cliente>, DomainServices<Cliente>>();
+            services.AddScoped<IDomainServices<ClienteBiometriaDigital>, DomainServices<ClienteBiometriaDigital>>();
             services.AddScoped<IDomainServices<ClienteSolicitacao>, DomainServices<ClienteSolicitacao>>();
             services.AddScoped<IDomainServices<ClienteSolicitacaoPendecia>, DomainServices<ClienteSolicitacaoPendecia>>();
 
@@ -57,6 +60,7 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             #region [Services Repositories]
 
             services.AddScoped<IRepository<Cliente>, RepositoryBase<Cliente>>();
+            services.AddScoped<IRepository<ClienteBiometriaDigital>, RepositoryBase<ClienteBiometriaDigital>>();
             services.AddScoped<IRepository<ClienteSolicitacao>, RepositoryBase<ClienteSolicitacao>>();
             services.AddScoped<IRepository<ClienteSolicitacaoPendecia>, RepositoryBase<ClienteSolicitacaoPendecia>>();
 

@@ -22,7 +22,7 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);
 
-            builder.Property(x => x.Cadastro)
+            builder.Property(x => x.Atualizado)
                 .HasColumnName("data_atualizacao")
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);

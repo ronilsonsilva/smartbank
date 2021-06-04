@@ -26,13 +26,16 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Atualizado")
-                        .HasColumnType("timestamp without time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 907, DateTimeKind.Local).AddTicks(7419))
+                        .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 3, 23, 2, 3, 579, DateTimeKind.Local).AddTicks(8320))
-                        .HasColumnName("data_atualizacao");
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 901, DateTimeKind.Local).AddTicks(5724))
+                        .HasColumnName("data_cadastro");
 
                     b.Property<string>("Cnh")
                         .HasMaxLength(40)
@@ -89,6 +92,52 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.ToTable("cliente");
                 });
 
+            modelBuilder.Entity("SmartBank.Domain.Entities.ClienteBiometriaDigital", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Atualizado")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 965, DateTimeKind.Local).AddTicks(8328))
+                        .HasColumnName("data_atualizacao");
+
+                    b.Property<string>("BiometriaBase64")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("biometria_base64");
+
+                    b.Property<DateTime>("Cadastro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 965, DateTimeKind.Local).AddTicks(7003))
+                        .HasColumnName("data_cadastro");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("cliente_id");
+
+                    b.Property<int>("Posicao")
+                        .HasColumnType("integer")
+                        .HasColumnName("posicao");
+
+                    b.Property<string>("Probabilidade")
+                        .HasColumnType("text")
+                        .HasColumnName("propabilidade");
+
+                    b.Property<int>("Similaridade")
+                        .HasColumnType("integer")
+                        .HasColumnName("similaridade");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("cliente_biometria_digital");
+                });
+
             modelBuilder.Entity("SmartBank.Domain.Entities.ClienteSolicitacao", b =>
                 {
                     b.Property<Guid>("Id")
@@ -96,13 +145,16 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Atualizado")
-                        .HasColumnType("timestamp without time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 986, DateTimeKind.Local).AddTicks(4134))
+                        .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 3, 23, 2, 3, 609, DateTimeKind.Local).AddTicks(7422))
-                        .HasColumnName("data_atualizacao");
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 986, DateTimeKind.Local).AddTicks(687))
+                        .HasColumnName("data_cadastro");
 
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uuid")
@@ -111,7 +163,7 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Data")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 3, 23, 2, 3, 598, DateTimeKind.Local).AddTicks(2719))
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 974, DateTimeKind.Local).AddTicks(5570))
                         .HasColumnName("data");
 
                     b.Property<DateTime?>("DataAprovacao")
@@ -156,18 +208,21 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Atualizado")
-                        .HasColumnType("timestamp without time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 995, DateTimeKind.Local).AddTicks(7069))
+                        .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 3, 23, 2, 3, 620, DateTimeKind.Local).AddTicks(4836))
-                        .HasColumnName("data_atualizacao");
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 995, DateTimeKind.Local).AddTicks(6118))
+                        .HasColumnName("data_cadastro");
 
                     b.Property<DateTime>("DataPendencia")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 3, 23, 2, 3, 615, DateTimeKind.Local).AddTicks(4313))
+                        .HasDefaultValue(new DateTime(2021, 6, 4, 1, 38, 47, 992, DateTimeKind.Local).AddTicks(498))
                         .HasColumnName("data_pendencia");
 
                     b.Property<DateTime>("DataResolvida")
@@ -399,6 +454,18 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Navigation("Endereco");
                 });
 
+            modelBuilder.Entity("SmartBank.Domain.Entities.ClienteBiometriaDigital", b =>
+                {
+                    b.HasOne("SmartBank.Domain.Entities.Cliente", "Cliente")
+                        .WithMany("BiometriasDigital")
+                        .HasForeignKey("ClienteId")
+                        .HasConstraintName("fk_cliente__cliente_biometria_digital")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
             modelBuilder.Entity("SmartBank.Domain.Entities.ClienteSolicitacao", b =>
                 {
                     b.HasOne("SmartBank.Domain.Entities.Cliente", "Cliente")
@@ -425,6 +492,8 @@ namespace SmartBank.Infra.Data.Repository.Migrations
 
             modelBuilder.Entity("SmartBank.Domain.Entities.Cliente", b =>
                 {
+                    b.Navigation("BiometriasDigital");
+
                     b.Navigation("Solicitacoes");
                 });
 
