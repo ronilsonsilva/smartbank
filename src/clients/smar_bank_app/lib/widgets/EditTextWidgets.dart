@@ -1,8 +1,8 @@
 // ignore: must_be_immutable
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/colors.dart';
 
 class EditText extends StatefulWidget {
   var isPassword;

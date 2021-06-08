@@ -70,11 +70,11 @@ namespace SmartBank.AuthIntegration
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
             request.AddParameter("client_id", "client_smart_bank");
-            request.AddParameter("client_secret", "cT/nfDPBEGIcx9InWhrbx37JZXbZ9rbX8cpNAnG5viE=");
+            request.AddParameter("client_secret", "j1VawF2gqa0qTH616C+0/EsKYh7odDpLE5MRhXZyqNM=");
             request.AddParameter("scope", "clientAdmin_api");
             request.AddParameter("grant_type", "password");
-            request.AddParameter("username", "usersmartbank");
-            request.AddParameter("password", "Sig@2021");
+            request.AddParameter("username", "admin");
+            request.AddParameter("password", "$ig@Me$7re");
             IRestResponse response = client.Execute(request);
 
             this._token = JsonConvert.DeserializeObject<ResponseToken>(response.Content);

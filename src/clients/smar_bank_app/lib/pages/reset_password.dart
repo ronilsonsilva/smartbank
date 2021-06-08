@@ -1,12 +1,13 @@
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/colors.dart';
+import 'package:SmarBank/utils/strings.dart';
+import 'package:SmarBank/widgets/EditTextWidgets.dart';
+import 'package:SmarBank/widgets/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/pages/codigo_redefinicao.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/colors.dart';
-import 'package:smar_bank_app/utils/strings.dart';
-import 'package:smar_bank_app/widgets/EditTextWidgets.dart';
-import 'package:smar_bank_app/widgets/buttons.dart';
+
+import 'codigo_redefinicao.dart';
 
 class ForgotPassword extends StatefulWidget {
   static var tag = "/RedefinirPassword";
@@ -21,11 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Redefinir Senha",
-            style: TextStyle(
-                color: TextColorWhite,
-                fontSize: 24
-            )
-        ),
+            style: TextStyle(color: TextColorWhite, fontSize: 24)),
         centerTitle: true,
         backgroundColor: app_palColor,
       ),
@@ -39,12 +36,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   34.height,
-                  Text(lbl_Redefinir_Senha, style: primaryTextStyle(color: TextColorSecondary, fontFamily: fontSemiBold, size: 16)),
+                  Text(lbl_Redefinir_Senha,
+                      style: primaryTextStyle(
+                          color: TextColorSecondary,
+                          fontFamily: fontSemiBold,
+                          size: 16)),
                   16.height,
                   EditText(text: "Email", isPassword: false),
                   16.height,
-                  Button(textContent: lbl_Next,
-                      onPressed: ()=> CodigoRedefinicao().launch(context)),
+                  Button(
+                      textContent: lbl_Next,
+                      onPressed: () => CodigoRedefinicao().launch(context)),
                 ],
               ),
             ),
@@ -53,7 +55,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               alignment: Alignment.bottomCenter,
               child: Text(
                 lbl_app_Name.toUpperCase(),
-                style: primaryTextStyle(color: TextColorSecondary, size: 16, fontFamily: fontRegular),
+                style: primaryTextStyle(
+                    color: TextColorSecondary,
+                    size: 16,
+                    fontFamily: fontRegular),
               ).paddingOnly(bottom: 16)),
         ],
       ),

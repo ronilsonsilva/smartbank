@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:SmarBank/models/auth/response_token.dart';
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/app_shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:smar_bank_app/models/auth/response_token.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/app_shared_preferences.dart';
 
 class AuthService {
   Future<bool> Autentique(String usuario, String password) async {

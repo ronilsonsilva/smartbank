@@ -1,14 +1,13 @@
+import 'package:SmarBank/components/sb_alert_dialog.dart';
+import 'package:SmarBank/models/cliente/cadastrar_cliente_command.dart';
+import 'package:SmarBank/models/cliente/contato.dart';
+import 'package:SmarBank/services/clienteService.dart';
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/colors.dart';
+import 'package:SmarBank/utils/strings.dart';
+import 'package:SmarBank/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/components/sb_alert_dialog.dart';
-import 'package:smar_bank_app/models/cliente/cadastrar_cliente_command.dart';
-import 'package:smar_bank_app/models/cliente/cliente.dart';
-import 'package:smar_bank_app/models/cliente/contato.dart';
-import 'package:smar_bank_app/services/clienteService.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
-import 'package:smar_bank_app/utils/colors.dart';
-import 'package:smar_bank_app/utils/strings.dart';
-import 'package:smar_bank_app/widgets/buttons.dart';
 
 import '../services/auth_services.dart';
 import 'home.dart';

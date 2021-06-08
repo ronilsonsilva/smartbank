@@ -1,15 +1,16 @@
+import 'package:SmarBank/components/sb_alert_dialog.dart';
+import 'package:SmarBank/pages/reset_password.dart';
+import 'package:SmarBank/pages/signout.dart';
+import 'package:SmarBank/services/auth_services.dart';
+import 'package:SmarBank/utils/colors.dart';
+import 'package:SmarBank/utils/images.dart';
+import 'package:SmarBank/utils/strings.dart';
+import 'package:SmarBank/widgets/EditTextWidgets.dart';
+import 'package:SmarBank/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smar_bank_app/components/sb_alert_dialog.dart';
-import 'package:smar_bank_app/pages/home.dart';
-import 'package:smar_bank_app/pages/reset_password.dart';
-import 'package:smar_bank_app/pages/signout.dart';
-import 'package:smar_bank_app/services/auth_services.dart';
-import 'package:smar_bank_app/utils/colors.dart';
-import 'package:smar_bank_app/utils/images.dart';
-import 'package:smar_bank_app/utils/strings.dart';
-import 'package:smar_bank_app/widgets/EditTextWidgets.dart';
-import 'package:smar_bank_app/widgets/buttons.dart';
+
+import 'home.dart';
 
 class SignIn extends StatefulWidget {
   static var tag = "/SignIn";

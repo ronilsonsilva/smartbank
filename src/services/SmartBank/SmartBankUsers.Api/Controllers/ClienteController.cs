@@ -29,9 +29,9 @@ namespace SmartBank.Api.Controllers
         public override async Task<IActionResult> Post([FromBody] ClienteViewModel viewModel)
         {
             //Precisa ser evoluido
-            //viewModel.Usuario = await this._accountServices.AdicionarUsuario(viewModel.Cpf, viewModel.Contato.Email, viewModel.Contato.TelefoneCelular, viewModel.Password);
+            viewModel.Usuario = await this._accountServices.AdicionarUsuario(viewModel.Cpf, viewModel.Contato.Email, viewModel.Contato.TelefoneCelular, viewModel.Password);
 
-            //await base.Post(viewModel);
+            var retorno = await base.Post(viewModel);
 
 
 
@@ -44,13 +44,15 @@ namespace SmartBank.Api.Controllers
                 //await _bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
 
                 await this._bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
+
+                
             }
             catch (Exception ex)
             {
 
             }
 
-            return Ok();
+            return Ok(viewModel);
         }
 
     }

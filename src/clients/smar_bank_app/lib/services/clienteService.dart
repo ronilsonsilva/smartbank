@@ -1,10 +1,9 @@
 import 'dart:convert';
-
-import 'package:smar_bank_app/models/cliente/cadastrar_cliente_command.dart';
-import 'package:smar_bank_app/models/cliente/response_cliente.dart';
-import 'package:smar_bank_app/utils/Constantes.dart';
+import 'package:SmarBank/models/cliente/cadastrar_cliente_command.dart';
+import 'package:SmarBank/models/cliente/response_cliente.dart';
+import 'package:SmarBank/utils/Constantes.dart';
+import 'package:SmarBank/utils/app_shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:smar_bank_app/utils/app_shared_preferences.dart';
 
 class ClienteService {
   Future<ResponseCliente> AdicionarCliente(CadastrarCliente cliente) async {
