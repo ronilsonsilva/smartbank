@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:smar_bank_app/utils/mock_data.dart';
+import 'package:smar_bank_app/widgets/solicitacoes/lista_solicitacoes.dart';
 
 class NovaSolicitacao extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class _NovaSolicitacaoState extends State<NovaSolicitacao> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Solicitar empréstimo"),
+      child: ListaSolicitacoes(solicitacoes: mock_solicitacoes),
     );
   }
 }

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignIn(),
+      home: Home(),
       routes: {
         AppRoutes.HOME: (ctx) => Home(),
         AppRoutes.FORGOT_PASSWORD: (ctx) => ForgotPassword(),
