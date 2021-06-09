@@ -1,5 +1,5 @@
-import 'package:smar_bank_app/models/solicitacao/pendencia.dart';
-import 'package:smar_bank_app/models/solicitacao/solicitacao.dart';
+import '../models/solicitacao/pendencia.dart';
+import '../models/solicitacao/solicitacao.dart';
 
 final mock_solicitacoes = <Solicitacao>[
   Solicitacao(

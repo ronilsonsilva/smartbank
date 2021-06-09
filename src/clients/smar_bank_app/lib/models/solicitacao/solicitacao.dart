@@ -1,4 +1,6 @@
-import 'package:smar_bank_app/models/solicitacao/pendencia.dart';
+import 'package:SmarBank/utils/enum_values.dart';
+
+import 'pendencia.dart';
 
 class Solicitacao {
   String id;

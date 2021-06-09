@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smar_bank_app/utils/mock_data.dart';
-import 'package:smar_bank_app/widgets/solicitacoes/lista_solicitacoes.dart';
+
+import '../utils/mock_data.dart';
+import '../widgets/solicitacoes/lista_solicitacoes.dart';
 
 class NovaSolicitacao extends StatefulWidget {
   @override

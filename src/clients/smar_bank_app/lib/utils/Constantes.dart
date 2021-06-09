@@ -1,4 +1,6 @@
 /*fonts*/
+import 'package:intl/intl.dart';
+
 const fontRegular = 'Regular';
 const fontMedium = 'Medium';
 const fontSemiBold = 'Semibold';
@@ -26,3 +28,8 @@ const spacing_xxLarge = 40.0;
 
 const api_cliente_base_uri = 'https://192.168.15.64:45455/api';
 const api_sso_base_uri = 'https://sso.ronilson.dev';
+
+class Utils {
+//Variáveis
+  final dataHoraFormat = DateFormat('dd-MM-yyyy hh:mm');
+}

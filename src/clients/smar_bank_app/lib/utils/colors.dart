@@ -32,8 +32,6 @@ const app_skyBlueColor = Color(0xFF03A9F4);
 const app_pinkLightColor = Color(0xFFE7586A);
 const app_purpleColor = Color(0xFFAD3AC3);
 
-
-
 //Global
 // Light Theme Colors
 const appColorPrimary = Color(0xFF0A79DF);
