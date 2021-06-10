@@ -32,4 +32,5 @@ const api_sso_base_uri = 'https://sso.ronilson.dev';
 class Utils {
 //Variáveis
   final dataHoraFormat = DateFormat('dd-MM-yyyy hh:mm');
+  final dataFormat = DateFormat('dd-MM-yyyy');
 }

@@ -5,6 +5,7 @@ import '../../utils/Constantes.dart';
 import '../../utils/app_routes.dart';
 import '../../utils/colors.dart';
 import 'detalhes_solicitacoes.dart';
+import 'form_soliictacoes.dart';
 
 class ListaSolicitacoes extends StatefulWidget {
   final List<Solicitacao> solicitacoes;
@@ -30,7 +31,7 @@ class _ListaSolicitacoesState extends State<ListaSolicitacoes> {
                               solicitacao: this.widget.solicitacoes[index]))),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    height: 220,
+                    height: 160,
                     width: double.maxFinite,
                     child: Card(
                       elevation: 5,
@@ -214,9 +215,10 @@ class _ListaSolicitacoesState extends State<ListaSolicitacoes> {
             )
           : const Center(child: Text('Você ainda não tem solicitação.')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FormSolicitacao())),
         child: const Icon(Icons.add),
-        backgroundColor: Colors.green,
+        backgroundColor: Secondary,
       ),
     );
   }

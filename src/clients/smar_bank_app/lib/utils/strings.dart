@@ -1,4 +1,5 @@
 const lbl_SignIn = "Entrar";
+const lbl_BtnSolicitarEmprestimo = "Solicitar";
 const lbl_Forgot = "Esqueceu a senha?";
 const lbl_register = "Criar Conta";
 const lbl_app_Name = "Smart Bank";
@@ -6,8 +7,10 @@ const lbl_app_Sub_title = "Smart Banking App";
 const lbl_Walk1Title = "Online Payment";
 const lbl_Walk2Title = "Quickly Tranfer";
 const lbl_Walk3Title = "Saving Online";
-const lbl_Redefinir_Senha = "Para redefinir sua senha, digite seu E-mail de usuário, iremos enviar a você um código de redefinição de senha.";
-const lbl_Nova_Senha = "Digite o código que você recebeu no seu e-mail, e forneça a nova senha.";
+const lbl_Redefinir_Senha =
+    "Para redefinir sua senha, digite seu E-mail de usuário, iremos enviar a você um código de redefinição de senha.";
+const lbl_Nova_Senha =
+    "Digite o código que você recebeu no seu e-mail, e forneça a nova senha.";
 const lbl_Get_Started = "Get Started";
 const lbl_Login_with_FaceID = "Or Login With Face ID";
 const lbl_Resend = "Resend?";
@@ -48,7 +51,8 @@ const lbl_Payment_History = "Payment\nHistory";
 const lbl_Get_OTP = "Get OTP";
 const lbl_Confirm_Transfer = "Confirm Transfer";
 const lbl_Transfer_Successful = "Transfer\nSuccessful";
-const lbl_Info_Transfer_Successful = "You Have successfully transfered \$1000 \n to John Smith";
+const lbl_Info_Transfer_Successful =
+    "You Have successfully transfered \$1000 \n to John Smith";
 const lbl_Transaction_History = "Transaction History";
 const lbl_Rate_Info = "Rate \nInformation";
 const lbl_Branch_Location = "Branch \nLocation";
