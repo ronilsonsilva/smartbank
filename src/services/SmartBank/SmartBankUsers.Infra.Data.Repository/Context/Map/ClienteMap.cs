@@ -25,106 +25,116 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .IsRequired()
                 .HasMaxLength(256)
                 .HasColumnName("nome");
-            
+
             builder.Property(x => x.NomeMae)
                 .IsRequired()
                 .HasMaxLength(256)
                 .HasColumnName("nome_mae");
-            
+
             builder.Property(x => x.NomePai)
                 .HasMaxLength(256)
                 .HasColumnName("nome_pai");
-            
+
             builder.Property(x => x.Sexo)
                 .IsRequired()
                 .HasColumnName("sexo");
-            
+
             builder.Property(x => x.Escolaridade)
                 .HasColumnName("escolaridade");
-            
+
             builder.Property(x => x.Rg)
                 .HasMaxLength(40)
                 .HasColumnName("rg");
-            
+
             builder.Property(x => x.Cnh)
                 .HasMaxLength(40)
                 .HasColumnName("cnh");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .Property(x => x.Cnpj)
                 .HasMaxLength(20)
                 .HasColumnName("empresa_trabalho_cnpj");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .Property(x => x.NomeFantasia)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_nome_fantasia");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .Property(x => x.RazaoSocial)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_razao_social");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Contato)
                 .Property(x => x.Email)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_email");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Contato)
                 .Property(x => x.TelefoneCelular)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_celular");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Contato)
                 .Property(x => x.TelefoneFixo)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_telefone");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Bairro)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_bairro");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Cep)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_cep");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Cidade)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_cidade");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.CodigoIBGE)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_cidade_ibge");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Complemento)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_endereco_complemento");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Logradouro)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_endereco_logradouro");
-            
+
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .OwnsOne(x => x.Endereco)
                 .Property(x => x.Numero)
                 .HasMaxLength(256)
                 .HasColumnName("empresa_trabalho_endereco_numero");
-            
+
+            builder.Property(x => x.RendaMensal)
+                .HasColumnName("renda_mensal");
+
+            builder.HasOne(x => x.BiometriaFacial)
+                .WithOne(x => x.Cliente)
+                .HasForeignKey<ClienteBiometriaFacial>(x => x.ClienteId);
+
+            builder.Ignore(x => x.ValidacaoBiometrica);
+            builder.Ignore(x => x.ValidacaoFacial);
+
             #region [Endereco]
 
             builder.OwnsOne(x => x.Contato)
@@ -180,6 +190,7 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
             builder.Property(x => x.Usuario)
                 .IsRequired()
                 .HasMaxLength(256);
+
 
             base.Configure(builder);
         }

@@ -134,7 +134,8 @@ class _DetalhesListaSolicitacaoState extends State<DetalhesListaSolicitacao> {
                             color: TextColorSecondary,
                             fontFamily: fontRegular),
                       ),
-                      this.widget.solicitacao.pendencia.length > 0
+                      this.widget.solicitacao.pendencia != null &&
+                              this.widget.solicitacao.pendencia.length > 0
                           ? Text(
                               'SIM',
                               style: TextStyle(

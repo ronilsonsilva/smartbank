@@ -18,6 +18,7 @@ namespace SmartBank.Infra.Data.Repository.Context
         {
             modelBuilder.ApplyConfiguration(new ClienteMap());
             modelBuilder.ApplyConfiguration(new ClienteBiometriaDigitalMap());
+            modelBuilder.ApplyConfiguration(new ClienteBiometriaFacialMap());
             modelBuilder.ApplyConfiguration(new ClienteSolicitacaoMap());
             modelBuilder.ApplyConfiguration(new ClienteSolicitacaoPendenciaMap());
 

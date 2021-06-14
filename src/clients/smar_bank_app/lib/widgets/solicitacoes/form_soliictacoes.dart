@@ -1,4 +1,6 @@
+import 'package:SmarBank/models/solicitacao/nova_solicitacao_input_model.dart';
 import 'package:SmarBank/models/solicitacao/solicitacao.dart';
+import 'package:SmarBank/services/solicitacao_service.dart';
 import 'package:SmarBank/utils/Constantes.dart';
 import 'package:SmarBank/utils/colors.dart';
 import 'package:SmarBank/utils/strings.dart';
@@ -17,22 +19,39 @@ class FormSolicitacao extends StatefulWidget {
 }
 
 class _FormSolicitacaoState extends State<FormSolicitacao> {
+  bool requestEmAndamento = false;
+  final _solicitacaoService = SolicitacaoService();
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   final _qtdParcelasFocusNode = FocusNode();
   final _primeiraParcelaFocusNode = FocusNode();
+  final snackBarSucesso = SnackBar(
+      content: Text('Solicitação realizada, por favor aguarde aprovação.'));
+  final snackBarErro = SnackBar(content: Text('Falha ao enviar solicitação.'));
 
   void _submitForm(BuildContext context) async {
     var vlr =
         FormatUtils.currencyFromMonayMasked(this._formData['valor'].toString());
-    var dt = this._formData['vencimentoPrimeiraParcela'];
-    print(dt);
 
-    var solicitacao = Solicitacao(
+    var solicitacao = NovaSolicitacaoInputModel(
         valorSolicitado: vlr,
         quantidadeParcela: int.parse(this._formData['quantidadeParcelas']),
-        vencimentoPrimeiraParcela:
-            DateTime.parse(this._formData['vencimentoPrimeiraParcela']));
+        vencimentoPrimeiraParcela: this._formData['vencimentoPrimeiraParcela'],
+        tipo: TipoSolicitacao.EMPRESTIMO);
+
+    setState(() {
+      this.requestEmAndamento = true;
+    });
+    var response = await this._solicitacaoService.novaSolicitacao(solicitacao);
+    setState(() {
+      this.requestEmAndamento = false;
+      if (response?.ok == true) {
+        ScaffoldMessenger.of(context).showSnackBar(this.snackBarSucesso);
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(this.snackBarErro);
+      }
+    });
   }
 
   @override
@@ -129,10 +148,14 @@ class _FormSolicitacaoState extends State<FormSolicitacao> {
                         Padding(
                           padding:
                               const EdgeInsets.only(top: 16.0, bottom: 8.0),
-                          child: Button(
-                            textContent: lbl_BtnSolicitarEmprestimo,
-                            onPressed: () => this._submitForm(context),
-                          ),
+                          child: this.requestEmAndamento
+                              ? CircularProgressIndicator(
+                                  semanticsLabel: "Solicitando...",
+                                )
+                              : Button(
+                                  textContent: lbl_BtnSolicitarEmprestimo,
+                                  onPressed: () => this._submitForm(context),
+                                ),
                         ),
                       ],
                     ),

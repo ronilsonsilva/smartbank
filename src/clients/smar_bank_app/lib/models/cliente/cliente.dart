@@ -4,13 +4,13 @@ import 'endereco.dart';
 
 class Cliente {
   String id;
-  String cadastro;
-  String atualizado;
+  DateTime cadastro;
+  DateTime atualizado;
   String nome;
   String cpf;
   String rg;
   String cnh;
-  String dataNascimento;
+  DateTime dataNascimento;
   int sexo;
   Contato contato;
   Endereco endereco;
@@ -20,38 +20,44 @@ class Cliente {
   EmpresaTrabalho empresaTrabalho;
   String usuario;
   String password;
+  bool validacaoBiometrica;
+  bool validacaoFacial;
+  double rendaMensal;
 
   Cliente(
       {this.id,
-        this.cadastro,
-        this.atualizado,
-        this.nome,
-        this.cpf,
-        this.rg,
-        this.cnh,
-        this.dataNascimento,
-        this.sexo,
-        this.contato,
-        this.endereco,
-        this.nomeMae,
-        this.nomePai,
-        this.escolaridade,
-        this.empresaTrabalho,
-        this.usuario,
-        this.password});
+      this.cadastro,
+      this.atualizado,
+      this.nome,
+      this.cpf,
+      this.rg,
+      this.cnh,
+      this.dataNascimento,
+      this.sexo,
+      this.contato,
+      this.endereco,
+      this.nomeMae,
+      this.nomePai,
+      this.escolaridade,
+      this.empresaTrabalho,
+      this.usuario,
+      this.validacaoBiometrica,
+      this.validacaoFacial,
+      this.rendaMensal,
+      this.password});
 
   Cliente.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cadastro = json['cadastro'];
-    atualizado = json['atualizado'];
+    cadastro = DateTime.tryParse(json['cadastro']);
+    atualizado = DateTime.tryParse(json['atualizado']);
     nome = json['nome'];
     cpf = json['cpf'];
     rg = json['rg'];
     cnh = json['cnh'];
-    dataNascimento = json['dataNascimento'];
+    dataNascimento = DateTime.tryParse(json['dataNascimento']);
     sexo = json['sexo'];
     contato =
-    json['contato'] != null ? new Contato.fromJson(json['contato']) : null;
+        json['contato'] != null ? new Contato.fromJson(json['contato']) : null;
     endereco = json['endereco'] != null
         ? new Endereco.fromJson(json['endereco'])
         : null;
@@ -63,34 +69,43 @@ class Cliente {
         : null;
     usuario = json['usuario'];
     password = json['password'];
+    validacaoBiometrica = json['validacaoBiometrica'];
+    validacaoFacial = json['validacaoFacial'];
+    rendaMensal = json['rendaMensal'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['cadastro'] = this.cadastro;
-    data['atualizado'] = this.atualizado;
-    data['nome'] = this.nome;
-    data['cpf'] = this.cpf;
-    data['rg'] = this.rg;
-    data['cnh'] = this.cnh;
-    data['dataNascimento'] = this.dataNascimento;
-    data['sexo'] = this.sexo;
-    if (this.contato != null) {
-      data['contato'] = this.contato.toJson();
+    try {
+      final Map<String, dynamic> data = new Map<String, dynamic>();
+      data['id'] = this.id;
+      data['cadastro'] = this.cadastro.toIso8601String();
+      data['atualizado'] = this.atualizado.toIso8601String();
+      data['nome'] = this.nome;
+      data['cpf'] = this.cpf;
+      data['rg'] = this.rg;
+      data['cnh'] = this.cnh;
+      data['dataNascimento'] = this.dataNascimento.toIso8601String();
+      data['sexo'] = this.sexo;
+      if (this.contato != null) {
+        data['contato'] = this.contato.toJson();
+      }
+      if (this.endereco != null) {
+        data['endereco'] = this.endereco.toJson();
+      }
+      data['nomeMae'] = this.nomeMae;
+      data['nomePai'] = this.nomePai;
+      data['escolaridade'] = this.escolaridade;
+      if (this.empresaTrabalho != null) {
+        data['empresaTrabalho'] = this.empresaTrabalho.toJson();
+      }
+      data['usuario'] = this.usuario;
+      data['password'] = this.password;
+      data['rendaMensal'] = this.rendaMensal;
+      data['validacaoFacial'] = this.validacaoFacial;
+      data['validacaoBiometrica'] = this.validacaoBiometrica;
+      return data;
+    } catch (e) {
+      throw e;
     }
-    if (this.endereco != null) {
-      data['endereco'] = this.endereco.toJson();
-    }
-    data['nomeMae'] = this.nomeMae;
-    data['nomePai'] = this.nomePai;
-    data['escolaridade'] = this.escolaridade;
-    if (this.empresaTrabalho != null) {
-      data['empresaTrabalho'] = this.empresaTrabalho.toJson();
-    }
-    data['usuario'] = this.usuario;
-    data['password'] = this.password;
-    return data;
   }
 }
-

@@ -7,13 +7,17 @@ import 'package:SmarBank/utils/images.dart';
 import 'package:SmarBank/utils/strings.dart';
 import 'package:SmarBank/widgets/EditTextWidgets.dart';
 import 'package:SmarBank/widgets/buttons.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'home.dart';
 
 class SignIn extends StatefulWidget {
+  final CameraDescription camera;
   static var tag = "/SignIn";
+
+  SignIn(this.camera);
 
   @override
   _BankingSignInState createState() => _BankingSignInState();
@@ -30,10 +34,10 @@ class _BankingSignInState extends State<SignIn> {
 
   void _submitForm(BuildContext context) async {
     var autenticado = await AuthService()
-        .Autentique(_formData['usuario'], _formData['senha']);
+        .autentique(_formData['usuario'], _formData['senha']);
     if (autenticado) {
       finish(context);
-      Home().launch(context);
+      Home(this.widget.camera).launch(context);
     } else {
       this._alertSenhaIncosistente.show(context);
     }
@@ -93,7 +97,8 @@ class _BankingSignInState extends State<SignIn> {
                     Text(lbl_register,
                             style: primaryTextStyle(
                                 size: 16, color: TextColorSecondary))
-                        .onTap(() => SignOut().launch(context)),
+                        .onTap(
+                            () => SignOut(this.widget.camera).launch(context)),
                     16.height,
                     Image.asset(ic_face_id,
                         color: Primary, height: 40, width: 40),

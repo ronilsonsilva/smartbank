@@ -2,6 +2,7 @@
 using SmartBank.Domain.ValuesObject;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartBank.Domain.Entities
 {
@@ -25,7 +26,24 @@ namespace SmartBank.Domain.Entities
         public GrauEscolaridade Escolaridade { get; set; }
         public ClienteEmpresaValueObject EmpresaTrabalho { get; set; }
         public string Usuario { get; set; }
+        public decimal RendaMensal { get; set; }
         public IList<ClienteSolicitacao> Solicitacoes { get; set; }
         public IList<ClienteBiometriaDigital> BiometriasDigital { get; set; }
+        public ClienteBiometriaFacial BiometriaFacial { get; set; }
+        public bool ValidacaoBiometrica
+        {
+            get
+            {
+                return this.BiometriasDigital?.Where(x => x.Valida)?.Count() > 0;
+            }
+        }
+
+        public bool ValidacaoFacial
+        {
+            get
+            {
+                return this.BiometriaFacial?.Valida == true;
+            }
+        }
     }
 }

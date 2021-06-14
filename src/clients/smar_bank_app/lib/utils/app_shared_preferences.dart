@@ -9,14 +9,23 @@ class AppSharedPreference {
   final String _key_cliente = 'cliente';
 
   Future<void> salveToken(ResponseToken responseToken) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(this._key_token, jsonEncode(responseToken.toJson()));
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(this._key_token, jsonEncode(responseToken.toJson()));
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<ResponseToken> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return Future<ResponseToken>(
-        () => ResponseToken.fromJson(prefs.get(this._key_token)));
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var json = prefs.getString(this._key_token);
+      var token = ResponseToken.fromJson(jsonDecode(json));
+      return Future<ResponseToken>(() => token);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> salveCliente(Cliente cliente) async {

@@ -44,6 +44,12 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
             builder.Property(x => x.ValorSolicitado)
                 .HasColumnName("valor_liberado");
 
+            builder.Property(x => x.QuantidadeParcela)
+                .HasColumnName("quantidade_parcela");
+
+            builder.Property(x => x.VencimentoPrimeiraParcela)
+                .HasColumnName("vencimento_primeira_parcela");
+
             builder.HasOne(x => x.Cliente)
                 .WithMany(x => x.Solicitacoes)
                 .HasForeignKey(x => x.ClienteId)

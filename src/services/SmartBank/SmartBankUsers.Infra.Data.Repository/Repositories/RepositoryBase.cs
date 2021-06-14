@@ -34,10 +34,17 @@ namespace SmartBank.Infra.Data.Repository.Repositories
 
         public virtual async Task<TEntity> Atualizar(TEntity entity)
         {
-            this._context.Entry(entity).State = EntityState.Modified;
-            this._context.Entry(entity).Property(x => x.Cadastro).IsModified = false;
-            await this._context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                this._context.Entry(entity).State = EntityState.Modified;
+                this._context.Entry(entity).Property(x => x.Cadastro).IsModified = false;
+                await this._context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public virtual IQueryable<TEntity> Consultar(Expression<Func<TEntity, bool>> expression)

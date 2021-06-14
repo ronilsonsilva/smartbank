@@ -4,10 +4,14 @@ import 'package:SmarBank/components/notificacoes.dart';
 import 'package:SmarBank/components/nova_solicitacao.dart';
 import 'package:SmarBank/pages/signin.dart';
 import 'package:SmarBank/utils/colors.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class Home extends StatefulWidget {
+  final CameraDescription camera;
+  Home(this.camera);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -21,8 +25,8 @@ class _HomeState extends State<Home> {
       Dashboard(),
       Notificacoes(),
       NovaSolicitacao(),
-      Account(),
-      Account()
+      Account(this.widget.camera),
+      Account(this.widget.camera)
     ];
 
     return Scaffold(
@@ -43,7 +47,7 @@ class _HomeState extends State<Home> {
             if (indice == 4) //Encerrar sessão
             {
               finish(context);
-              SignIn().launch(context);
+              SignIn(this.widget.camera).launch(context);
               // return;
             }
             _indiceAtual = indice;

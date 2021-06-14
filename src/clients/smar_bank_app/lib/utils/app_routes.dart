@@ -4,4 +4,5 @@ class AppRoutes {
   static const SIGN_OUT = '/sign-out';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const DATALHES_SOLICITACAO = '/detalhes-solicitacao';
+  static const BIOMETRIA_DIGITAL = '/biometria-digital';
 }

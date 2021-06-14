@@ -3,12 +3,19 @@ import 'dart:io';
 import 'package:SmarBank/pages/home.dart';
 import 'package:SmarBank/pages/reset_password.dart';
 import 'package:SmarBank/utils/app_routes.dart';
+import 'package:SmarBank/widgets/account/cliente_selfie_widget.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/signin.dart';
 import 'widgets/solicitacoes/detalhes_solicitacoes.dart';
 
-void main() {
+List<CameraDescription> cameras;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+
   HttpOverrides.global = new MyHttpOverrides();
   runApp(MyApp());
 }
@@ -22,12 +29,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: SignIn(cameras[1]),
       routes: {
-        AppRoutes.HOME: (ctx) => Home(),
+        AppRoutes.HOME: (ctx) => Home(cameras[1]),
         AppRoutes.FORGOT_PASSWORD: (ctx) => ForgotPassword(),
-        AppRoutes.SIGN_IN: (ctx) => SignIn(),
-        AppRoutes.DATALHES_SOLICITACAO: (ctx) => DetalhesListaSolicitacao()
+        AppRoutes.SIGN_IN: (ctx) => SignIn(cameras[1]),
+        AppRoutes.DATALHES_SOLICITACAO: (ctx) => DetalhesListaSolicitacao(),
+        AppRoutes.BIOMETRIA_DIGITAL: (ctx) => TakePictureScreen(cameras[1])
       },
     );
   }

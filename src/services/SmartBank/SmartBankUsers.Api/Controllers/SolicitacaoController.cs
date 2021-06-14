@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartBank.Application.Contracts;
 using SmartBank.Application.ViewModels;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SmartBank.Api.Controllers
@@ -12,17 +13,20 @@ namespace SmartBank.Api.Controllers
     [ApiController]
     public class SolicitacaoController : ControllerBase
     {
-        IClienteSolicitacaoApplication _application;
+        protected readonly IClienteSolicitacaoApplication _application;
+        protected readonly IClienteApplication _clienteApplication;
 
-        public SolicitacaoController(IClienteSolicitacaoApplication application)
+        public SolicitacaoController(IClienteSolicitacaoApplication application, IClienteApplication clienteApplication)
         {
             _application = application;
+            _clienteApplication = clienteApplication;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]ClienteSolicitacaoViewModel clienteSolicitacao)
+        public async Task<IActionResult> Post([FromBody] ClienteSolicitacaoViewModel model)
         {
-            return Ok(await this._application.Adicionar(clienteSolicitacao));
+            model.ClienteId = await this._clienteApplication.ObterIdAtualCliente(this.User.FindFirstValue(ClaimTypes.Email));
+            return Ok(await this._application.Adicionar(model));
         }
         
         [HttpPut]
@@ -37,9 +41,10 @@ namespace SmartBank.Api.Controllers
             return Ok(await this._application.Consultar(id));
         }
 
-        [HttpGet("Listar/{clienteId}")]
-        public virtual async Task<IActionResult> Listar(Guid clienteId)
+        [HttpGet]
+        public virtual async Task<IActionResult> Listar()
         {
+            var clienteId = await this._clienteApplication.ObterIdAtualCliente(this.User.FindFirstValue(ClaimTypes.Email));
             return Ok(await this._application.ListarSolicitacoes(clienteId));
         }
     }

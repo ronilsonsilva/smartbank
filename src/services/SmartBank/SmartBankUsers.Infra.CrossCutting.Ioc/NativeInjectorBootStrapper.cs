@@ -44,7 +44,10 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             services.AddScoped<IApplicationServices<ClienteSolicitacaoViewModel>, ApplicationServices<ClienteSolicitacaoViewModel, ClienteSolicitacao>>();
             services.AddScoped<IApplicationServices<ClienteSolicitacaoPendeciaViewModel>, ApplicationServices<ClienteSolicitacaoPendeciaViewModel, ClienteSolicitacaoPendecia>>();
             services.AddScoped<IApplicationServices<ClienteBiometriaDigitalViewModel>, ApplicationServices<ClienteBiometriaDigitalViewModel, ClienteBiometriaDigital>>();
+            services.AddScoped<IApplicationServices<ClienteBiometriaFacialViewModel>, ApplicationServices<ClienteBiometriaFacialViewModel, ClienteBiometriaFacial>>();
             services.AddScoped<IClienteBiometriaDigitalApplication, ClienteBiometriaDigitalApplication>();
+            services.AddScoped<IClienteSolicitacaoApplication, ClienteSolicitacaoApplication>();
+            services.AddScoped<IClienteApplication, ClienteApplication>();
 
             #endregion
 
@@ -52,6 +55,7 @@ namespace SmartBank.Infra.CrossCutting.Ioc
 
             services.AddScoped<IDomainServices<Cliente>, DomainServices<Cliente>>();
             services.AddScoped<IDomainServices<ClienteBiometriaDigital>, DomainServices<ClienteBiometriaDigital>>();
+            services.AddScoped<IDomainServices<ClienteBiometriaFacial>, DomainServices<ClienteBiometriaFacial>>();
             services.AddScoped<IDomainServices<ClienteSolicitacao>, DomainServices<ClienteSolicitacao>>();
             services.AddScoped<IDomainServices<ClienteSolicitacaoPendecia>, DomainServices<ClienteSolicitacaoPendecia>>();
 
@@ -61,6 +65,7 @@ namespace SmartBank.Infra.CrossCutting.Ioc
 
             services.AddScoped<IRepository<Cliente>, RepositoryBase<Cliente>>();
             services.AddScoped<IRepository<ClienteBiometriaDigital>, RepositoryBase<ClienteBiometriaDigital>>();
+            services.AddScoped<IRepository<ClienteBiometriaFacial>, RepositoryBase<ClienteBiometriaFacial>>();
             services.AddScoped<IRepository<ClienteSolicitacao>, RepositoryBase<ClienteSolicitacao>>();
             services.AddScoped<IRepository<ClienteSolicitacaoPendecia>, RepositoryBase<ClienteSolicitacaoPendecia>>();
 

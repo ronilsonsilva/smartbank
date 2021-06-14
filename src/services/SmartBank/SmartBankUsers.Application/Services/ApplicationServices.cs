@@ -58,5 +58,6 @@ namespace SmartBank.Application.Services
         {
             return new Response<bool>(await this._domainServices.Excluir(id));
         }
+
     }
 }

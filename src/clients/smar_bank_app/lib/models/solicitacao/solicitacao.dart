@@ -35,41 +35,52 @@ class Solicitacao {
       this.pendencia});
 
   Solicitacao.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    cadastro = json['cadastro'];
-    atualizado = json['atualizado'];
-    data = json['data'];
-    tipo = json['tipo'];
-    status = json['status'];
-    valorSolicitado = json['valorSolicitado'];
-    valorLiberado = json['valorLiberado'];
-    quantidadeParcela = json['quantidadeParcela'];
-    vencimentoPrimeiraParcela = json['vencimentoPrimeiraParcela'];
-    dataAprovacao = json['dataAprovacao'];
-    dataCancelamento = json['dataCancelamento'];
-    clienteId = json['clienteId'];
-    if (json['pendencia'] != null) {
-      pendencia = <Pendencia>[];
-      json['pendencia'].forEach((v) {
-        pendencia.add(new Pendencia.fromJson(v));
-      });
+    try {
+      id = json['id'];
+      cadastro = DateTime.tryParse(json['cadastro']);
+      atualizado = DateTime.tryParse(json['atualizado']);
+      data = DateTime.tryParse(json['data']);
+      tipo = TipoSolicitacao.values[json['tipo'] - 1];
+      status = StatusSolicitacao.values[json['status'] - 1];
+      valorSolicitado = json['valorSolicitado'];
+      valorLiberado = json['valorLiberado'];
+      quantidadeParcela = json['quantidadeParcela'];
+      vencimentoPrimeiraParcela = json['dataAprovacao'] != null
+          ? DateTime.tryParse(json['vencimentoPrimeiraParcela'])
+          : null;
+      dataAprovacao = json['dataAprovacao'] != null
+          ? DateTime.tryParse(json['dataAprovacao'])
+          : null;
+      dataCancelamento = json['dataCancelamento'] != null
+          ? DateTime.tryParse(json['dataCancelamento'])
+          : null;
+      clienteId = json['clienteId'];
+      if (json['pendencia'] != null) {
+        pendencia = <Pendencia>[];
+        json['pendencia'].forEach((v) {
+          pendencia.add(new Pendencia.fromJson(v));
+        });
+      }
+    } catch (e) {
+      throw e;
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['cadastro'] = this.cadastro;
-    data['atualizado'] = this.atualizado;
-    data['data'] = this.data;
+    data['cadastro'] = this.cadastro?.toIso8601String();
+    data['atualizado'] = this.atualizado?.toIso8601String();
+    data['data'] = this.data?.toIso8601String();
     data['tipo'] = this.tipo;
     data['status'] = this.status;
     data['valorSolicitado'] = this.valorSolicitado;
     data['valorLiberado'] = this.valorLiberado;
-    data['vencimentoPrimeiraParcela'] = this.vencimentoPrimeiraParcela;
+    data['vencimentoPrimeiraParcela'] =
+        this.vencimentoPrimeiraParcela?.toIso8601String();
     data['quantidadeParcela'] = this.quantidadeParcela;
-    data['dataAprovacao'] = this.dataAprovacao;
-    data['dataCancelamento'] = this.dataCancelamento;
+    data['dataAprovacao'] = this.dataAprovacao?.toIso8601String();
+    data['dataCancelamento'] = this.dataCancelamento?.toIso8601String();
     data['clienteId'] = this.clienteId;
     if (this.pendencia != null) {
       data['pendencia'] = this.pendencia.map((v) => v.toJson()).toList();

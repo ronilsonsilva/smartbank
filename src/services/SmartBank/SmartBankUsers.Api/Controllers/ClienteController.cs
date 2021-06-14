@@ -7,6 +7,7 @@ using SmartBank.AuthIntegration;
 using SmartBank.MessageBus;
 using SmartBank.Shared.Messages.Integration;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SmartBank.Api.Controllers
@@ -18,11 +19,13 @@ namespace SmartBank.Api.Controllers
     {
         protected readonly IAccountService _accountServices;
         protected readonly IMessageBus _bus;
+        protected readonly IClienteApplication _application;
 
-        public ClienteController(IApplicationServices<ClienteViewModel> applicationServices, IAccountService accountServices, IMessageBus bus) : base(applicationServices)
+        public ClienteController(IClienteApplication applicationServices, IAccountService accountServices, IMessageBus bus) : base(applicationServices)
         {
             _accountServices = accountServices;
             _bus = bus;
+            _application = applicationServices;
         }
 
         [AllowAnonymous]
@@ -33,8 +36,6 @@ namespace SmartBank.Api.Controllers
 
             var retorno = await base.Post(viewModel);
 
-
-
             var usuarioRegistradoEvent = new ClienteRegistradoIntegrationEvent(nome: viewModel.Nome, email: viewModel.Contato.Email, usuario: viewModel.Cpf);
 
             try
@@ -44,8 +45,6 @@ namespace SmartBank.Api.Controllers
                 //await _bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
 
                 await this._bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
-
-                
             }
             catch (Exception ex)
             {
@@ -53,6 +52,33 @@ namespace SmartBank.Api.Controllers
             }
 
             return Ok(viewModel);
+        }
+
+
+        [HttpPost("salvar-selfie")]
+        public async Task<IActionResult> SalvarSefie([FromBody] ClienteSefieInputModel model)
+        {
+            model.ClienteId = await this._application.ObterIdAtualCliente(this.User.FindFirstValue(ClaimTypes.Email));
+            var response = await this._application.SalvarSelfie(model);
+            if (response.Ok)
+            {
+                try
+                {
+                    await this._bus.PublishAsync<BiometriaFacialAdicionadoIntegrationEvent>(new BiometriaFacialAdicionadoIntegrationEvent(clienteId: model.ClienteId, imageBase64: model.ImageBase64));
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("info")]
+        public async Task<IActionResult> Info()
+        {
+            var clienteId = await this._application.ObterIdAtualCliente(this.User.FindFirstValue(ClaimTypes.Email));
+            return Ok(await this._application.Consultar(clienteId));
         }
 
     }

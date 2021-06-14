@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Notificacoes extends StatefulWidget {
@@ -9,8 +8,6 @@ class Notificacoes extends StatefulWidget {
 class _NotificacoesState extends State<Notificacoes> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Notificações"),
-    );
+    return Center(child: Text("Nenhum notificação."));
   }
 }

@@ -6,6 +6,7 @@ import 'package:SmarBank/utils/Constantes.dart';
 import 'package:SmarBank/utils/colors.dart';
 import 'package:SmarBank/utils/strings.dart';
 import 'package:SmarBank/widgets/buttons.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -14,6 +15,8 @@ import 'home.dart';
 
 class SignOut extends StatefulWidget {
   static var tag = "/SignOut";
+  final CameraDescription camera;
+  SignOut(this.camera);
 
   @override
   _SignOutState createState() => _SignOutState();
@@ -62,10 +65,10 @@ class _SignOutState extends State<SignOut> {
     var response = await this._clienteService.AdicionarCliente(cliente);
     if (response.ok) {
       var autenticado = await AuthService()
-          .Autentique(_formData['usuario'], _formData['senha']);
+          .autentique(_formData['usuario'], _formData['senha']);
       if (autenticado) {
         finish(context);
-        Home().launch(context);
+        Home(this.widget.camera).launch(context);
       } else {
         this._alertSenhaIncosistente.show(context);
       }

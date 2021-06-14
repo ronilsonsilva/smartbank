@@ -36,7 +36,6 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .HasConstraintName("fk_cliente__cliente_biometria_digital");
 
             builder.Ignore(x => x.Valida);
-            builder.Ignore(x => x.ValidationResult);
 
             base.Configure(builder);
         }

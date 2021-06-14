@@ -6,7 +6,7 @@ import 'package:SmarBank/utils/app_shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  Future<bool> Autentique(String usuario, String password) async {
+  Future<bool> autentique(String usuario, String password) async {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('$api_sso_base_uri/connect/token'));
@@ -28,7 +28,7 @@ class AuthService {
         return Future(() => true);
       } else {
         print(response.reasonPhrase);
-        return Future(() => true);
+        return Future(() => false);
       }
     } catch (e) {
       print(e);
