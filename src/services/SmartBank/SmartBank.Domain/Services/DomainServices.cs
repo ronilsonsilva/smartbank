@@ -37,7 +37,7 @@ namespace SmartBank.Domain.Services
             return await this._repository.Atualizar(entity);
         }
 
-        public async Task<bool> Excluir(Guid id)
+        public virtual async Task<bool> Excluir(Guid id)
         {
             //validações 
 
