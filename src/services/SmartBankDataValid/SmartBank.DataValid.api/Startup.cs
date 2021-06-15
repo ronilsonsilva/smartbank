@@ -62,11 +62,18 @@ namespace SmartBank.DataValid.api
 
         private void ResolveDependencias(IServiceCollection services)
         {
+            //var dataValid = new DataValidConfig()
+            //{
+            //    ConsumerKey = this.Configuration.GetSection("DATA_VALID:CONSUMER_KEY").ToString(),
+            //    ConsumerSecret = this.Configuration.GetSection("DATA_VALID:CONSUMER_SECRET").ToString(),
+            //    UriBase = this.Configuration.GetSection("DATA_VALID:URI_BASE").ToString(),
+            //};
+            
             var dataValid = new DataValidConfig()
             {
-                ConsumerKey = this.Configuration.GetSection("DATA_VALID:CONSUMER_KEY").ToString(),
-                ConsumerSecret = this.Configuration.GetSection("DATA_VALID:CONSUMER_SECRET").ToString(),
-                UriBase = this.Configuration.GetSection("DATA_VALID:URI_BASE").ToString(),
+                ConsumerKey = "gsmoVBrf59naN86smzFd2NrKQoga",
+                ConsumerSecret = "Ebdl6VQH_cLe7hkMDzELTLspCooa",
+                UriBase = "https://gateway.apiserpro.serpro.gov.br",
             };
             services.AddSingleton<DataValidConfig>(dataValid);
 

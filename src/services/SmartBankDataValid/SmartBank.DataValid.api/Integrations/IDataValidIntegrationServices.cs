@@ -14,7 +14,7 @@ namespace SmartBank.DataValid.Api.Integrations
     {
         Task<ResultadoValidacoes> BasicaPessoaFisica(ValidarPessoaFisica dados);
         Task<ResultadoValidacoes> DigitalPessoaFisica(ValidarPessoaFisica dados);
-        Task<ResultadoValidacoes> BiometriaFacial(ValidarPessoaFisica dados);
+        Task<ResultadoValidacoes> BiometriaFacial(ValidarBiometriaFacialPessoaFisica dados);
         Task<ResultadoValidacoes> ValidacaoImagem(ValidarPessoaFisica dados);
     }
 
@@ -58,7 +58,7 @@ namespace SmartBank.DataValid.Api.Integrations
             return resultado;
         }
 
-        public async Task<ResultadoValidacoes> BiometriaFacial(ValidarPessoaFisica dados)
+        public async Task<ResultadoValidacoes> BiometriaFacial(ValidarBiometriaFacialPessoaFisica dados)
         {
             ResultadoValidacoes resultado = new ResultadoValidacoes()
                 .AdicioneResultado(false)

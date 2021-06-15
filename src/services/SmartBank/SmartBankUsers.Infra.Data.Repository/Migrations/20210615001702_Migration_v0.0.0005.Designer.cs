@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartBank.Infra.Data.Repository.Context;
@@ -9,9 +10,10 @@ using SmartBank.Infra.Data.Repository.Context;
 namespace SmartBank.Infra.Data.Repository.Migrations
 {
     [DbContext(typeof(SmartBankContext))]
-    partial class SmartBankContextModelSnapshot : ModelSnapshot
+    [Migration("20210615001702_Migration_v0.0.0005")]
+    partial class Migration_v000005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,14 +30,19 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 65, DateTimeKind.Local).AddTicks(3227))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 685, DateTimeKind.Local).AddTicks(3057))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 61, DateTimeKind.Local).AddTicks(7054))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 681, DateTimeKind.Local).AddTicks(9849))
                         .HasColumnName("data_cadastro");
+
+                    b.Property<string>("Cnh")
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("cnh");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
@@ -77,16 +84,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                         .HasColumnType("character varying(40)")
                         .HasColumnName("rg");
 
-                    b.Property<string>("RgOrgaoExpeditor")
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("rg_orgao_expedidor");
-
-                    b.Property<string>("RgUf")
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)")
-                        .HasColumnName("rg_uf");
-
                     b.Property<int>("Sexo")
                         .HasColumnType("integer")
                         .HasColumnName("sexo");
@@ -110,7 +107,7 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 87, DateTimeKind.Local).AddTicks(7689))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 704, DateTimeKind.Local).AddTicks(2477))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<string>("BiometriaBase64")
@@ -121,7 +118,7 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 87, DateTimeKind.Local).AddTicks(5772))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 704, DateTimeKind.Local).AddTicks(1465))
                         .HasColumnName("data_cadastro");
 
                     b.Property<Guid>("ClienteId")
@@ -156,13 +153,13 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 92, DateTimeKind.Local).AddTicks(707))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 709, DateTimeKind.Local).AddTicks(59))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 91, DateTimeKind.Local).AddTicks(9854))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 708, DateTimeKind.Local).AddTicks(8320))
                         .HasColumnName("data_cadastro");
 
                     b.Property<Guid>("ClienteId")
@@ -199,13 +196,13 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 124, DateTimeKind.Local).AddTicks(2317))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 734, DateTimeKind.Local).AddTicks(414))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 124, DateTimeKind.Local).AddTicks(608))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 733, DateTimeKind.Local).AddTicks(9054))
                         .HasColumnName("data_cadastro");
 
                     b.Property<Guid>("ClienteId")
@@ -233,13 +230,13 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 102, DateTimeKind.Local).AddTicks(8765))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 720, DateTimeKind.Local).AddTicks(3848))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 102, DateTimeKind.Local).AddTicks(4896))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 720, DateTimeKind.Local).AddTicks(2588))
                         .HasColumnName("data_cadastro");
 
                     b.Property<Guid>("ClienteId")
@@ -249,7 +246,7 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Data")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 96, DateTimeKind.Local).AddTicks(7389))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 715, DateTimeKind.Local).AddTicks(7707))
                         .HasColumnName("data");
 
                     b.Property<DateTime?>("DataAprovacao")
@@ -304,19 +301,19 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Property<DateTime>("Atualizado")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 120, DateTimeKind.Local).AddTicks(4623))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 730, DateTimeKind.Local).AddTicks(8673))
                         .HasColumnName("data_atualizacao");
 
                     b.Property<DateTime>("Cadastro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 120, DateTimeKind.Local).AddTicks(3301))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 730, DateTimeKind.Local).AddTicks(7284))
                         .HasColumnName("data_cadastro");
 
                     b.Property<DateTime>("DataPendencia")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 116, DateTimeKind.Local).AddTicks(1591))
+                        .HasDefaultValue(new DateTime(2021, 6, 14, 21, 17, 0, 726, DateTimeKind.Local).AddTicks(8146))
                         .HasColumnName("data_pendencia");
 
                     b.Property<DateTime>("DataResolvida")
@@ -354,56 +351,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.HasIndex("SolicitacaoId");
 
                     b.ToTable("cliente_solicitacao_pendencia");
-                });
-
-            modelBuilder.Entity("SmartBank.Domain.Entities.ClienteValidacaoCadastral", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Atualizado")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 74, DateTimeKind.Local).AddTicks(3407))
-                        .HasColumnName("data_atualizacao");
-
-                    b.Property<DateTime>("Cadastro")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 6, 15, 0, 3, 2, 74, DateTimeKind.Local).AddTicks(2554))
-                        .HasColumnName("data_cadastro");
-
-                    b.Property<Guid>("ClienteId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("cliente_id");
-
-                    b.Property<bool>("CpfDisponivel")
-                        .HasColumnType("boolean")
-                        .HasColumnName("cpf_disponivel");
-
-                    b.Property<bool>("DataNascimento")
-                        .HasColumnType("boolean")
-                        .HasColumnName("data_nascimento");
-
-                    b.Property<bool>("Nome")
-                        .HasColumnType("boolean")
-                        .HasColumnName("nome");
-
-                    b.Property<bool>("NomeSimilaridade")
-                        .HasColumnType("boolean")
-                        .HasColumnName("nome_similaridade");
-
-                    b.Property<bool>("SituaçãoCpf")
-                        .HasColumnType("boolean")
-                        .HasColumnName("situacao_cpf");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId")
-                        .IsUnique();
-
-                    b.ToTable("cliente_validacao_cadastral");
                 });
 
             modelBuilder.Entity("SmartBank.Domain.Entities.Cliente", b =>
@@ -503,9 +450,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                                         .HasColumnType("character varying(256)")
                                         .HasColumnName("empresa_trabalho_endereco_numero");
 
-                                    b2.Property<string>("Uf")
-                                        .HasColumnType("text");
-
                                     b2.HasKey("ClienteEmpresaValueObjectClienteId");
 
                                     b2.ToTable("cliente");
@@ -517,49 +461,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                             b1.Navigation("Contato");
 
                             b1.Navigation("Endereco");
-                        });
-
-                    b.OwnsOne("SmartBank.Domain.ValuesObject.CnhValueObject", "Cnh", b1 =>
-                        {
-                            b1.Property<Guid>("ClienteId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Categoria")
-                                .HasMaxLength(40)
-                                .HasColumnType("character varying(40)")
-                                .HasColumnName("cnh_categoria");
-
-                            b1.Property<string>("CodigoSituacao")
-                                .HasMaxLength(40)
-                                .HasColumnType("character varying(40)")
-                                .HasColumnName("cnh_codigo_situacao");
-
-                            b1.Property<DateTime?>("DataPrimeiraHabilitacao")
-                                .HasColumnType("timestamp without time zone")
-                                .HasColumnName("cnh_data_primeira_habilitacao");
-
-                            b1.Property<DateTime?>("DataUltimaEmissao")
-                                .HasColumnType("timestamp without time zone")
-                                .HasColumnName("cnh_data_ultima_emissao");
-
-                            b1.Property<DateTime?>("DataValidade")
-                                .HasColumnType("timestamp without time zone")
-                                .HasColumnName("cnh_data_validade");
-
-                            b1.Property<string>("NumeroRegistro")
-                                .HasColumnType("text")
-                                .HasColumnName("cnh_numero_registro");
-
-                            b1.Property<string>("RegistroNacionalEstrangeiro")
-                                .HasColumnType("text")
-                                .HasColumnName("cnh_registro_nacional_estrangeiro");
-
-                            b1.HasKey("ClienteId");
-
-                            b1.ToTable("cliente");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClienteId");
                         });
 
                     b.OwnsOne("SmartBank.Domain.ValuesObject.ContatoValueObject", "Contato", b1 =>
@@ -629,9 +530,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                                 .HasColumnType("character varying(8)")
                                 .HasColumnName("endreco_numero");
 
-                            b1.Property<string>("Uf")
-                                .HasColumnType("text");
-
                             b1.HasKey("ClienteId");
 
                             b1.ToTable("cliente");
@@ -639,8 +537,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ClienteId");
                         });
-
-                    b.Navigation("Cnh");
 
                     b.Navigation("Contato");
 
@@ -707,17 +603,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Navigation("Solicitacao");
                 });
 
-            modelBuilder.Entity("SmartBank.Domain.Entities.ClienteValidacaoCadastral", b =>
-                {
-                    b.HasOne("SmartBank.Domain.Entities.Cliente", "Cliente")
-                        .WithOne("ValidacaoCadastral")
-                        .HasForeignKey("SmartBank.Domain.Entities.ClienteValidacaoCadastral", "ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
             modelBuilder.Entity("SmartBank.Domain.Entities.Cliente", b =>
                 {
                     b.Navigation("BiometriaFacial");
@@ -727,8 +612,6 @@ namespace SmartBank.Infra.Data.Repository.Migrations
                     b.Navigation("Score");
 
                     b.Navigation("Solicitacoes");
-
-                    b.Navigation("ValidacaoCadastral");
                 });
 
             modelBuilder.Entity("SmartBank.Domain.Entities.ClienteSolicitacao", b =>

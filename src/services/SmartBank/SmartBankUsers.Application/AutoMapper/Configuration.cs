@@ -9,8 +9,12 @@ namespace SmartBank.Application.AutoMapper
         public Configuration()
         {
             CreateMap<Cliente, ClienteViewModel>().ReverseMap();
+            CreateMap<ClienteValidacaoCadastral, ClienteValidacaoCadastralViewModel>().ReverseMap();
             CreateMap<ClienteSolicitacao, ClienteSolicitacaoViewModel>().ReverseMap();
             CreateMap<ClienteSolicitacaoPendecia, ClienteSolicitacaoPendeciaViewModel>().ReverseMap();
+            CreateMap<ClienteBiometriaDigital, ClienteBiometriaDigitalViewModel>().ReverseMap();
+            CreateMap<ClienteBiometriaFacial, ClienteBiometriaFacialViewModel>().ReverseMap();
+            CreateMap<ClienteScore, ClienteScoreViewModel>().ReverseMap();
 
             //Value objects
             //CreateMap<EnderecoValueObject, EnderecoViewModel>().ReverseMap();

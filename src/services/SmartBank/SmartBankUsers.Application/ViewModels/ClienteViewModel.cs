@@ -9,7 +9,10 @@ namespace SmartBank.Application.ViewModels
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }
-        public string Cnh { get; set; }
+        public string RgOrgaoExpeditor { get; set; }
+        public string RgUf { get; set; }
+
+        public CnhValueObject Cnh { get; set; }
         public DateTime? DataNascimento { get; set; }
         public SexoPessoa? Sexo { get; set; }
         public ContatoValueObject Contato { get; set; }
@@ -25,5 +28,8 @@ namespace SmartBank.Application.ViewModels
 
         public bool ValidacaoFacial { get; set; }
         public decimal RendaMensal { get; set; }
+        public ClienteScoreViewModel Score { get; set; }
+        public ClienteValidacaoCadastralViewModel ValidacaoCadastral { get; set; }
+        public ClienteBiometriaFacialViewModel BiometriaFacial { get; set; }
     }
 }

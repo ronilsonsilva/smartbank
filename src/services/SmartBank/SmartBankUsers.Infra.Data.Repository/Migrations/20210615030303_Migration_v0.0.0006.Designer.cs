@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartBank.Infra.Data.Repository.Context;
@@ -9,9 +10,10 @@ using SmartBank.Infra.Data.Repository.Context;
 namespace SmartBank.Infra.Data.Repository.Migrations
 {
     [DbContext(typeof(SmartBankContext))]
-    partial class SmartBankContextModelSnapshot : ModelSnapshot
+    [Migration("20210615030303_Migration_v0.0.0006")]
+    partial class Migration_v000006
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

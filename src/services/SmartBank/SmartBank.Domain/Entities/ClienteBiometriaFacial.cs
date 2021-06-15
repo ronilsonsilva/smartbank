@@ -13,6 +13,9 @@ namespace SmartBank.Domain.Entities
         {
             get 
             {
+                if (this.Probabilidade == null || this.Similaridade == null)
+                    return false;
+
                 return (this.Probabilidade.Equals("Altíssima probabilidade") || this.Probabilidade.Equals("Alta probabilidade")) && (this.Similaridade == 1 || this.Similaridade == 2);
             }
         }
