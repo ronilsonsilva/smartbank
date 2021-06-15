@@ -17,10 +17,12 @@ namespace SmartBank.Infra.Data.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new ClienteValidacaoCadastralMap());
             modelBuilder.ApplyConfiguration(new ClienteBiometriaDigitalMap());
             modelBuilder.ApplyConfiguration(new ClienteBiometriaFacialMap());
             modelBuilder.ApplyConfiguration(new ClienteSolicitacaoMap());
             modelBuilder.ApplyConfiguration(new ClienteSolicitacaoPendenciaMap());
+            modelBuilder.ApplyConfiguration(new ClienteScoreMap());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,16 +1,14 @@
-﻿using SmartBank.DataValid.Api.Integrations.Models.BasicoValidarPF;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace SmartBank.DataValid.Api.Integrations.Models
+namespace SmartBank.Application.ViewModels.DataValid
 {
     public class ResultadoValidacoes
     {
         public bool Valido { get; private set; }
-        public IList<Validacao> Validacoes { get; private set; }
-        public ValidarPessoaFisica ValidarPessoaFisica { get; private set; }
-        public ValidarBiometriaFacialPessoaFisica ValidarBiometriaFacialPessoaFisica { get; private set; }
-        public BiometriaDigital Biometria { get; private set; }
-        public BiometriaFace BiometriaFace { get; private set; }
+        public IList<Validacao> Validacoes { get; set; }
+        public ValidarPessoaFisica ValidarPessoaFisica { get; set; }
+        public BiometriaDigital Biometria { get; set; }
+        public BiometriaFace BiometriaFace { get; set; }
 
         public ResultadoValidacoes AdicioneResultado(bool valido)
         {
@@ -31,12 +29,6 @@ namespace SmartBank.DataValid.Api.Integrations.Models
             this.ValidarPessoaFisica = validarPessoaFisica;
             return this;
         }
-        
-        public ResultadoValidacoes AdicioneDadosValidados(ValidarBiometriaFacialPessoaFisica validarPessoaFisica)
-        {
-            this.ValidarBiometriaFacialPessoaFisica = validarPessoaFisica;
-            return this;
-        }
 
         public ResultadoValidacoes AdicioneResultadoBiometria(BiometriaDigital biometria)
         {
@@ -49,17 +41,5 @@ namespace SmartBank.DataValid.Api.Integrations.Models
             this.BiometriaFace = biometriaFace;
             return this;
         }
-    }
-
-    public class Validacao
-    {
-        public Validacao(string key, object resultado)
-        {
-            Key = key;
-            Resultado = resultado;
-        }
-
-        public string Key { get; set; }
-        public object Resultado { get; set; }
     }
 }

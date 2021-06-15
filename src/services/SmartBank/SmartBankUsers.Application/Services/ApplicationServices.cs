@@ -28,36 +28,35 @@ namespace SmartBank.Application.Services
             _repository = repository;
         }
 
-        public async Task<Response<TEntityViewModel>> Adicionar(TEntityViewModel entity)
+        public virtual async Task<Response<TEntityViewModel>> Adicionar(TEntityViewModel entity)
         {
             var entityDomain = this._mapper.Map<TEntity>(entity);
             var retorno = await this._domainServices.Adicionar(entityDomain);
             return new Response<TEntityViewModel>(this._mapper.Map<TEntityViewModel>(retorno));
         }
 
-        public async Task<Response<TEntityViewModel>> Atualizar(TEntityViewModel entity)
+        public virtual async Task<Response<TEntityViewModel>> Atualizar(TEntityViewModel entity)
         {
             var entityDomain = this._mapper.Map<TEntity>(entity);
             var retorno = await this._domainServices.Atualizar(entityDomain);
             return new Response<TEntityViewModel>(this._mapper.Map<TEntityViewModel>(retorno));
         }
 
-        public async Task<IList<TEntityViewModel>> Consultar()
+        public virtual async Task<IList<TEntityViewModel>> Consultar()
         {
             var dados = await this._repository.Consultar().ToListAsync();
             return this._mapper.Map<IList<TEntityViewModel>>(dados);
         }
 
-        public async Task<TEntityViewModel> Consultar(Guid id)
+        public virtual async Task<TEntityViewModel> Consultar(Guid id)
         {
             var entity = await this._repository.Consultar(id);
             return this._mapper.Map<TEntityViewModel>(entity);
         }
 
-        public async Task<Response<bool>> Excluir(Guid id)
+        public virtual async Task<Response<bool>> Excluir(Guid id)
         {
             return new Response<bool>(await this._domainServices.Excluir(id));
         }
-
     }
 }

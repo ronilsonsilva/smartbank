@@ -42,13 +42,57 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
             builder.Property(x => x.Escolaridade)
                 .HasColumnName("escolaridade");
 
+            #region [RG]
+
             builder.Property(x => x.Rg)
                 .HasMaxLength(40)
                 .HasColumnName("rg");
-
-            builder.Property(x => x.Cnh)
+            
+            builder.Property(x => x.RgOrgaoExpeditor)
                 .HasMaxLength(40)
-                .HasColumnName("cnh");
+                .HasColumnName("rg_orgao_expedidor");
+
+            builder.Property(x => x.RgUf)
+                .HasMaxLength(2)
+                .HasColumnName("rg_uf");
+
+            #endregion
+
+            #region [CNH]
+
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.Categoria)
+                .HasMaxLength(40)
+                .HasColumnName("cnh_categoria");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.CodigoSituacao)
+                .HasMaxLength(40)
+                .HasColumnName("cnh_codigo_situacao");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.DataPrimeiraHabilitacao)
+                .HasColumnName("cnh_data_primeira_habilitacao");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.DataUltimaEmissao)
+                .HasColumnName("cnh_data_ultima_emissao");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.DataValidade)
+                .HasColumnName("cnh_data_validade");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.NumeroRegistro)
+                .HasColumnName("cnh_numero_registro");
+            
+            builder.OwnsOne(x => x.Cnh)
+                .Property(x => x.RegistroNacionalEstrangeiro)
+                .HasColumnName("cnh_registro_nacional_estrangeiro");
+
+
+            #endregion
+
 
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .Property(x => x.Cnpj)
@@ -132,6 +176,16 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .WithOne(x => x.Cliente)
                 .HasForeignKey<ClienteBiometriaFacial>(x => x.ClienteId);
 
+            builder.HasOne(x => x.Score)
+                .WithOne(x => x.Cliente)
+                .HasForeignKey<ClienteScore>(x => x.ClienteId);
+
+
+            builder.HasOne(x => x.ValidacaoCadastral)
+                .WithOne(x => x.Cliente)
+                .HasForeignKey<ClienteValidacaoCadastral>(x => x.ClienteId);
+
+
             builder.Ignore(x => x.ValidacaoBiometrica);
             builder.Ignore(x => x.ValidacaoFacial);
 
@@ -191,6 +245,43 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .IsRequired()
                 .HasMaxLength(256);
 
+
+            base.Configure(builder);
+        }
+    }
+
+    public class ClienteValidacaoCadastralMap : BaseMap<ClienteValidacaoCadastral>
+    {
+        public ClienteValidacaoCadastralMap(string nomeTabela = "cliente_validacao_cadastral") : base(nomeTabela)
+        {
+        }
+
+        public override void Configure(EntityTypeBuilder<ClienteValidacaoCadastral> builder)
+        {
+            builder.Property(x => x.ClienteId)
+                .IsRequired()
+                .HasColumnName("cliente_id");
+            
+            builder.Property(x => x.CpfDisponivel)
+                .IsRequired()
+                .HasColumnName("cpf_disponivel");
+            
+            builder.Property(x => x.DataNascimento)
+                .IsRequired()
+                .HasColumnName("data_nascimento");
+            
+            builder.Property(x => x.Nome)
+                .IsRequired()
+                .HasColumnName("nome");
+            
+            builder.Property(x => x.NomeSimilaridade)
+                .IsRequired()
+                .HasColumnName("nome_similaridade");
+            
+            builder.Property(x => x.SituaçãoCpf)
+                .IsRequired()
+                .HasColumnName("situacao_cpf");
+            
 
             base.Configure(builder);
         }

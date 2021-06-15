@@ -34,7 +34,7 @@ namespace SmartBank.DataValid.Api.Controllers
 
         [HttpPost("BiometriaFacialPF")]
         [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, Type = typeof(ResultadoValidacoes))]
-        public async Task<IActionResult> BiometriaFacialPF([FromBody]ValidarPessoaFisica validarPessoaFisica)
+        public async Task<IActionResult> BiometriaFacialPF([FromBody] ValidarBiometriaFacialPessoaFisica validarPessoaFisica)
         {
             return Ok(await this._dataValidServices.BiometriaFacial(dados: validarPessoaFisica));
         }

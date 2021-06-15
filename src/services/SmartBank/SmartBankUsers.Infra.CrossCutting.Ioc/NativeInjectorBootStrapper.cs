@@ -41,19 +41,24 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             #region [Application Services]
 
             services.AddScoped<IApplicationServices<ClienteViewModel>, ApplicationServices<ClienteViewModel, Cliente>>();
+            services.AddScoped<IApplicationServices<ClienteValidacaoCadastralViewModel>, ApplicationServices<ClienteValidacaoCadastralViewModel, ClienteValidacaoCadastral>>();
             services.AddScoped<IApplicationServices<ClienteSolicitacaoViewModel>, ApplicationServices<ClienteSolicitacaoViewModel, ClienteSolicitacao>>();
             services.AddScoped<IApplicationServices<ClienteSolicitacaoPendeciaViewModel>, ApplicationServices<ClienteSolicitacaoPendeciaViewModel, ClienteSolicitacaoPendecia>>();
             services.AddScoped<IApplicationServices<ClienteBiometriaDigitalViewModel>, ApplicationServices<ClienteBiometriaDigitalViewModel, ClienteBiometriaDigital>>();
             services.AddScoped<IApplicationServices<ClienteBiometriaFacialViewModel>, ApplicationServices<ClienteBiometriaFacialViewModel, ClienteBiometriaFacial>>();
+            services.AddScoped<IApplicationServices<ClienteScoreViewModel>, ApplicationServices<ClienteScoreViewModel, ClienteScore>>();
             services.AddScoped<IClienteBiometriaDigitalApplication, ClienteBiometriaDigitalApplication>();
             services.AddScoped<IClienteSolicitacaoApplication, ClienteSolicitacaoApplication>();
             services.AddScoped<IClienteApplication, ClienteApplication>();
+            services.AddScoped<IDatavalidIntegrationServices, DatavalidIntegrationServices>();
 
             #endregion
 
             #region [Domain Services]
 
             services.AddScoped<IDomainServices<Cliente>, DomainServices<Cliente>>();
+            services.AddScoped<IDomainServices<ClienteValidacaoCadastral>, DomainServices<ClienteValidacaoCadastral>>();
+            services.AddScoped<IDomainServices<ClienteScore>, DomainServices<ClienteScore>>();
             services.AddScoped<IDomainServices<ClienteBiometriaDigital>, DomainServices<ClienteBiometriaDigital>>();
             services.AddScoped<IDomainServices<ClienteBiometriaFacial>, DomainServices<ClienteBiometriaFacial>>();
             services.AddScoped<IDomainServices<ClienteSolicitacao>, DomainServices<ClienteSolicitacao>>();
@@ -64,6 +69,8 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             #region [Services Repositories]
 
             services.AddScoped<IRepository<Cliente>, RepositoryBase<Cliente>>();
+            services.AddScoped<IRepository<ClienteValidacaoCadastral>, RepositoryBase<ClienteValidacaoCadastral>>();
+            services.AddScoped<IRepository<ClienteScore>, RepositoryBase<ClienteScore>>();
             services.AddScoped<IRepository<ClienteBiometriaDigital>, RepositoryBase<ClienteBiometriaDigital>>();
             services.AddScoped<IRepository<ClienteBiometriaFacial>, RepositoryBase<ClienteBiometriaFacial>>();
             services.AddScoped<IRepository<ClienteSolicitacao>, RepositoryBase<ClienteSolicitacao>>();

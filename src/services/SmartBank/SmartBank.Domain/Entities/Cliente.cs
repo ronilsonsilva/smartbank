@@ -16,7 +16,9 @@ namespace SmartBank.Domain.Entities
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }
-        public string Cnh { get; set; }
+        public string RgOrgaoExpeditor { get; set; }
+        public string RgUf { get; set; }
+        public CnhValueObject Cnh { get; set; }
         public DateTime DataNascimento { get; set; }
         public SexoPessoa Sexo { get; set; }
         public ContatoValueObject Contato { get; set; }
@@ -30,6 +32,8 @@ namespace SmartBank.Domain.Entities
         public IList<ClienteSolicitacao> Solicitacoes { get; set; }
         public IList<ClienteBiometriaDigital> BiometriasDigital { get; set; }
         public ClienteBiometriaFacial BiometriaFacial { get; set; }
+        public ClienteScore Score { get; set; }
+        public ClienteValidacaoCadastral ValidacaoCadastral { get; set; }
         public bool ValidacaoBiometrica
         {
             get
@@ -45,5 +49,16 @@ namespace SmartBank.Domain.Entities
                 return this.BiometriaFacial?.Valida == true;
             }
         }
+    }
+
+    public class ClienteValidacaoCadastral : EntityBase
+    {
+        public Guid ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
+        public bool Nome { get; set; }
+        public bool CpfDisponivel { get; set; }
+        public bool NomeSimilaridade { get; set; }
+        public bool DataNascimento { get; set; }
+        public bool SituaçãoCpf { get; set; }
     }
 }
