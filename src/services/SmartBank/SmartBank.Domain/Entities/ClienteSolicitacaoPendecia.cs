@@ -4,6 +4,21 @@ namespace SmartBank.Domain.Entities
 {
     public class ClienteSolicitacaoPendecia : EntityBase
     {
+        public ClienteSolicitacaoPendecia()
+        {
+
+        }
+
+        public ClienteSolicitacaoPendecia(DateTime dataPendencia, StatusPendenciaSolicitacao status, Guid solicitacaoId, TipoPedencia tipo, string descricao)
+        {
+            DataPendencia = dataPendencia;
+            Status = status;
+            SolicitacaoId = solicitacaoId;
+            Tipo = tipo;
+            Descricao = descricao;
+        }
+
+
         public DateTime DataPendencia { get; set; }
         public StatusPendenciaSolicitacao Status { get; set; }
         public DateTime DataResolvida { get; set; }

@@ -13,7 +13,7 @@ namespace SmartBank.Api.Configurations
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "SmartBank API Obras",
+                    Title = "SmartBank API Clientes",
                     Version = "1.0",
                     Description = "API para gerenciamento de clientes",
                     Contact = new OpenApiContact() { Name = "Ronilson Silva", Email = "ronilson@sousasilva.eng.br" },
