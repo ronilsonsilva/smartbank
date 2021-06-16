@@ -97,7 +97,8 @@ class ClienteService {
         },
         body: jsonEncode(json),
       );
-      print(jsonEncode(json));
+      var js = jsonEncode(json);
+      print(js);
       if (response.statusCode != 200) {
         return Future(() => cliente);
       }

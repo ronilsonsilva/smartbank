@@ -36,7 +36,7 @@ namespace SmartBank.Infra.Data.Repository.Repositories
         {
             try
             {
-                this._context.Entry(entity).State = EntityState.Modified;
+                this._context.Set<TEntity>().Update(entity);
                 this._context.Entry(entity).Property(x => x.Cadastro).IsModified = false;
                 await this._context.SaveChangesAsync();
                 return entity;
@@ -49,12 +49,12 @@ namespace SmartBank.Infra.Data.Repository.Repositories
 
         public virtual IQueryable<TEntity> Consultar(Expression<Func<TEntity, bool>> expression)
         {
-            return this._context.Set<TEntity>().Where(expression).AsQueryable();
+            return this._context.Set<TEntity>().Where(expression).AsQueryable().AsNoTracking();
         }
 
         public virtual async Task<TEntity> Consultar(Guid id)
         {
-            var entity = await this.Consultar(x => x.Id == id).FirstOrDefaultAsync();
+            var entity = await this.Consultar(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
             return entity;
         }
 

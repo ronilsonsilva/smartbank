@@ -62,29 +62,6 @@ class _AccountState extends State<Account> {
       this.onRequest = true;
     });
 
-    // this.clienteModel.nome = this._formData['nome'];
-    // this.clienteModel.cpf = this._formData['cpf'];
-    // this.clienteModel.cnh = this._formData['cnh'];
-    // this.clienteModel.sexo = this._formData['sexo'];
-
-    // if (this._formData['dataNascimento'] != null) {
-    //   this.clienteModel.dataNascimento = this._formData['dataNascimento'];
-    // }
-
-    // this.clienteModel.nomeMae = this._formData['nomeMae'];
-    // this.clienteModel.nomePai = this._formData['nomePai'];
-    // this.clienteModel.rendaMensal = FormatUtils.currencyFromMonayMasked(
-    //     this._formData['rendaMensal'].toString());
-    // this.clienteModel.contato.email = this._formData['email'];
-    // this.clienteModel.contato.telefoneCelular =
-    //     this._formData['telefoneCelular'];
-    // this.clienteModel.endereco.cep = this._formData['cep'];
-    // this.clienteModel.endereco.logradouro = this._formData['logradouro'];
-    // this.clienteModel.endereco.complemento = this._formData['complemento'];
-    // this.clienteModel.endereco.numero = this._formData['numero'];
-    // this.clienteModel.endereco.bairro = this._formData['bairro'];
-    // this.clienteModel.endereco.cidade = this._formData['cidade'];
-
     var editado = await this._clienteService.atualize(this.clienteModel);
     setState(() {
       this.onRequest = false;
@@ -171,7 +148,12 @@ class _AccountState extends State<Account> {
                               format: Utils().dataFormat,
                               decoration: InputDecoration(
                                   labelText: 'Data de Nascimento'),
-                              initialValue: this.clienteModel.dataNascimento,
+                              initialValue: this.clienteModel.dataNascimento !=
+                                          null &&
+                                      this.clienteModel.dataNascimento.year >
+                                          1000
+                                  ? this.clienteModel.dataNascimento
+                                  : DateTime.now(),
                               textInputAction: TextInputAction.next,
                               onSaved: (value) =>
                                   this.clienteModel.dataNascimento = value,
@@ -192,7 +174,9 @@ class _AccountState extends State<Account> {
                             child: SelectFormField(
                               type: SelectFormFieldType
                                   .dropdown, // or can be dialog
-                              initialValue: this.clienteModel.sexo.toString(),
+                              initialValue: this.clienteModel.sexo != 0
+                                  ? this.clienteModel.sexo.toString()
+                                  : '1',
                               labelText: 'Sexo',
                               items: _itemsSexo,
                               onChanged: (value) =>
@@ -231,7 +215,9 @@ class _AccountState extends State<Account> {
                               child: TextFormField(
                                 decoration:
                                     InputDecoration(labelText: 'Nome do Pai'),
-                                initialValue: this.clienteModel.nomePai,
+                                initialValue: this.clienteModel.nomePai != null
+                                    ? this.clienteModel.nomePai
+                                    : '',
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
@@ -300,7 +286,9 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue: this.clienteModel.rg,
+                                initialValue: this.clienteModel.rg != null
+                                    ? this.clienteModel.rg
+                                    : '',
                                 onSaved: (value) =>
                                     this.clienteModel.rg = value,
                                 onChanged: (value) =>
@@ -326,7 +314,9 @@ class _AccountState extends State<Account> {
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
                                 initialValue:
-                                    this.clienteModel.rgOrgaoExpeditor,
+                                    this.clienteModel.rgOrgaoExpeditor != null
+                                        ? this.clienteModel.rgOrgaoExpeditor
+                                        : '',
                                 onSaved: (value) =>
                                     this.clienteModel.rgOrgaoExpeditor = value,
                                 onChanged: (value) =>
@@ -350,7 +340,9 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue: this.clienteModel.rgUf,
+                                initialValue: this.clienteModel.rgUf != null
+                                    ? this.clienteModel.rgUf
+                                    : '',
                                 onSaved: (value) =>
                                     this.clienteModel.rgUf = value,
                                 onChanged: (value) =>
@@ -385,7 +377,10 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue: this.clienteModel.cnh.categoria,
+                                initialValue: this.clienteModel.cnh != null &&
+                                        this.clienteModel.cnh.categoria != null
+                                    ? this.clienteModel.cnh.categoria
+                                    : '',
                                 onSaved: (value) =>
                                     this.clienteModel.cnh.categoria = value,
                                 onChanged: (value) =>
@@ -410,8 +405,11 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue:
-                                    this.clienteModel.cnh.numeroRegistro,
+                                initialValue: this.clienteModel.cnh != null &&
+                                        this.clienteModel.cnh.numeroRegistro !=
+                                            null
+                                    ? this.clienteModel.cnh.numeroRegistro
+                                    : '',
                                 onSaved: (value) => this
                                     .clienteModel
                                     .cnh
@@ -437,8 +435,17 @@ class _AccountState extends State<Account> {
                               format: Utils().dataFormat,
                               decoration: InputDecoration(
                                   labelText: 'Primeira Habilitação'),
-                              initialValue:
-                                  this.clienteModel.cnh.dataPrimeiraHabilitacao,
+                              initialValue: this.clienteModel.cnh != null &&
+                                      this
+                                              .clienteModel
+                                              .cnh
+                                              .dataPrimeiraHabilitacao !=
+                                          null
+                                  ? this
+                                      .clienteModel
+                                      .cnh
+                                      .dataPrimeiraHabilitacao
+                                  : DateTime.now(),
                               textInputAction: TextInputAction.next,
                               onSaved: (value) => this
                                   .clienteModel
@@ -464,7 +471,9 @@ class _AccountState extends State<Account> {
                               format: Utils().dataFormat,
                               decoration:
                                   InputDecoration(labelText: 'Validade'),
-                              initialValue: this.clienteModel.cnh.dataValidade,
+                              initialValue: this.clienteModel.cnh != null
+                                  ? this.clienteModel.cnh.dataValidade
+                                  : DateTime.now(),
                               textInputAction: TextInputAction.next,
                               onSaved: (value) =>
                                   this.clienteModel.cnh.dataValidade = value,
@@ -486,8 +495,9 @@ class _AccountState extends State<Account> {
                               format: Utils().dataFormat,
                               decoration:
                                   InputDecoration(labelText: 'Última Emissão'),
-                              initialValue:
-                                  this.clienteModel.cnh.dataUltimaEmissao,
+                              initialValue: this.clienteModel.cnh != null
+                                  ? this.clienteModel.cnh.dataUltimaEmissao
+                                  : DateTime.now(),
                               textInputAction: TextInputAction.next,
                               onSaved: (value) => this
                                   .clienteModel
@@ -516,10 +526,17 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue: this
-                                    .clienteModel
-                                    .cnh
-                                    .registroNacionalEstrangeiro,
+                                initialValue: this.clienteModel.cnh != null &&
+                                        this
+                                                .clienteModel
+                                                .cnh
+                                                .registroNacionalEstrangeiro !=
+                                            null
+                                    ? this
+                                        .clienteModel
+                                        .cnh
+                                        .registroNacionalEstrangeiro
+                                    : '',
                                 onSaved: (value) => this
                                     .clienteModel
                                     .cnh
@@ -548,8 +565,11 @@ class _AccountState extends State<Account> {
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
-                                initialValue:
-                                    this.clienteModel.cnh.codigoSituacao,
+                                initialValue: this.clienteModel.cnh != null &&
+                                        this.clienteModel.cnh.codigoSituacao !=
+                                            null
+                                    ? this.clienteModel.cnh.codigoSituacao
+                                    : '',
                                 onSaved: (value) => this
                                     .clienteModel
                                     .cnh
@@ -636,7 +656,7 @@ class _AccountState extends State<Account> {
                               child: TextFormField(
                                 decoration: InputDecoration(labelText: 'Cep'),
                                 textInputAction: TextInputAction.next,
-                                initialValue: this.clienteModel.endereco.cep,
+                                initialValue: this.clienteModel.endereco?.cep,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
                                 onSaved: (value) =>
@@ -654,7 +674,7 @@ class _AccountState extends State<Account> {
                                 decoration:
                                     InputDecoration(labelText: 'Logradouro'),
                                 initialValue:
-                                    this.clienteModel.endereco.logradouro,
+                                    this.clienteModel.endereco?.logradouro,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
@@ -677,7 +697,7 @@ class _AccountState extends State<Account> {
                                 decoration:
                                     InputDecoration(labelText: 'Complemento'),
                                 initialValue:
-                                    this.clienteModel.endereco.complemento,
+                                    this.clienteModel.endereco?.complemento,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
@@ -699,7 +719,8 @@ class _AccountState extends State<Account> {
                               child: TextFormField(
                                 decoration:
                                     InputDecoration(labelText: 'Número'),
-                                initialValue: this.clienteModel.endereco.numero,
+                                initialValue:
+                                    this.clienteModel.endereco?.numero,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
@@ -717,7 +738,8 @@ class _AccountState extends State<Account> {
                               child: TextFormField(
                                 decoration:
                                     InputDecoration(labelText: 'Bairro'),
-                                initialValue: this.clienteModel.endereco.bairro,
+                                initialValue:
+                                    this.clienteModel.endereco?.bairro,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),
@@ -735,7 +757,8 @@ class _AccountState extends State<Account> {
                               child: TextFormField(
                                 decoration:
                                     InputDecoration(labelText: 'Cidade'),
-                                initialValue: this.clienteModel.endereco.cidade,
+                                initialValue:
+                                    this.clienteModel.endereco?.cidade,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_cpfFocusNode),

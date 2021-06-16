@@ -18,7 +18,7 @@ namespace SmartBank.Domain.Entities
         public string Rg { get; set; }
         public string RgOrgaoExpeditor { get; set; }
         public string RgUf { get; set; }
-        public CnhValueObject Cnh { get; set; } = new CnhValueObject();
+        public CnhValueObject Cnh { get; set; }
         public DateTime DataNascimento { get; set; }
         public SexoPessoa Sexo { get; set; }
         public ContatoValueObject Contato { get; set; }

@@ -31,61 +31,77 @@ namespace SmartBank.DataValid.Api.Integrations
 
         public async Task<ResultadoValidacoes> BasicaPessoaFisica(ValidarPessoaFisica dados)
         {
-            ResultadoValidacoes resultado = new ResultadoValidacoes()
+
+            try
+            {
+                ResultadoValidacoes resultado = new ResultadoValidacoes()
                 .AdicioneResultado(false)
                 .AdicioneDadosValidados(dados);
 
-            var client = new RestClient($"{this._dataValidConfig.UriBase}/datavalid/v2/validate/pf");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
-            request.AddHeader("Content-Type", "application/json");
-            var body = JsonConvert.SerializeObject(dados);
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = await client.ExecuteAsync(request);
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var validacoes = JsonConvert.DeserializeObject<ResponseValidarPF>(response.Content);
-                resultado.AdicioneResultado(validacoes.Nome && validacoes.NomeSimilaridade == 1 && validacoes.CpfDisponivel && validacoes.DataNascimento);
-                resultado.AdicioneValidacao(new Validacao("nome", validacoes.Nome));
-                resultado.AdicioneValidacao(new Validacao("cpf_disponivel", validacoes.CpfDisponivel));
-                resultado.AdicioneValidacao(new Validacao("nome_similaridade", validacoes.NomeSimilaridade));
-                resultado.AdicioneValidacao(new Validacao("data_nascimento", validacoes.DataNascimento));
-                resultado.AdicioneValidacao(new Validacao("situacao_cpf", validacoes.SituacaoCpf));
-            }
+                var client = new RestClient($"{this._dataValidConfig.UriBase}/datavalid/v2/validate/pf");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("accept", "application/json");
+                request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
+                request.AddHeader("Content-Type", "application/json");
+                var body = JsonConvert.SerializeObject(dados);
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                IRestResponse response = await client.ExecuteAsync(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var validacoes = JsonConvert.DeserializeObject<ResponseValidarPF>(response.Content);
+                    resultado.AdicioneResultado(validacoes.Nome && validacoes.NomeSimilaridade == "1.0" && validacoes.CpfDisponivel && validacoes.DataNascimento);
+                    resultado.AdicioneValidacao(new Validacao("nome", validacoes.Nome));
+                    resultado.AdicioneValidacao(new Validacao("cpf_disponivel", validacoes.CpfDisponivel));
+                    resultado.AdicioneValidacao(new Validacao("nome_similaridade", validacoes.NomeSimilaridade));
+                    resultado.AdicioneValidacao(new Validacao("data_nascimento", validacoes.DataNascimento));
+                    resultado.AdicioneValidacao(new Validacao("situacao_cpf", validacoes.SituacaoCpf));
+                }
 
-            return resultado;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public async Task<ResultadoValidacoes> BiometriaFacial(ValidarBiometriaFacialPessoaFisica dados)
         {
-            ResultadoValidacoes resultado = new ResultadoValidacoes()
+            try
+            {
+                ResultadoValidacoes resultado = new ResultadoValidacoes()
                 .AdicioneResultado(false)
                 .AdicioneDadosValidados(dados);
 
-            var client = new RestClient($"{this._dataValidConfig.UriBase}/datavalid/v2/validate/pf-digitais");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
-            request.AddHeader("Content-Type", "application/json");
-            var body = JsonConvert.SerializeObject(dados);
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = await client.ExecuteAsync(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var validacoes = JsonConvert.DeserializeObject<ResponseValidarPFBiometriaFacial>(response.Content);
-                resultado.AdicioneResultado(validacoes.Nome && validacoes.NomeSimilaridade == 1 && validacoes.CpfDisponivel && validacoes.DataNascimento);
-                resultado.AdicioneValidacao(new Validacao("nome", validacoes.Nome));
-                resultado.AdicioneValidacao(new Validacao("cpf_disponivel", validacoes.CpfDisponivel));
-                resultado.AdicioneValidacao(new Validacao("nome_similaridade", validacoes.NomeSimilaridade));
-                resultado.AdicioneValidacao(new Validacao("data_nascimento", validacoes.DataNascimento));
-                resultado.AdicioneValidacao(new Validacao("situacao_cpf", validacoes.SituacaoCpf));
-                resultado.AdicioneResultadoBiometriaFacial(validacoes.BiometriaFace);
-            }
+                var client = new RestClient($"{this._dataValidConfig.UriBase}/datavalid/v2/validate/pf-face");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("accept", "application/json");
+                request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
+                request.AddHeader("Content-Type", "application/json");
+                var body = JsonConvert.SerializeObject(dados);
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                IRestResponse response = await client.ExecuteAsync(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var validacoes = JsonConvert.DeserializeObject<ResponseValidarPFBiometriaFacial>(response.Content);
+                    resultado.AdicioneResultado(validacoes.Nome && validacoes.NomeSimilaridade == "1.0" && validacoes.CpfDisponivel && validacoes.DataNascimento);
+                    resultado.AdicioneValidacao(new Validacao("nome", validacoes.Nome));
+                    resultado.AdicioneValidacao(new Validacao("cpf_disponivel", validacoes.CpfDisponivel));
+                    resultado.AdicioneValidacao(new Validacao("nome_similaridade", validacoes.NomeSimilaridade));
+                    resultado.AdicioneValidacao(new Validacao("data_nascimento", validacoes.DataNascimento));
+                    resultado.AdicioneValidacao(new Validacao("situacao_cpf", validacoes.SituacaoCpf));
+                    resultado.AdicioneResultadoBiometriaFacial(validacoes.BiometriaFace);
+                }
 
-            return resultado;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<ResultadoValidacoes> DigitalPessoaFisica(ValidarPessoaFisica dados)

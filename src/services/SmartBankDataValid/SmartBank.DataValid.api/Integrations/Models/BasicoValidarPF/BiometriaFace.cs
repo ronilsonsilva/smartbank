@@ -11,6 +11,6 @@ namespace SmartBank.DataValid.Api.Integrations.Models.BasicoValidarPF
         public string Probabilidade { get; set; }
 
         [JsonProperty("similaridade")]
-        public int Similaridade { get; set; }
+        public string Similaridade { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace SmartBank.DataValid.Api.Integrations.Models.BasicoValidarPF
 {
     public class Documento
     {
-        public Documento(int tipo, string numero, string orgaoExpedidor, string ufExpedidor)
+        public Documento(string tipo, string numero, string orgaoExpedidor, string ufExpedidor)
         {
             Tipo = tipo;
             Numero = numero;
@@ -13,7 +13,7 @@ namespace SmartBank.DataValid.Api.Integrations.Models.BasicoValidarPF
         }
 
         [JsonProperty("tipo")]
-        public int Tipo { get; set; }
+        public string Tipo { get; set; }
 
         [JsonProperty("numero")]
         public string Numero { get; set; }

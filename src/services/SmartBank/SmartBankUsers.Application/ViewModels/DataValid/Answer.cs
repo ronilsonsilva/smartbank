@@ -39,16 +39,16 @@ namespace SmartBank.Application.ViewModels.DataValid
         [JsonProperty("cnh")]
         public Cnh Cnh { get; set; }
 
-        [JsonProperty("data_nascimento")]
+        //[JsonProperty("data_nascimento")]
         public string DataNascimento { get; set; }
 
-        [JsonProperty("situacao_cpf")]
+        //[JsonProperty("situacao_cpf")]
         public string SituacaoCpf { get; set; }
 
-        [JsonProperty("digitais")]
+        //[JsonProperty("digitais")]
         public List<Digital> Digitais { get; set; }
 
-        [JsonProperty("biometria_face")]
+        //[JsonProperty("biometria_face")]
         public string BiometriaFace { get; set; }
     }
 }

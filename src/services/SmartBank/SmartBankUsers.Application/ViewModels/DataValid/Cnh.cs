@@ -18,22 +18,22 @@ namespace SmartBank.Application.ViewModels.DataValid
         [JsonProperty("categoria")]
         public string Categoria { get; set; }
 
-        [JsonProperty("numero_registro")]
+        //[JsonProperty("numero_registro")]
         public string NumeroRegistro { get; set; }
 
-        [JsonProperty("data_primeira_habilitacao")]
+        //[JsonProperty("data_primeira_habilitacao")]
         public string DataPrimeiraHabilitacao { get; set; }
 
-        [JsonProperty("data_validade")]
+        //[JsonProperty("data_validade")]
         public string DataValidade { get; set; }
 
-        [JsonProperty("registro_nacional_estrangeiro")]
+        //[JsonProperty("registro_nacional_estrangeiro")]
         public string RegistroNacionalEstrangeiro { get; set; }
 
-        [JsonProperty("data_ultima_emissao")]
+        //[JsonProperty("data_ultima_emissao")]
         public string DataUltimaEmissao { get; set; }
 
-        [JsonProperty("codigo_situacao")]
+        //[JsonProperty("codigo_situacao")]
         public string CodigoSituacao { get; set; }
     }
 }

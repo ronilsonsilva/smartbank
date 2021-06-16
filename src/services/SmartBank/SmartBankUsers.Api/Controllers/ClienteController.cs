@@ -81,5 +81,11 @@ namespace SmartBank.Api.Controllers
             return Ok(await this._application.Consultar(clienteId));
         }
 
+        [HttpPut]
+        public async override Task<IActionResult> Put([FromBody] ClienteViewModel viewModel)
+        {
+            return Ok(await this._application.Atualizar(viewModel));
+        }
+
     }
 }

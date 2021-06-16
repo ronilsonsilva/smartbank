@@ -60,20 +60,20 @@ class Cliente {
     rg = json['rg'];
     rgOrgaoExpeditor = json['rgOrgaoExpeditor'];
     rgUf = json['rgUf'];
-    cnh = json['cnh'] != null ? new Cnh.fromJson(json['cnh']) : null;
+    cnh = json['cnh'] != null ? new Cnh.fromJson(json['cnh']) : new Cnh();
     dataNascimento = DateTime.tryParse(json['dataNascimento']);
     sexo = json['sexo'];
     contato =
         json['contato'] != null ? new Contato.fromJson(json['contato']) : null;
     endereco = json['endereco'] != null
         ? new Endereco.fromJson(json['endereco'])
-        : null;
+        : new Endereco();
     nomeMae = json['nomeMae'];
     nomePai = json['nomePai'];
     escolaridade = json['escolaridade'];
     empresaTrabalho = json['empresaTrabalho'] != null
         ? new EmpresaTrabalho.fromJson(json['empresaTrabalho'])
-        : null;
+        : new EmpresaTrabalho();
     usuario = json['usuario'];
     password = json['password'];
     validacaoBiometrica = json['validacaoBiometrica'];

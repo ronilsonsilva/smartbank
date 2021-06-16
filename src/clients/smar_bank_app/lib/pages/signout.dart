@@ -39,6 +39,7 @@ class _SignOutState extends State<SignOut> {
           'Sua confirmação de senha está inconsistente, por favor preencha novamente.',
       textoConfirma: 'OK',
       onConfirma: () => {});
+  bool onRequest = false;
 
   Future<void> _saveForm(BuildContext context) async {
     if (!_form.currentState.validate()) {
@@ -57,10 +58,13 @@ class _SignOutState extends State<SignOut> {
       ),
       cpf: _formData['cpf'],
       rg: _formData['rg'],
-      cnh: _formData['cnh'],
       nomeMae: _formData['nome_mae'],
       password: _formData['senha'],
     );
+
+    setState(() {
+      this.onRequest = true;
+    });
 
     var response = await this._clienteService.AdicionarCliente(cliente);
     if (response.ok) {
@@ -72,7 +76,13 @@ class _SignOutState extends State<SignOut> {
       } else {
         this._alertSenhaIncosistente.show(context);
       }
-    } else {}
+    } else {
+      final snackBar = SnackBar(content: Text('Falha ao realizar cadastro.'));
+      setState(() {
+        this.onRequest = true;
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      });
+    }
     print(response);
   }
 
@@ -89,171 +99,156 @@ class _SignOutState extends State<SignOut> {
       body: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(8),
             child: Form(
               key: _form,
-              child: ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'Nome'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_emailFocusNode),
-                      onSaved: (value) => _formData['nome'] = value,
-                      onChanged: (value) => _formData['nome'] = value,
-                      validator: (value) {
-                        bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length < 3;
+              child: Card(
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'Nome'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) => FocusScope.of(context)
+                            .requestFocus(_emailFocusNode),
+                        onSaved: (value) => _formData['nome'] = value,
+                        onChanged: (value) => _formData['nome'] = value,
+                        validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 3;
 
-                        if (isEmpty || isInvalid) {
-                          return 'Informe um nome válido!';
-                        }
-                        return null;
-                      },
+                          if (isEmpty || isInvalid) {
+                            return 'Informe um nome válido!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'E-mail'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_cpfFocusNode),
-                      onSaved: (value) => _formData['email'] = value,
-                      onChanged: (value) => _formData['email'] = value,
-                      validator: (value) {
-                        bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length < 3;
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'E-mail'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_cpfFocusNode),
+                        onSaved: (value) => _formData['email'] = value,
+                        onChanged: (value) => _formData['email'] = value,
+                        validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 3;
 
-                        if (isEmpty || isInvalid) {
-                          return 'Informe um e-mail válido!';
-                        }
-                        return null;
-                      },
+                          if (isEmpty || isInvalid) {
+                            return 'Informe um e-mail válido!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'CPF'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_rgFocusNode),
-                      onSaved: (value) => _formData['cpf'] = value,
-                      onChanged: (value) => _formData['cpf'] = value,
-                      validator: (value) {
-                        bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length < 3;
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'CPF'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_rgFocusNode),
+                        onSaved: (value) => _formData['cpf'] = value,
+                        onChanged: (value) => _formData['cpf'] = value,
+                        validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 3;
 
-                        if (isEmpty || isInvalid) {
-                          return 'Informe um CPF válido!';
-                        }
-                        return null;
-                      },
+                          if (isEmpty || isInvalid) {
+                            return 'Informe um CPF válido!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'RG'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_cnhFocusNode),
-                      onSaved: (value) => _formData['rg'] = value,
-                      onChanged: (value) => _formData['rg'] = value,
-                      validator: (value) {
-                        bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length < 3;
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'RG'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) => FocusScope.of(context)
+                            .requestFocus(_nomeMaeFocusNode),
+                        onSaved: (value) => _formData['rg'] = value,
+                        onChanged: (value) => _formData['rg'] = value,
+                        validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 3;
 
-                        if (isEmpty || isInvalid) {
-                          return 'Informe um RG válido!';
-                        }
-                        return null;
-                      },
+                          if (isEmpty || isInvalid) {
+                            return 'Informe um RG válido!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'CNH'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => FocusScope.of(context)
-                          .requestFocus(_nomeMaeFocusNode),
-                      onSaved: (value) => _formData['cnh'] = value,
-                      onChanged: (value) => _formData['cnh'] = value,
-                      validator: (value) {
-                        bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length < 3;
-
-                        if (isEmpty || isInvalid) {
-                          return 'Informe uma CNH válido!';
-                        }
-                        return null;
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'Nome da Mãe'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) => FocusScope.of(context)
+                            .requestFocus(_senhaFocusNode),
+                        onSaved: (value) => _formData['nome_mae'] = value,
+                        onChanged: (value) => _formData['nome_mae'] = value,
+                        validator: (value) {
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'Nome da Mãe'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_senhaFocusNode),
-                      onSaved: (value) => _formData['nome_mae'] = value,
-                      onChanged: (value) => _formData['nome_mae'] = value,
-                      validator: (value) {
-                        return null;
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        initialValue: '',
+                        decoration: InputDecoration(labelText: 'Senha'),
+                        onSaved: (value) => _formData['senha'] = value,
+                        onChanged: (value) => _formData['senha'] = value,
+                        validator: (value) {
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'Senha'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => FocusScope.of(context)
-                          .requestFocus(_confirmarSenhaFocusNode),
-                      onSaved: (value) => _formData['senha'] = value,
-                      onChanged: (value) => _formData['senha'] = value,
-                      validator: (value) {
-                        return null;
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        initialValue: '',
+                        decoration:
+                            InputDecoration(labelText: 'Confirme Senha'),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) => this._saveForm(context),
+                        onSaved: (value) =>
+                            _formData['confirmar_senha'] = value,
+                        onChanged: (value) =>
+                            _formData['confirmar_senha'] = value,
+                        validator: (value) {
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      initialValue: '',
-                      decoration: InputDecoration(labelText: 'Confirme Senha'),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => this._saveForm(context),
-                      onSaved: (value) => _formData['confirmar_senha'] = value,
-                      onChanged: (value) =>
-                          _formData['confirmar_senha'] = value,
-                      validator: (value) {
-                        return null;
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 16.0, bottom: 16.0, left: 8.0, right: 8.0),
+                      child: this.onRequest
+                          ? CircularProgressIndicator(
+                              semanticsLabel: "Solicitando...",
+                            )
+                          : Button(
+                              textContent: lbl_register,
+                              onPressed: () => this._saveForm(context),
+                            ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
-                    child: Button(
-                      textContent: lbl_register,
-                      onPressed: () => this._saveForm(context),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

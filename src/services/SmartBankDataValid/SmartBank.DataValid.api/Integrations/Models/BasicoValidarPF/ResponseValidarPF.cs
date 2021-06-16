@@ -23,7 +23,7 @@ namespace SmartBank.DataValid.Api.Integrations.Models.BasicoValidarPF
         public bool CpfDisponivel { get; set; }
 
         [JsonProperty("nome_similaridade")]
-        public double NomeSimilaridade { get; set; }
+        public string NomeSimilaridade { get; set; }
 
         [JsonProperty("data_nascimento")]
         public bool DataNascimento { get; set; }

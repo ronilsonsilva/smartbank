@@ -50,11 +50,15 @@ class Cnh {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['categoria'] = this.categoria;
     data['numeroRegistro'] = this.numeroRegistro;
-    data['dataPrimeiraHabilitacao'] =
-        this.dataPrimeiraHabilitacao.toIso8601String();
-    data['dataValidade'] = this.dataValidade.toIso8601String();
+    data['dataPrimeiraHabilitacao'] = this.dataPrimeiraHabilitacao != null
+        ? this.dataPrimeiraHabilitacao.toIso8601String()
+        : null;
+    data['dataValidade'] =
+        this.dataValidade != null ? this.dataValidade.toIso8601String() : null;
     data['registroNacionalEstrangeiro'] = this.registroNacionalEstrangeiro;
-    data['dataUltimaEmissao'] = this.dataUltimaEmissao.toIso8601String();
+    data['dataUltimaEmissao'] = this.dataUltimaEmissao != null
+        ? this.dataUltimaEmissao.toIso8601String()
+        : null;
     data['codigoSituacao'] = this.codigoSituacao;
     return data;
   }

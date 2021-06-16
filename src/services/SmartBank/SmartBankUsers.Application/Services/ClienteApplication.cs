@@ -56,7 +56,7 @@ namespace SmartBank.Application.Services
             {
                 biometriaExistente.ImageBase64 = model.ImageBase64;
                 biometriaExistente.Probabilidade = validação.BiometriaFace.Probabilidade;
-                biometriaExistente.Similaridade = validação.BiometriaFace.Similaridade;
+                biometriaExistente.Similaridade = string.IsNullOrEmpty(validação.BiometriaFace.Similaridade) ? 0 : int.Parse(validação.BiometriaFace.Similaridade);
                 var response = await this._serviceBiometriaFacial.Atualizar(biometriaExistente);
                 return new Response<bool>();
             }
@@ -66,8 +66,7 @@ namespace SmartBank.Application.Services
                 {
                     ClienteId = model.ClienteId,
                     ImageBase64 = model.ImageBase64,
-                    Probabilidade = validação.BiometriaFace.Probabilidade,
-                    Similaridade = validação.BiometriaFace.Similaridade
+                    Probabilidade = validação.BiometriaFace.Probabilidade
                 };
                 var response = await this._serviceBiometriaFacial.Adicionar(biometria);
                 return new Response<bool>();
@@ -93,17 +92,18 @@ namespace SmartBank.Application.Services
             ResolvaValidacaoBasica(cliente, validação);
 
             var validacaoCadastral = cliente.ValidacaoCadastral;
-            if (validacaoCadastral.Id == null)
+            if (validacaoCadastral != null && validacaoCadastral?.Id == null)
             {
                 validacaoCadastral.ClienteId = cliente.Id.Value;
                 _ = await this._serviceValidacaoCadastral.Adicionar(this._mapper.Map<ClienteValidacaoCadastral>(validacaoCadastral));
             }
-            else
+            else if(validacaoCadastral != null)
             {
                 _ = await this._serviceValidacaoCadastral.Atualizar(this._mapper.Map<ClienteValidacaoCadastral>(validacaoCadastral));
             }
 
-            if(cliente.Score?.Id == null)
+            cliente.Score = this._mapper.Map<ClienteScoreViewModel>(await this._repositoryScore.Consultar(x => x.ClienteId == cliente.Id).FirstOrDefaultAsync()); 
+            if (cliente.Score?.Id == null)
             {
                 var score = new ClienteScore()
                 {
@@ -119,6 +119,7 @@ namespace SmartBank.Application.Services
                 _ = await this._serviceScore.Atualizar(this._mapper.Map<ClienteScore>(score));
             }
 
+            cliente.Score = null;
             var retorno = await base.Atualizar(cliente);
 
 
@@ -127,6 +128,8 @@ namespace SmartBank.Application.Services
 
         private static void ResolvaValidacaoBasica(ClienteViewModel cliente, ResultadoValidacoes validação)
         {
+            if (validação.Validacoes == null) return;
+
             if (cliente.ValidacaoCadastral == null)
                 cliente.ValidacaoCadastral = new ClienteValidacaoCadastralViewModel();
 
@@ -158,8 +161,8 @@ namespace SmartBank.Application.Services
                                 sexo: cliente.Sexo == Domain.ValuesObject.SexoPessoa.FEMININO ? "F" : "M",
                                 nacionalidade: 1,
                                 filiacao: new Filiacao(nomeMae: cliente.NomeMae, nomePai: cliente.NomePai),
-                                documento: new Documento(tipo: 1, numero: cliente.Rg, orgaoExpedidor: cliente.RgOrgaoExpeditor, ufExpedidor: cliente.RgUf),
-                                endereco: new Endereco(logradouro: cliente.Endereco.Logradouro, numero: cliente.Endereco.Numero, complemento: cliente.Endereco.Complemento, bairro: cliente.Endereco.Bairro, cep: cliente.Endereco.Cep, municipio: cliente.Endereco.Cidade, uf: cliente.Endereco.Uf),
+                                documento: new Documento(tipo: "1", numero: cliente.Rg, orgaoExpedidor: cliente.RgOrgaoExpeditor, ufExpedidor: cliente.RgUf),
+                                endereco: new Endereco(logradouro: cliente.Endereco?.Logradouro, numero: cliente.Endereco?.Numero, complemento: cliente.Endereco?.Complemento, bairro: cliente.Endereco?.Bairro, cep: cliente.Endereco?.Cep, municipio: cliente.Endereco?.Cidade, uf: cliente.Endereco?.Uf),
                                 cnh: new Cnh(
                                     categoria: cliente.Cnh?.Categoria,
                                     numeroRegistro: cliente.Cnh?.NumeroRegistro,

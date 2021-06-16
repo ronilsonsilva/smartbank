@@ -31,8 +31,13 @@ class _BankingSignInState extends State<SignIn> {
       mensage: 'Usuário e senha não confere, por favor preencha novamente.',
       textoConfirma: 'OK',
       onConfirma: () => {});
+  bool onRequest = false;
 
   void _submitForm(BuildContext context) async {
+    setState(() {
+      this.onRequest = true;
+    });
+
     var autenticado = await AuthService()
         .autentique(_formData['usuario'], _formData['senha']);
     if (autenticado) {
@@ -40,6 +45,9 @@ class _BankingSignInState extends State<SignIn> {
       Home(this.widget.camera).launch(context);
     } else {
       this._alertSenhaIncosistente.show(context);
+      setState(() {
+        this.onRequest = false;
+      });
     }
   }
 
@@ -87,10 +95,16 @@ class _BankingSignInState extends State<SignIn> {
                   ),
                 ),
                 16.height,
-                Button(
-                  textContent: lbl_SignIn,
-                  onPressed: () => this._submitForm(context),
-                ),
+                this.onRequest
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          semanticsLabel: "Solicitando...",
+                        ),
+                      )
+                    : Button(
+                        textContent: lbl_SignIn,
+                        onPressed: () => this._submitForm(context),
+                      ),
                 16.height,
                 Column(
                   children: [
