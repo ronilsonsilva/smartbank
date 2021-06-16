@@ -55,9 +55,9 @@ class Solicitacao {
           ? DateTime.tryParse(json['dataCancelamento'])
           : null;
       clienteId = json['clienteId'];
-      if (json['pendencia'] != null) {
+      if (json['pendencias'] != null) {
         pendencia = <Pendencia>[];
-        json['pendencia'].forEach((v) {
+        json['pendencias'].forEach((v) {
           pendencia.add(new Pendencia.fromJson(v));
         });
       }
@@ -83,7 +83,7 @@ class Solicitacao {
     data['dataCancelamento'] = this.dataCancelamento?.toIso8601String();
     data['clienteId'] = this.clienteId;
     if (this.pendencia != null) {
-      data['pendencia'] = this.pendencia.map((v) => v.toJson()).toList();
+      data['pendencias'] = this.pendencia.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -91,10 +91,4 @@ class Solicitacao {
 
 enum TipoSolicitacao { EMPRESTIMO }
 
-enum StatusSolicitacao {
-  INICIADA,
-  CANCELADA,
-  PENDENCIA_VALIDACOES,
-  EM_ANALISE,
-  APROVADA
-}
+enum StatusSolicitacao { INICIADA, CANCELADA, REPROVADA, EM_ANALISE, APROVADA }

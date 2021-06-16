@@ -25,7 +25,7 @@ namespace SmartBank.Application.ViewModels
         public string Password { get; set; }
         public IList<ClienteSolicitacaoViewModel> Solicitacoes { get; set; }
         public bool ValidacaoBiometrica { get; set; }
-
+        public bool CadastroValidado { get; set; }
         public bool ValidacaoFacial { get; set; }
         public decimal RendaMensal { get; set; }
         public ClienteScoreViewModel Score { get; set; }

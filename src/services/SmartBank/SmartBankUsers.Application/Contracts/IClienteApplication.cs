@@ -10,4 +10,5 @@ namespace SmartBank.Application.Contracts
         Task<Guid> ObterIdAtualCliente(string email);
         Task<Response<bool>> SalvarSelfie(ClienteSefieInputModel model);
     }
+    
 }

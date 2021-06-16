@@ -16,7 +16,7 @@ namespace SmartBank.Application.ViewModels
         public DateTime? DataAprovacao { get; set; }
         public DateTime? DataCancelamento { get; set; }
         public Guid ClienteId { get; set; }
-        public IList<ClienteSolicitacaoPendeciaViewModel> Pendencia { get; set; }
+        public IList<ClienteSolicitacaoPendeciaViewModel> Pendencias { get; set; }
     }
 
     public class NovaSolicitacaoInputModel

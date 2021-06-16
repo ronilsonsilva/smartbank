@@ -1,10 +1,10 @@
 class Pendencia {
   String id;
-  String cadastro;
-  String atualizado;
-  String dataPendencia;
+  DateTime cadastro;
+  DateTime atualizado;
+  DateTime dataPendencia;
   int status;
-  String dataResolvida;
+  DateTime dataResolvida;
   int tipo;
   String descricao;
   String resolucao;
@@ -24,11 +24,15 @@ class Pendencia {
 
   Pendencia.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cadastro = json['cadastro'];
-    atualizado = json['atualizado'];
-    dataPendencia = json['dataPendencia'];
+    cadastro = DateTime.tryParse(json['cadastro']);
+    atualizado = json['atualizado'] != null
+        ? DateTime.tryParse(json['atualizado'])
+        : null;
+    dataPendencia = DateTime.tryParse(json['dataPendencia']);
     status = json['status'];
-    dataResolvida = json['dataResolvida'];
+    dataResolvida = json['dataResolvida'] != null
+        ? DateTime.tryParse(json['dataResolvida'])
+        : null;
     tipo = json['tipo'];
     descricao = json['descricao'];
     resolucao = json['resolucao'];
@@ -38,11 +42,11 @@ class Pendencia {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['cadastro'] = this.cadastro;
-    data['atualizado'] = this.atualizado;
-    data['dataPendencia'] = this.dataPendencia;
+    data['cadastro'] = this.cadastro.toIso8601String();
+    data['atualizado'] = this.atualizado.toIso8601String();
+    data['dataPendencia'] = this.dataPendencia.toIso8601String();
     data['status'] = this.status;
-    data['dataResolvida'] = this.dataResolvida;
+    data['dataResolvida'] = this.dataResolvida.toIso8601String();
     data['tipo'] = this.tipo;
     data['descricao'] = this.descricao;
     data['resolucao'] = this.resolucao;

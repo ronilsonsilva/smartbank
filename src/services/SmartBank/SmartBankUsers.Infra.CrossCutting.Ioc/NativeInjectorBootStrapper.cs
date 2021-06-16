@@ -63,6 +63,7 @@ namespace SmartBank.Infra.CrossCutting.Ioc
             services.AddScoped<IDomainServices<ClienteBiometriaFacial>, DomainServices<ClienteBiometriaFacial>>();
             services.AddScoped<IDomainServices<ClienteSolicitacao>, DomainServices<ClienteSolicitacao>>();
             services.AddScoped<IDomainServices<ClienteSolicitacaoPendecia>, DomainServices<ClienteSolicitacaoPendecia>>();
+            services.AddScoped<IClienteSolicitacaoService, ClienteSolicitacaoService>();
 
             #endregion
 

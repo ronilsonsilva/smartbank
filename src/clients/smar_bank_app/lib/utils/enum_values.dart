@@ -14,8 +14,8 @@ class EnumValues {
         return EnumValues(index: value.index, descricao: 'Cancelada');
       case StatusSolicitacao.EM_ANALISE:
         return EnumValues(index: value.index, descricao: 'Em Análise');
-      case StatusSolicitacao.PENDENCIA_VALIDACOES:
-        return EnumValues(index: value.index, descricao: 'Com Pendências');
+      case StatusSolicitacao.REPROVADA:
+        return EnumValues(index: value.index, descricao: 'Reprovada');
       case StatusSolicitacao.INICIADA:
         return EnumValues(index: value.index, descricao: 'Iniciada');
       default:

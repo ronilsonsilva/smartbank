@@ -1,3 +1,4 @@
+import 'cliente-cnh.dart';
 import 'contato.dart';
 import 'empresaTrabalho.dart';
 import 'endereco.dart';
@@ -9,7 +10,9 @@ class Cliente {
   String nome;
   String cpf;
   String rg;
-  String cnh;
+  String rgOrgaoExpeditor;
+  String rgUf;
+  Cnh cnh;
   DateTime dataNascimento;
   int sexo;
   Contato contato;
@@ -31,6 +34,8 @@ class Cliente {
       this.nome,
       this.cpf,
       this.rg,
+      this.rgOrgaoExpeditor,
+      this.rgUf,
       this.cnh,
       this.dataNascimento,
       this.sexo,
@@ -53,7 +58,9 @@ class Cliente {
     nome = json['nome'];
     cpf = json['cpf'];
     rg = json['rg'];
-    cnh = json['cnh'];
+    rgOrgaoExpeditor = json['rgOrgaoExpeditor'];
+    rgUf = json['rgUf'];
+    cnh = json['cnh'] != null ? new Cnh.fromJson(json['cnh']) : null;
     dataNascimento = DateTime.tryParse(json['dataNascimento']);
     sexo = json['sexo'];
     contato =
@@ -83,7 +90,11 @@ class Cliente {
       data['nome'] = this.nome;
       data['cpf'] = this.cpf;
       data['rg'] = this.rg;
-      data['cnh'] = this.cnh;
+      data['rgOrgaoExpeditor'] = this.rgOrgaoExpeditor;
+      data['rgUf'] = this.rgUf;
+      if (this.cnh != null) {
+        data['cnh'] = this.cnh.toJson();
+      }
       data['dataNascimento'] = this.dataNascimento.toIso8601String();
       data['sexo'] = this.sexo;
       if (this.contato != null) {
