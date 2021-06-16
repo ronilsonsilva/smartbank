@@ -25,137 +25,143 @@ class _DetalhesListaSolicitacaoState extends State<DetalhesListaSolicitacao> {
         backgroundColor: app_palColor,
       ),
       backgroundColor: app_Background,
-      body: Padding(
-        padding: const EdgeInsets.only(
-            left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Card(
+              elevation: 5,
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
 //valor solicitado
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Solicitado: ",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorSecondary,
-                            fontFamily: fontRegular),
-                      ),
-                      Text(
-                        "R\$: ${this.widget.solicitacao.valorSolicitado}",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorPrimary,
-                            fontFamily: fontBold),
-                      ),
-                    ],
-                  ),
-                ),
-                //Data da Solicitacao
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Data: ",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorSecondary,
-                            fontFamily: fontRegular),
-                      ),
-                      Text(
-                        Utils()
-                            .dataHoraFormat
-                            .format(this.widget.solicitacao.data),
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorPrimary,
-                            fontFamily: fontBold),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Status: ",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorSecondary,
-                            fontFamily: fontRegular),
-                      ),
-                      Text(
-                        EnumValues()
-                            .descricaoStatusSolicitacao(
-                                this.widget.solicitacao.status)
-                            .descricao,
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorPrimary,
-                            fontFamily: fontBold),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Liberado: ",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorSecondary,
-                            fontFamily: fontRegular),
-                      ),
-                      Text(
-                        'R\$ ${this.widget.solicitacao.valorLiberado}',
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextLightGreenColor,
-                            fontFamily: fontBold),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Pendências: ",
-                        style: TextStyle(
-                            fontSize: textSizeLargeMedium,
-                            color: TextColorSecondary,
-                            fontFamily: fontRegular),
-                      ),
-                      this.widget.solicitacao.pendencia != null &&
-                              this.widget.solicitacao.pendencia.length > 0
-                          ? Text(
-                              'SIM',
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Solicitado: ",
                               style: TextStyle(
                                   fontSize: textSizeLargeMedium,
-                                  color: app_pinkLightColor,
+                                  color: TextColorSecondary,
+                                  fontFamily: fontRegular),
+                            ),
+                            Text(
+                              "R\$: ${this.widget.solicitacao.valorSolicitado}",
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorPrimary,
                                   fontFamily: fontBold),
-                            )
-                          : Text(
-                              'NÃO',
+                            ),
+                          ],
+                        ),
+                      ),
+                      //Data da Solicitacao
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Data: ",
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorSecondary,
+                                  fontFamily: fontRegular),
+                            ),
+                            Text(
+                              Utils()
+                                  .dataHoraFormat
+                                  .format(this.widget.solicitacao.data),
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorPrimary,
+                                  fontFamily: fontBold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Status: ",
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorSecondary,
+                                  fontFamily: fontRegular),
+                            ),
+                            Text(
+                              EnumValues()
+                                  .descricaoStatusSolicitacao(
+                                      this.widget.solicitacao.status)
+                                  .descricao,
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorPrimary,
+                                  fontFamily: fontBold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Liberado: ",
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorSecondary,
+                                  fontFamily: fontRegular),
+                            ),
+                            Text(
+                              'R\$ ${this.widget.solicitacao.valorLiberado}',
                               style: TextStyle(
                                   fontSize: textSizeLargeMedium,
                                   color: TextLightGreenColor,
                                   fontFamily: fontBold),
                             ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Pendências: ",
+                              style: TextStyle(
+                                  fontSize: textSizeLargeMedium,
+                                  color: TextColorSecondary,
+                                  fontFamily: fontRegular),
+                            ),
+                            this.widget.solicitacao.pendencia != null &&
+                                    this.widget.solicitacao.pendencia.length > 0
+                                ? Text(
+                                    'SIM',
+                                    style: TextStyle(
+                                        fontSize: textSizeLargeMedium,
+                                        color: app_pinkLightColor,
+                                        fontFamily: fontBold),
+                                  )
+                                : Text(
+                                    'NÃO',
+                                    style: TextStyle(
+                                        fontSize: textSizeLargeMedium,
+                                        color: TextLightGreenColor,
+                                        fontFamily: fontBold),
+                                  ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

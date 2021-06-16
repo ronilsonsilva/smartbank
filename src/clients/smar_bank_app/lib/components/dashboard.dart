@@ -53,7 +53,7 @@ class _DashboardState extends State<Dashboard> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           child: Center(
-                            child: this.clienteModel.validacaoFacial
+                            child: this.clienteModel.validacaoFacial == true
                                 ? Text(
                                     "Olá ${this.clienteModel.nome}, já validamos sua identidade, agora já pode solicitar empréstimo.",
                                     textAlign: TextAlign.center,

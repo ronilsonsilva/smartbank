@@ -164,30 +164,6 @@ class _AccountState extends State<Account> {
                               ),
                             ),
                           ]),
-                          Column(children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                              child: TextFormField(
-                                decoration: InputDecoration(labelText: 'RG'),
-                                textInputAction: TextInputAction.next,
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_cpfFocusNode),
-                                initialValue: this.clienteModel.rg,
-                                onSaved: (value) =>
-                                    this.clienteModel.rg = value,
-                                onChanged: (value) =>
-                                    this.clienteModel.rg = value,
-                                validator: (value) {
-                                  bool isEmpty = value.trim().isEmpty;
-                                  if (isEmpty) {
-                                    return 'Informe um rg válido!';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ]),
                           Padding(
                             padding:
                                 const EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -276,7 +252,10 @@ class _AccountState extends State<Account> {
                                   precision: 2,
                                   decimalSeparator: ',',
                                   thousandSeparator: '.',
-                                  initialValue: this.clienteModel.rendaMensal,
+                                  initialValue:
+                                      this.clienteModel.rendaMensal != null
+                                          ? this.clienteModel.rendaMensal
+                                          : 0,
                                 ),
                                 decoration:
                                     InputDecoration(labelText: 'Renda Mensal'),
@@ -295,6 +274,294 @@ class _AccountState extends State<Account> {
                                   bool isEmpty = value.trim().isEmpty;
                                   if (isEmpty) {
                                     return 'Informe um valor válido!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16.0, bottom: 8.0),
+                              child: Text("RG",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: TextColorPrimary, fontSize: 18)),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Número'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue: this.clienteModel.rg,
+                                onSaved: (value) =>
+                                    this.clienteModel.rg = value,
+                                onChanged: (value) =>
+                                    this.clienteModel.rg = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um rg válido!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Orgão Expedidor'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue:
+                                    this.clienteModel.rgOrgaoExpeditor,
+                                onSaved: (value) =>
+                                    this.clienteModel.rgOrgaoExpeditor = value,
+                                onChanged: (value) =>
+                                    this.clienteModel.rgOrgaoExpeditor = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um rg válido!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(labelText: 'UF'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue: this.clienteModel.rgUf,
+                                onSaved: (value) =>
+                                    this.clienteModel.rgUf = value,
+                                onChanged: (value) =>
+                                    this.clienteModel.rgUf = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um UF válido!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16.0, bottom: 8.0),
+                              child: Text("CNH",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: TextColorPrimary, fontSize: 18)),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Categoria'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue: this.clienteModel.cnh.categoria,
+                                onSaved: (value) =>
+                                    this.clienteModel.cnh.categoria = value,
+                                onChanged: (value) =>
+                                    this.clienteModel.cnh.categoria = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe uma categoria válida!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Número'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue:
+                                    this.clienteModel.cnh.numeroRegistro,
+                                onSaved: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .numeroRegistro = value,
+                                onChanged: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .numeroRegistro = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um número válida!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            child: DateTimeField(
+                              format: Utils().dataFormat,
+                              decoration: InputDecoration(
+                                  labelText: 'Primeira Habilitação'),
+                              initialValue:
+                                  this.clienteModel.cnh.dataPrimeiraHabilitacao,
+                              textInputAction: TextInputAction.next,
+                              onSaved: (value) => this
+                                  .clienteModel
+                                  .cnh
+                                  .dataPrimeiraHabilitacao = value,
+                              onChanged: (value) => this
+                                  .clienteModel
+                                  .cnh
+                                  .dataPrimeiraHabilitacao = value,
+                              onShowPicker: (context, currentValue) {
+                                return showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(1900),
+                                    initialDate: currentValue ?? DateTime.now(),
+                                    lastDate: DateTime(2100));
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            child: DateTimeField(
+                              format: Utils().dataFormat,
+                              decoration:
+                                  InputDecoration(labelText: 'Validade'),
+                              initialValue: this.clienteModel.cnh.dataValidade,
+                              textInputAction: TextInputAction.next,
+                              onSaved: (value) =>
+                                  this.clienteModel.cnh.dataValidade = value,
+                              onChanged: (value) =>
+                                  this.clienteModel.cnh.dataValidade = value,
+                              onShowPicker: (context, currentValue) {
+                                return showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(1900),
+                                    initialDate: currentValue ?? DateTime.now(),
+                                    lastDate: DateTime(2100));
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            child: DateTimeField(
+                              format: Utils().dataFormat,
+                              decoration:
+                                  InputDecoration(labelText: 'Última Emissão'),
+                              initialValue:
+                                  this.clienteModel.cnh.dataUltimaEmissao,
+                              textInputAction: TextInputAction.next,
+                              onSaved: (value) => this
+                                  .clienteModel
+                                  .cnh
+                                  .dataUltimaEmissao = value,
+                              onChanged: (value) => this
+                                  .clienteModel
+                                  .cnh
+                                  .dataUltimaEmissao = value,
+                              onShowPicker: (context, currentValue) {
+                                return showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(1900),
+                                    initialDate: currentValue ?? DateTime.now(),
+                                    lastDate: DateTime(2100));
+                              },
+                            ),
+                          ),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Registro Nacional Estrangeiro'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue: this
+                                    .clienteModel
+                                    .cnh
+                                    .registroNacionalEstrangeiro,
+                                onSaved: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .registroNacionalEstrangeiro = value,
+                                onChanged: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .registroNacionalEstrangeiro = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um número válida!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ]),
+                          Column(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Código Situação'),
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (_) => FocusScope.of(context)
+                                    .requestFocus(_cpfFocusNode),
+                                initialValue:
+                                    this.clienteModel.cnh.codigoSituacao,
+                                onSaved: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .codigoSituacao = value,
+                                onChanged: (value) => this
+                                    .clienteModel
+                                    .cnh
+                                    .codigoSituacao = value,
+                                validator: (value) {
+                                  bool isEmpty = value.trim().isEmpty;
+                                  if (isEmpty) {
+                                    return 'Informe um número válida!';
                                   }
                                   return null;
                                 },

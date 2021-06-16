@@ -31,26 +31,63 @@ namespace SmartBank.Domain.Services
             var cliente = await this._repositoryCliente.Consultar(solicitacao.ClienteId);
             cliente.BiometriaFacial = await this._repositoryBiometriaFacial.Consultar(x => x.ClienteId == solicitacao.ClienteId).FirstOrDefaultAsync();
             cliente.ValidacaoCadastral = await this._repositoryValidacaoCadastral.Consultar(x => x.ClienteId == solicitacao.ClienteId).FirstOrDefaultAsync();
-            bool aprovado = false;
+            
             if (solicitacao.Pendencias == null)
                 solicitacao.Pendencias = new List<ClienteSolicitacaoPendecia>();
 
             if (cliente.RendaMensal == 0)
             {
-                var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Renda mensal inválida"));
+                var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Renda mensal inválida."));
+                solicitacao.Pendencias.Add(pendencia);
+            }
+            else
+            {
+                //Valor de parcela menor que 30% da renda
+                var juros = solicitacao.ValorSolicitado * (decimal.Parse("0.005")) * solicitacao.QuantidadeParcela;
+                var valorParcela = (solicitacao.ValorSolicitado / solicitacao.QuantidadeParcela) + (juros / solicitacao.QuantidadeParcela);
+                //Parcela compromete Mais que 30% do salário
+                if (((valorParcela / cliente.RendaMensal) * 100) > 30)
+                {
+                    var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Parcela compromete mais de 30% da renda mensal."));
+                    solicitacao.Pendencias.Add(pendencia);
+                }
+            }
+
+            if (!cliente.ValidacaoBiometrica)
+            {
+                var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.BIOMETRIA_FACIAL_NAO_RECONHECIDA, $"Validação Facial: {cliente.BiometriaFacial.Probabilidade}."));
                 solicitacao.Pendencias.Add(pendencia);
             }
 
-            //Valor de parcela menor que 30% da renda
-            var valorParcela = solicitacao.ValorSolicitado / solicitacao.QuantidadeParcela;
-            var restante = solicitacao.ValorSolicitado;
-            for (int i = 1; i <= solicitacao.QuantidadeParcela; i++)
+            if (!cliente.CadastroValidado)
             {
+                if (!cliente.ValidacaoCadastral.CpfDisponivel)
+                {
+                    var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"CPF Indisponível."));
+                    solicitacao.Pendencias.Add(pendencia);
+                }
+                
+                if (!cliente.ValidacaoCadastral.SituaçãoCpf)
+                {
+                    var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"CPF Indisponível."));
+                    solicitacao.Pendencias.Add(pendencia);
+                }
 
+                if (!cliente.ValidacaoCadastral.Nome)
+                {
+                    var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"Nome inválido."));
+                    solicitacao.Pendencias.Add(pendencia);
+                }
             }
 
-            if(solicitacao.q)
-            
+            if (solicitacao.Pendencias.Count == 0)
+            {
+                solicitacao.ValorLiberado = solicitacao.ValorSolicitado;
+                solicitacao.Status = StatusSolicitacao.APROVADA;
+            }
+            else solicitacao.Status = StatusSolicitacao.RECUSADA;
+            await this.Atualizar(solicitacao);
+            return solicitacao;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SmartBank.Domain.Entities
         public string Rg { get; set; }
         public string RgOrgaoExpeditor { get; set; }
         public string RgUf { get; set; }
-        public CnhValueObject Cnh { get; set; }
+        public CnhValueObject Cnh { get; set; } = new CnhValueObject();
         public DateTime DataNascimento { get; set; }
         public SexoPessoa Sexo { get; set; }
         public ContatoValueObject Contato { get; set; }
@@ -47,6 +47,17 @@ namespace SmartBank.Domain.Entities
             get
             {
                 return this.BiometriaFacial?.Valida == true;
+            }
+        }
+
+        public bool CadastroValidado
+        {
+            get
+            {
+                return this.ValidacaoCadastral?.CpfDisponivel == true 
+                    && this.ValidacaoCadastral?.Nome == true 
+                    && this.ValidacaoCadastral?.NomeSimilaridade == true 
+                    && this.ValidacaoCadastral?.SituaçãoCpf == true;
             }
         }
     }
