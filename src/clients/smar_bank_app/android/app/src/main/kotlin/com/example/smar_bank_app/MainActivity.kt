@@ -1,4 +1,4 @@
-package com.sousasilva.smar_bank_app
+package com.smar_bank_app
 
 import io.flutter.embedding.android.FlutterActivity
 
