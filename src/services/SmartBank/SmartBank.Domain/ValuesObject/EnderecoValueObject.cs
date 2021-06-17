@@ -25,7 +25,7 @@ namespace SmartBank.Domain.ValuesObject
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Uf { get; set; }
-        public int CodigoIBGE { get; set; }
+        public int? CodigoIBGE { get; set; }
     }
 
     public class CnhValueObject

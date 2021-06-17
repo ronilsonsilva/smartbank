@@ -1,5 +1,6 @@
 import 'package:SmarBank/models/cliente/cliente.dart';
 import 'package:SmarBank/services/clienteService.dart';
+import 'package:SmarBank/utils/Constantes.dart';
 import 'package:SmarBank/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -53,20 +54,150 @@ class _DashboardState extends State<Dashboard> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           child: Center(
-                            child: this.clienteModel.validacaoFacial == true
-                                ? Text(
-                                    "Olá ${this.clienteModel.nome}, já validamos sua identidade, agora já pode solicitar empréstimo.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: TextColorPrimary, fontSize: 18))
-                                : Text(
-                                    "Olá ${this.clienteModel.nome}, ainda não validamos sua identidade, por favor complete seu cadastro.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: TextColorPrimary, fontSize: 18)),
+                            child: Text(
+                              "Olá ${this.clienteModel.nome}, veja um resumo de sua situação no SmartBank.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: TextColorPrimary, fontSize: 18),
+                            ),
                           ),
                         ),
                       ],
+                    ),
+                    Card(
+                      elevation: 5,
+                      color: app_greyColor,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Text(
+                              "SEU SCORE ${this.clienteModel.pontoScore.toString()}",
+                              style: TextStyle(
+                                fontSize: textSizeLarge,
+                                color: TextColorWhite,
+                                fontFamily: fontBold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      elevation: 5,
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        "Biometria Facial:",
+                                        style: TextStyle(
+                                            fontSize: textSizeLargeMedium,
+                                            color: TextColorSecondary,
+                                            fontFamily: fontRegular),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        this
+                                            .clienteModel
+                                            .similaridadeBiometriaFacial,
+                                        style: TextStyle(
+                                            fontSize: textSizeLargeMedium,
+                                            color: TextColorSecondary,
+                                            fontFamily: fontRegular),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      this.clienteModel.cpfDisponivel == true
+                                          ? Text(
+                                              "CPF Disponível: SIM",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            )
+                                          : Text(
+                                              "CPF Disponível: NÃO",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      this.clienteModel.situacaoCpf == true
+                                          ? Text(
+                                              "CPF Regular: SIM",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            )
+                                          : Text(
+                                              "CPF Regular: NÃO",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      this.clienteModel.validacaoNome == true
+                                          ? Text(
+                                              "Nome Validado: SIM",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            )
+                                          : Text(
+                                              "Nome Validado: NÃO",
+                                              style: TextStyle(
+                                                  fontSize: textSizeLargeMedium,
+                                                  color: TextColorSecondary,
+                                                  fontFamily: fontRegular),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

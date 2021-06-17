@@ -55,8 +55,7 @@ namespace SmartBank.Application.Services
             if (biometriaExistente != null)
             {
                 biometriaExistente.ImageBase64 = model.ImageBase64;
-                biometriaExistente.Probabilidade = validação.BiometriaFace.Probabilidade;
-                biometriaExistente.Similaridade = string.IsNullOrEmpty(validação.BiometriaFace.Similaridade) ? 0 : int.Parse(validação.BiometriaFace.Similaridade);
+                biometriaExistente.Probabilidade = validação?.BiometriaFace?.Probabilidade;
                 var response = await this._serviceBiometriaFacial.Atualizar(biometriaExistente);
                 return new Response<bool>();
             }
@@ -66,7 +65,7 @@ namespace SmartBank.Application.Services
                 {
                     ClienteId = model.ClienteId,
                     ImageBase64 = model.ImageBase64,
-                    Probabilidade = validação.BiometriaFace.Probabilidade
+                    Probabilidade = validação?.BiometriaFace?.Probabilidade
                 };
                 var response = await this._serviceBiometriaFacial.Adicionar(biometria);
                 return new Response<bool>();
@@ -91,7 +90,7 @@ namespace SmartBank.Application.Services
             var validação = await this._datavalid.BasicaPessoaFisica(dados);
             ResolvaValidacaoBasica(cliente, validação);
 
-            var validacaoCadastral = cliente.ValidacaoCadastral;
+            var validacaoCadastral = await this._repositoryValidacaoCadastral.Consultar(x => x.ClienteId == cliente.Id).FirstOrDefaultAsync();
             if (validacaoCadastral != null && validacaoCadastral?.Id == null)
             {
                 validacaoCadastral.ClienteId = cliente.Id.Value;
@@ -99,6 +98,11 @@ namespace SmartBank.Application.Services
             }
             else if(validacaoCadastral != null)
             {
+                validacaoCadastral.CpfDisponivel = cliente.ValidacaoCadastral.CpfDisponivel;
+                validacaoCadastral.DataNascimento = cliente.ValidacaoCadastral.DataNascimento;
+                validacaoCadastral.Nome = cliente.ValidacaoCadastral.Nome;
+                validacaoCadastral.NomeSimilaridade = cliente.ValidacaoCadastral.NomeSimilaridade;
+                validacaoCadastral.SituaçãoCpf = cliente.ValidacaoCadastral.SituaçãoCpf;
                 _ = await this._serviceValidacaoCadastral.Atualizar(this._mapper.Map<ClienteValidacaoCadastral>(validacaoCadastral));
             }
 

@@ -1,6 +1,5 @@
 import 'package:SmarBank/components/account.dart';
 import 'package:SmarBank/components/dashboard.dart';
-import 'package:SmarBank/components/notificacoes.dart';
 import 'package:SmarBank/components/nova_solicitacao.dart';
 import 'package:SmarBank/pages/signin.dart';
 import 'package:SmarBank/utils/colors.dart';
@@ -23,7 +22,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List<Widget> telas = [
       Dashboard(),
-      Notificacoes(),
       NovaSolicitacao(),
       Account(this.widget.camera),
       Account(this.widget.camera)
@@ -44,7 +42,7 @@ class _HomeState extends State<Home> {
         currentIndex: _indiceAtual,
         onTap: (indice) {
           setState(() {
-            if (indice == 4) //Encerrar sessão
+            if (indice == 3) //Encerrar sessão
             {
               finish(context);
               SignIn(this.widget.camera).launch(context);
@@ -56,9 +54,6 @@ class _HomeState extends State<Home> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               label: "Home", icon: Icon(Icons.home_outlined)),
-          BottomNavigationBarItem(
-              label: "Notificações",
-              icon: Icon(Icons.notification_important_outlined)),
           BottomNavigationBarItem(
               label: "Empréstimo", icon: Icon(Icons.attach_money_outlined)),
           BottomNavigationBarItem(

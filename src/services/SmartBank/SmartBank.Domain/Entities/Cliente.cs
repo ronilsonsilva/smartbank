@@ -56,7 +56,6 @@ namespace SmartBank.Domain.Entities
             {
                 return this.ValidacaoCadastral?.CpfDisponivel == true 
                     && this.ValidacaoCadastral?.Nome == true 
-                    && this.ValidacaoCadastral?.NomeSimilaridade == true 
                     && this.ValidacaoCadastral?.SituaçãoCpf == true;
             }
         }

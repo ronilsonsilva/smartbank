@@ -26,8 +26,8 @@ const spacing_large = 24.0;
 const spacing_xlarge = 32.0;
 const spacing_xxLarge = 40.0;
 
-const api_cliente_base_uri = 'https://192.168.15.64:45455/api';
-// const api_cliente_base_uri = 'https://sbcliente.ronilson.dev/api';
+// const api_cliente_base_uri = 'https://192.168.15.7:45455/api';
+const api_cliente_base_uri = 'https://sbcliente.ronilson.dev/api';
 const api_sso_base_uri = 'https://sso.ronilson.dev';
 
 class Utils {

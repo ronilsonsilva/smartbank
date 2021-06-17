@@ -31,5 +31,51 @@ namespace SmartBank.Application.ViewModels
         public ClienteScoreViewModel Score { get; set; }
         public ClienteValidacaoCadastralViewModel ValidacaoCadastral { get; set; }
         public ClienteBiometriaFacialViewModel BiometriaFacial { get; set; }
+
+        public int PontoScore 
+        {
+            get
+            {
+                return this.Score != null ? this.Score.Score : 0;
+            }
+        }
+
+        public string SimilaridadeBiometriaFacial 
+        { 
+            get
+            {
+                return string.IsNullOrEmpty(this.BiometriaFacial?.Probabilidade) ? "Não Realizada" : this.BiometriaFacial?.Probabilidade;
+            }
+        }
+
+        public bool ValidacaoNome 
+        { 
+            get
+            {
+                return this.ValidacaoCadastral != null ? this.ValidacaoCadastral.Nome : false;
+            }
+        }
+        public bool CpfDisponivel 
+        { 
+            get
+            {
+                return this.ValidacaoCadastral != null ? this.ValidacaoCadastral.CpfDisponivel : false;
+            }
+        }
+        public bool NomeSimilaridade 
+        {
+            get
+            {
+                return this.ValidacaoCadastral != null ? this.ValidacaoCadastral.NomeSimilaridade : false;
+            }
+        }
+        
+        public bool SituacaoCpf 
+        {
+            get
+            {
+                return this.ValidacaoCadastral != null ? this.ValidacaoCadastral.SituaçãoCpf : false;
+            }
+        }
     }
 }

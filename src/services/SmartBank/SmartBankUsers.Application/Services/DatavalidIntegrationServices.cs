@@ -19,7 +19,7 @@ namespace SmartBank.Application.Services
         {
             var validacao = new ResultadoValidacoes();
 
-            var client = new RestClient("https://localhost:44348/api/Validacoes/BasicoPessoaFisica");
+            var client = new RestClient("https://sbdatavalid.ronilson.dev/api/Validacoes/BasicoPessoaFisica");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
@@ -38,7 +38,7 @@ namespace SmartBank.Application.Services
         {
             var validacao = new ResultadoValidacoes();
 
-            var client = new RestClient("https://localhost:44348/api/Validacoes/BiometriaFacialPF");
+            var client = new RestClient("https://sbdatavalid.ronilson.dev/api/Validacoes/BiometriaFacialPF");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");

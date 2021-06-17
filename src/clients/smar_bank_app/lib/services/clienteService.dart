@@ -8,7 +8,7 @@ import 'package:SmarBank/utils/app_shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ClienteService {
-  Future<ResponseCliente> AdicionarCliente(CadastrarCliente cliente) async {
+  Future<Cliente> AdicionarCliente(CadastrarCliente cliente) async {
     try {
       var json = cliente.toJson();
       final response = await http.post(
@@ -21,11 +21,16 @@ class ClienteService {
         body: jsonEncode(json),
       );
       print(response);
-      var objResponse = ResponseCliente.fromJson(jsonDecode(response.body));
-      await AppSharedPreference().salveCliente(objResponse.entity);
-      return Future(() => objResponse);
+      if (response.statusCode == 200) {
+        var objResponse = Cliente.fromJson(jsonDecode(response.body));
+        await AppSharedPreference().salveCliente(objResponse);
+        return Future(() => objResponse);
+      } else {
+        return Future(() => null);
+      }
     } catch (e) {
       print(e);
+      return Future(() => null);
     }
   }
 

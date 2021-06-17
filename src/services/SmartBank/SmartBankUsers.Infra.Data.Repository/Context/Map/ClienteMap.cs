@@ -18,7 +18,6 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .HasColumnName("cpf");
 
             builder.Property(x => x.DataNascimento)
-                .IsRequired()
                 .HasColumnName("data_nascimento");
 
             builder.Property(x => x.Nome)
@@ -27,7 +26,6 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .HasColumnName("nome");
 
             builder.Property(x => x.NomeMae)
-                .IsRequired()
                 .HasMaxLength(256)
                 .HasColumnName("nome_mae");
 
@@ -36,7 +34,6 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
                 .HasColumnName("nome_pai");
 
             builder.Property(x => x.Sexo)
-                .IsRequired()
                 .HasColumnName("sexo");
 
             builder.Property(x => x.Escolaridade)

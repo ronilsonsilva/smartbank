@@ -26,6 +26,11 @@ class Cliente {
   bool validacaoBiometrica;
   bool validacaoFacial;
   double rendaMensal;
+  int pontoScore;
+  String similaridadeBiometriaFacial;
+  bool validacaoNome;
+  bool cpfDisponivel;
+  bool situacaoCpf;
 
   Cliente(
       {this.id,
@@ -49,22 +54,32 @@ class Cliente {
       this.validacaoBiometrica,
       this.validacaoFacial,
       this.rendaMensal,
-      this.password});
+      this.password,
+      this.pontoScore,
+      this.cpfDisponivel,
+      this.validacaoNome,
+      this.situacaoCpf,
+      this.similaridadeBiometriaFacial});
 
   Cliente.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cadastro = DateTime.tryParse(json['cadastro']);
-    atualizado = DateTime.tryParse(json['atualizado']);
+    cadastro =
+        json['cadastro'] != null ? DateTime.tryParse(json['cadastro']) : null;
+    atualizado = json['atualizado'] != null
+        ? DateTime.tryParse(json['atualizado'])
+        : null;
     nome = json['nome'];
     cpf = json['cpf'];
     rg = json['rg'];
     rgOrgaoExpeditor = json['rgOrgaoExpeditor'];
     rgUf = json['rgUf'];
-    cnh = json['cnh'] != null ? new Cnh.fromJson(json['cnh']) : new Cnh();
-    dataNascimento = DateTime.tryParse(json['dataNascimento']);
+    cnh = json['cnh'] != null ? Cnh.fromJson(json['cnh']) : new Cnh();
+    dataNascimento = json['dataNascimento'] != null
+        ? DateTime.tryParse(json['dataNascimento'])
+        : null;
     sexo = json['sexo'];
     contato =
-        json['contato'] != null ? new Contato.fromJson(json['contato']) : null;
+        json['contato'] != null ? Contato.fromJson(json['contato']) : null;
     endereco = json['endereco'] != null
         ? new Endereco.fromJson(json['endereco'])
         : new Endereco();
@@ -79,14 +94,25 @@ class Cliente {
     validacaoBiometrica = json['validacaoBiometrica'];
     validacaoFacial = json['validacaoFacial'];
     rendaMensal = json['rendaMensal'];
+    pontoScore = json['pontoScore'];
+    cpfDisponivel = json['cpfDisponivel'];
+    validacaoNome = json['validacaoNome'];
+    situacaoCpf = json['situacaoCpf'];
+    similaridadeBiometriaFacial = json['similaridadeBiometriaFacial'];
   }
 
   Map<String, dynamic> toJson() {
     try {
       final Map<String, dynamic> data = new Map<String, dynamic>();
       data['id'] = this.id;
-      data['cadastro'] = this.cadastro.toIso8601String();
-      data['atualizado'] = this.atualizado.toIso8601String();
+      if (this.cadastro != null) {
+        data['cadastro'] = this.cadastro.toIso8601String();
+      }
+
+      if (this.atualizado != null) {
+        data['atualizado'] = this.atualizado.toIso8601String();
+      }
+
       data['nome'] = this.nome;
       data['cpf'] = this.cpf;
       data['rg'] = this.rg;
@@ -95,7 +121,11 @@ class Cliente {
       if (this.cnh != null) {
         data['cnh'] = this.cnh.toJson();
       }
-      data['dataNascimento'] = this.dataNascimento.toIso8601String();
+
+      if (this.dataNascimento != null) {
+        data['dataNascimento'] = this.dataNascimento.toIso8601String();
+      }
+
       data['sexo'] = this.sexo;
       if (this.contato != null) {
         data['contato'] = this.contato.toJson();

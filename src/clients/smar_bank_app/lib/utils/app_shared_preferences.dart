@@ -29,8 +29,13 @@ class AppSharedPreference {
   }
 
   Future<void> salveCliente(Cliente cliente) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(this._key_cliente, jsonEncode(cliente.toJson()));
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var json = cliente.toJson();
+      prefs.setString(this._key_cliente, jsonEncode(json));
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<Cliente> getCliente() async {

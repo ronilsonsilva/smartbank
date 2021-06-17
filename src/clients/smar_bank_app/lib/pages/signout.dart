@@ -29,7 +29,6 @@ class _SignOutState extends State<SignOut> {
   final _emailFocusNode = FocusNode();
   final _cpfFocusNode = FocusNode();
   final _rgFocusNode = FocusNode();
-  final _cnhFocusNode = FocusNode();
   final _nomeMaeFocusNode = FocusNode();
   final _senhaFocusNode = FocusNode();
   final _confirmarSenhaFocusNode = FocusNode();
@@ -57,33 +56,43 @@ class _SignOutState extends State<SignOut> {
         email: _formData['email'],
       ),
       cpf: _formData['cpf'],
-      rg: _formData['rg'],
-      nomeMae: _formData['nome_mae'],
       password: _formData['senha'],
     );
 
     setState(() {
       this.onRequest = true;
     });
-
-    var response = await this._clienteService.AdicionarCliente(cliente);
-    if (response.ok) {
-      var autenticado = await AuthService()
-          .autentique(_formData['usuario'], _formData['senha']);
-      if (autenticado) {
-        finish(context);
-        Home(this.widget.camera).launch(context);
+    try {
+      var response = await this._clienteService.AdicionarCliente(cliente);
+      if (response != null) {
+        var autenticado =
+            await AuthService().autentique(response.cpf, response.password);
+        if (autenticado) {
+          finish(context);
+          Home(this.widget.camera).launch(context);
+        } else {
+          this._alertSenhaIncosistente.show(context);
+        }
       } else {
-        this._alertSenhaIncosistente.show(context);
+        final snackBar = SnackBar(
+            content:
+                Text('Falha ao realizar cadastro, por favor tente novamente.'));
+        setState(() {
+          this.onRequest = false;
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        });
       }
-    } else {
-      final snackBar = SnackBar(content: Text('Falha ao realizar cadastro.'));
+      print(response);
+    } catch (e) {
+      print(e);
+      final snackBar = SnackBar(
+          content:
+              Text('Falha ao realizar cadastro, por favor tente novamente.'));
       setState(() {
-        this.onRequest = true;
+        this.onRequest = false;
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
     }
-    print(response);
   }
 
   @override
@@ -130,6 +139,7 @@ class _SignOutState extends State<SignOut> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         initialValue: '',
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(labelText: 'E-mail'),
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: (_) =>
@@ -151,55 +161,20 @@ class _SignOutState extends State<SignOut> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         initialValue: '',
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(labelText: 'CPF'),
                         textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (_) =>
-                            FocusScope.of(context).requestFocus(_rgFocusNode),
+                        onFieldSubmitted: (_) => FocusScope.of(context)
+                            .requestFocus(_senhaFocusNode),
                         onSaved: (value) => _formData['cpf'] = value,
                         onChanged: (value) => _formData['cpf'] = value,
                         validator: (value) {
                           bool isEmpty = value.trim().isEmpty;
-                          bool isInvalid = value.trim().length < 3;
+                          bool isInvalid = value.trim().length < 11;
 
                           if (isEmpty || isInvalid) {
                             return 'Informe um CPF válido!';
                           }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        initialValue: '',
-                        decoration: InputDecoration(labelText: 'RG'),
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (_) => FocusScope.of(context)
-                            .requestFocus(_nomeMaeFocusNode),
-                        onSaved: (value) => _formData['rg'] = value,
-                        onChanged: (value) => _formData['rg'] = value,
-                        validator: (value) {
-                          bool isEmpty = value.trim().isEmpty;
-                          bool isInvalid = value.trim().length < 3;
-
-                          if (isEmpty || isInvalid) {
-                            return 'Informe um RG válido!';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        initialValue: '',
-                        decoration: InputDecoration(labelText: 'Nome da Mãe'),
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (_) => FocusScope.of(context)
-                            .requestFocus(_senhaFocusNode),
-                        onSaved: (value) => _formData['nome_mae'] = value,
-                        onChanged: (value) => _formData['nome_mae'] = value,
-                        validator: (value) {
                           return null;
                         },
                       ),
@@ -237,30 +212,36 @@ class _SignOutState extends State<SignOut> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 16.0, bottom: 16.0, left: 8.0, right: 8.0),
+                          top: 16.0, bottom: 32.0, left: 8.0, right: 8.0),
                       child: this.onRequest
-                          ? CircularProgressIndicator(
-                              semanticsLabel: "Solicitando...",
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                semanticsLabel: "Solicitando...",
+                              ),
                             )
                           : Button(
                               textContent: lbl_register,
                               onPressed: () => this._saveForm(context),
                             ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          lbl_app_Name.toUpperCase(),
+                          style: primaryTextStyle(
+                              color: TextColorSecondary,
+                              size: 16,
+                              fontFamily: fontRegular),
+                        ).paddingOnly(bottom: 16),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                lbl_app_Name.toUpperCase(),
-                style: primaryTextStyle(
-                    color: TextColorSecondary,
-                    size: 16,
-                    fontFamily: fontRegular),
-              ).paddingOnly(bottom: 16)),
         ],
       ),
     );
