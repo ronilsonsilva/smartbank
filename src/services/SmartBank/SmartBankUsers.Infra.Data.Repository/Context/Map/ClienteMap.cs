@@ -90,6 +90,11 @@ namespace SmartBank.Infra.Data.Repository.Context.Map
 
             #endregion
 
+            builder.Property(x => x.CodigoRedefinicaoSenha)
+                .HasColumnName("codigo_redefinicao_senha");
+            
+            builder.Property(x => x.ValidadeCodigoRedefinicaoSenha)
+                .HasColumnName("validade_codigo_redefinicao_senha");
 
             builder.OwnsOne(x => x.EmpresaTrabalho)
                 .Property(x => x.Cnpj)

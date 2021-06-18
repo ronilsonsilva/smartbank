@@ -9,6 +9,9 @@ namespace SmartBank.Application.Contracts
     {
         Task<Guid> ObterIdAtualCliente(string email);
         Task<Response<bool>> SalvarSelfie(ClienteSefieInputModel model);
+        Task AtualizarCodigo(ClienteViewModel cliente);
+        Task<ClienteViewModel> ConsultarPorCpf(string cpf);
+        Task<ClienteViewModel> ConsultarPorCodigoDefinicaoSenha(string codigo);
     }
     
 }

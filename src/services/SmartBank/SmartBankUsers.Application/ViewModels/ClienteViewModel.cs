@@ -1,4 +1,5 @@
-﻿using SmartBank.Domain.ValuesObject;
+﻿using Newtonsoft.Json;
+using SmartBank.Domain.ValuesObject;
 using System;
 using System.Collections.Generic;
 
@@ -77,5 +78,47 @@ namespace SmartBank.Application.ViewModels
                 return this.ValidacaoCadastral != null ? this.ValidacaoCadastral.SituaçãoCpf : false;
             }
         }
+
+        public string CodigoRedefinicaoSenha { get; set; }
+        public DateTime? ValidadeCodigoRedefinicaoSenha { get; set; }
+    }
+
+    public class RedefinirSenhaViewModel
+    {
+        public string Senha { get; set; }
+        public string ConfirmacaoSenha { get; set; }
+        public string Codigo { get; set; }
+    }
+
+    public class EnviarEmailViewModel
+    {
+        public EnviarEmailViewModel()
+        {
+
+        }
+
+        public EnviarEmailViewModel(string nomeDestinatario, string emailRemetente, string mensagem, string emailDestinatario, string nomeRemetente)
+        {
+            NomeDestinatario = nomeDestinatario;
+            EmailRemetente = emailRemetente;
+            Mensagem = mensagem;
+            EmailDestinatario = emailDestinatario;
+            NomeRemetente = nomeRemetente;
+        }
+
+        [JsonProperty("nomeDestinatario")]
+        public string NomeDestinatario { get; set; }
+
+        [JsonProperty("emailRemetente")]
+        public string EmailRemetente { get; set; }
+
+        [JsonProperty("mensagem")]
+        public string Mensagem { get; set; }
+
+        [JsonProperty("emailDestinatario")]
+        public string EmailDestinatario { get; set; }
+
+        [JsonProperty("nomeRemetente")]
+        public string NomeRemetente { get; set; }
     }
 }

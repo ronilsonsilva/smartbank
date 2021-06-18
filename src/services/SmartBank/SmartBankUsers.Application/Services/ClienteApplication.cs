@@ -179,5 +179,20 @@ namespace SmartBank.Application.Services
                                 situacaoCpf: "regular"
                             ));
         }
+
+        public async Task AtualizarCodigo(ClienteViewModel cliente)
+        {
+            await this._domainServices.Atualizar(this._mapper.Map<Cliente>(cliente));
+        }
+
+        public async Task<ClienteViewModel> ConsultarPorCpf(string cpf)
+        {
+            return this._mapper.Map<ClienteViewModel>(await this._repository.Consultar(x => x.Cpf == cpf).FirstOrDefaultAsync());
+        }
+
+        public async Task<ClienteViewModel> ConsultarPorCodigoDefinicaoSenha(string codigo)
+        {
+            return this._mapper.Map<ClienteViewModel>(await this._repository.Consultar(x => x.CodigoRedefinicaoSenha == codigo).FirstOrDefaultAsync());
+        }
     }
 }

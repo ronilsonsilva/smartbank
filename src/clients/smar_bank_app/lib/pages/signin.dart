@@ -31,9 +31,21 @@ class _BankingSignInState extends State<SignIn> {
       mensage: 'Usuário e senha não confere, por favor preencha novamente.',
       textoConfirma: 'OK',
       onConfirma: () => {});
+  final _alertFormulario = SbAlertDialog(
+      titulo: '',
+      mensage: 'Prencha todos campos do formulário.',
+      textoConfirma: 'OK',
+      onConfirma: () => {});
   bool onRequest = false;
 
   void _submitForm(BuildContext context) async {
+    if (_formData.length != 2 ||
+        _formData['usuario'] == '' ||
+        _formData['senha'] == '') {
+      this._alertFormulario.show(context);
+      return;
+    }
+
     setState(() {
       this.onRequest = true;
     });
@@ -91,7 +103,8 @@ class _BankingSignInState extends State<SignIn> {
                     lbl_Forgot,
                     style: secondaryTextStyle(size: 16),
                   ).onTap(
-                    () => ForgotPassword().launch(context),
+                    () => ForgotPassword(camera: this.widget.camera)
+                        .launch(context),
                   ),
                 ),
                 16.height,

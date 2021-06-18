@@ -58,7 +58,7 @@ namespace SmartBank.Domain.Services
 
             if (!cliente.ValidacaoFacial)
             {
-                var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.BIOMETRIA_FACIAL_NAO_RECONHECIDA, $"Validação Facial: {cliente.BiometriaFacial.Probabilidade}."));
+                var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.BIOMETRIA_FACIAL_NAO_RECONHECIDA, $"Validação Facial: {cliente.BiometriaFacial?.Probabilidade}."));
                 solicitacao.Pendencias.Add(pendencia);
             }
 

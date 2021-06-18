@@ -188,6 +188,11 @@ class _SignOutState extends State<SignOut> {
                         onSaved: (value) => _formData['senha'] = value,
                         onChanged: (value) => _formData['senha'] = value,
                         validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 6;
+                          if (isEmpty || isInvalid) {
+                            return 'Informe uma senha válida!';
+                          }
                           return null;
                         },
                       ),
@@ -206,6 +211,12 @@ class _SignOutState extends State<SignOut> {
                         onChanged: (value) =>
                             _formData['confirmar_senha'] = value,
                         validator: (value) {
+                          bool isEmpty = value.trim().isEmpty;
+                          bool isInvalid = value.trim().length < 6;
+
+                          if (isEmpty || isInvalid) {
+                            return 'Informe uma senha válida!';
+                          }
                           return null;
                         },
                       ),

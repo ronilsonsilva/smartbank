@@ -14,258 +14,237 @@ class ListaSolicitacoes extends StatefulWidget {
 
 class _ListaSolicitacoesState extends State<ListaSolicitacoes> {
   _ListaSolicitacoesState() {
-    this.listarSolicitacoes();
+    // this.listarSolicitacoes();
   }
   List<Solicitacao> solicitacoes = [];
   final SolicitacaoService _solicitacaoService = SolicitacaoService();
-  bool carregando = true;
+  bool carregando = false;
 
   Future listarSolicitacoes() async {
+    return await this._solicitacaoService.listar();
+    // var lista = await this._solicitacaoService.listar();
     // setState(() {
-    //   this.carregando = true;
+    //   this.solicitacoes = lista;
+    //   return this.solicitacoes;
     // });
 
-    var lista = await this._solicitacaoService.listar();
-    setState(() {
-      this.solicitacoes = lista;
-      this.carregando = false;
-    });
+    // setState(() {
+    //   this.solicitacoes = lista;
+    //   this.carregando = false;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: this.carregando == false
-          ? this.solicitacoes.length > 0
-              ? ListView.builder(
-                  itemCount: this.solicitacoes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetalhesListaSolicitacao(
-                                  solicitacao: this.solicitacoes[index]))),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        height: 160,
-                        width: double.maxFinite,
-                        child: Card(
-                          elevation: 5,
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 16),
-                                      child: Column(
+      body: FutureBuilder(
+        builder: (context, solicitacao) {
+          if (!solicitacao.hasData) {
+            return Center(
+                child: CircularProgressIndicator(
+              semanticsLabel: "Solicitando...",
+            ));
+          }
+          if (solicitacao.hasData && solicitacao.data.length > 0) {
+            return ListView.builder(
+              itemCount: solicitacao.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetalhesListaSolicitacao(
+                              solicitacao: solicitacao.data[index]))),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    height: 160,
+                    width: double.maxFinite,
+                    child: Card(
+                      elevation: 5,
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Stack(
+                              children: <Widget>[
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 16),
+                                  child: Column(
+                                    children: <Widget>[
+                                      //Valor solicitado
+                                      Row(
                                         children: <Widget>[
-                                          //Valor solicitado
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0, bottom: 8),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                      "Solicitação de Empréstimo",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeLargeMedium,
-                                                          color:
-                                                              TextColorPrimary,
-                                                          fontFamily: fontBold),
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                          //Valor solicitado
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                      "Solicitado: ",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorSecondary,
-                                                          fontFamily:
-                                                              fontRegular),
-                                                    )),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Text(
-                                                      "R\$: ${this.solicitacoes[index].valorSolicitado}",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorPrimary,
-                                                          fontFamily: fontBold),
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                          //Data da solicitação
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                      "Data: ",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorSecondary,
-                                                          fontFamily:
-                                                              fontRegular),
-                                                    )),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Text(
-                                                      Utils()
-                                                          .dataHoraFormat
-                                                          .format(this
-                                                              .solicitacoes[
-                                                                  index]
-                                                              .data),
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorPrimary,
-                                                          fontFamily: fontBold),
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                          //Status da solicitação
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                      "Status: ",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorSecondary,
-                                                          fontFamily:
-                                                              fontRegular),
-                                                    )),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15.0),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: Text(
-                                                    EnumValues()
-                                                        .descricaoStatusSolicitacao(
-                                                            this
-                                                                .solicitacoes[
-                                                                    index]
-                                                                .status)
-                                                        .descricao,
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            textSizeMedium,
-                                                        color: TextColorPrimary,
-                                                        fontFamily: fontBold),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          //Valor liberado
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                      "Liberado: ",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorSecondary,
-                                                          fontFamily:
-                                                              fontRegular),
-                                                    )),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Text(
-                                                      "R\$: ${this.solicitacoes[index].valorLiberado}",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              textSizeMedium,
-                                                          color:
-                                                              TextColorPrimary,
-                                                          fontFamily: fontBold),
-                                                    )),
-                                              ),
-                                            ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, bottom: 8),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Solicitação de Empréstimo",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          textSizeLargeMedium,
+                                                      color: TextColorPrimary,
+                                                      fontFamily: fontBold),
+                                                )),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                      //Valor solicitado
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Solicitado: ",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorSecondary,
+                                                      fontFamily: fontRegular),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text(
+                                                  "R\$: ${solicitacao.data[index].valorSolicitado}",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorPrimary,
+                                                      fontFamily: fontBold),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      //Data da solicitação
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Data: ",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorSecondary,
+                                                      fontFamily: fontRegular),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text(
+                                                  Utils().dataHoraFormat.format(
+                                                      solicitacao
+                                                          .data[index].data),
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorPrimary,
+                                                      fontFamily: fontBold),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      //Status da solicitação
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Status: ",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorSecondary,
+                                                      fontFamily: fontRegular),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text(
+                                                EnumValues()
+                                                    .descricaoStatusSolicitacao(
+                                                        solicitacao
+                                                            .data[index].status)
+                                                    .descricao,
+                                                style: TextStyle(
+                                                    fontSize: textSizeMedium,
+                                                    color: TextColorPrimary,
+                                                    fontFamily: fontBold),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      //Valor liberado
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Liberado: ",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorSecondary,
+                                                      fontFamily: fontRegular),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text(
+                                                  "R\$: ${solicitacao.data[index].valorLiberado}",
+                                                  style: TextStyle(
+                                                      fontSize: textSizeMedium,
+                                                      color: TextColorPrimary,
+                                                      fontFamily: fontBold),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    );
-                  },
-                )
-              : const Center(child: Text('Você ainda não tem solicitação.'))
-          : Center(child: CircularProgressIndicator()),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          return const Center(child: Text('Você ainda não tem solicitação.'));
+        },
+        future: listarSolicitacoes(),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => FormSolicitacao()),
-        ),
+        ).then((value) => {setState(() {})}),
         child: const Icon(Icons.add),
         backgroundColor: Secondary,
       ),

@@ -148,12 +148,7 @@ class _AccountState extends State<Account> {
                               format: Utils().dataFormat,
                               decoration: InputDecoration(
                                   labelText: 'Data de Nascimento'),
-                              initialValue: this.clienteModel.dataNascimento !=
-                                          null &&
-                                      this.clienteModel.dataNascimento.year >
-                                          1000
-                                  ? this.clienteModel.dataNascimento
-                                  : DateTime.now(),
+                              initialValue: this.clienteModel.dataNascimento,
                               textInputAction: TextInputAction.next,
                               onSaved: (value) =>
                                   this.clienteModel.dataNascimento = value,

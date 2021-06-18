@@ -59,6 +59,9 @@ namespace SmartBank.Domain.Entities
                     && this.ValidacaoCadastral?.SituaçãoCpf == true;
             }
         }
+
+        public string CodigoRedefinicaoSenha { get; set; }
+        public DateTime? ValidadeCodigoRedefinicaoSenha { get; set; }
     }
 
     public class ClienteValidacaoCadastral : EntityBase

@@ -12,6 +12,8 @@ namespace SmartBank.AuthIntegration
     public interface IAccountService
     {
         Task<string> AdicionarUsuario(string userName, string email, string phoneNumber, string password);
+        string GetToken();
+        Task<bool> RedefinirSenha(AlterarSenhaModel model);
     }
 
     public class AccountService : IAccountService
@@ -34,6 +36,20 @@ namespace SmartBank.AuthIntegration
 
             return userRetorno.Id;
         }
+
+        public async Task<bool> RedefinirSenha(AlterarSenhaModel model)
+        {
+            var client = new RestClient("https://apiaccount.ronilson.dev/api/Users/ChangePassword");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", $"Bearer {this._token.AccessToken}");
+            var body = JsonConvert.SerializeObject(model);
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            IRestResponse response = await client.ExecuteAsync(request);
+            return response.StatusCode == System.Net.HttpStatusCode.OK; ;
+        }
+
 
         private IRestResponse AlterarSenha(string password, Models.User userRetorno)
         {
@@ -63,7 +79,8 @@ namespace SmartBank.AuthIntegration
             return userRetorno;
         }
 
-        private void GetToken()
+
+        public string  GetToken()
         {
             var client = new RestClient("https://sso.ronilson.dev/connect/token");
             client.Timeout = -1;
@@ -78,6 +95,7 @@ namespace SmartBank.AuthIntegration
             IRestResponse response = client.Execute(request);
 
             this._token = JsonConvert.DeserializeObject<ResponseToken>(response.Content);
+            return this._token.AccessToken;
         }
     }
 }

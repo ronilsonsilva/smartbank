@@ -1,3 +1,4 @@
+import 'package:SmarBank/components/sb_alert_dialog.dart';
 import 'package:SmarBank/models/solicitacao/nova_solicitacao_input_model.dart';
 import 'package:SmarBank/models/solicitacao/solicitacao.dart';
 import 'package:SmarBank/services/solicitacao_service.dart';
@@ -28,8 +29,21 @@ class _FormSolicitacaoState extends State<FormSolicitacao> {
   final snackBarSucesso = SnackBar(
       content: Text('Solicitação realizada, por favor aguarde aprovação.'));
   final snackBarErro = SnackBar(content: Text('Falha ao enviar solicitação.'));
+  final _alertFormulario = SbAlertDialog(
+      titulo: '',
+      mensage: 'Prencha todos campos do formulário.',
+      textoConfirma: 'OK',
+      onConfirma: () => {});
 
   void _submitForm(BuildContext context) async {
+    if (this._formData.length != 3 ||
+        this._formData['valor'] == "R\$ 0,0" ||
+        this._formData['vencimentoPrimeiraParcela'] == null ||
+        this._formData['quantidadeParcelas'] == '') {
+      this._alertFormulario.show(context);
+      return;
+    }
+
     var vlr =
         FormatUtils.currencyFromMonayMasked(this._formData['valor'].toString());
 
@@ -142,6 +156,12 @@ class _FormSolicitacaoState extends State<FormSolicitacao> {
                                   firstDate: DateTime(1900),
                                   initialDate: currentValue ?? DateTime.now(),
                                   lastDate: DateTime(2100));
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'selecione data de primeira parcela!';
+                              }
+                              return null;
                             },
                           ),
                         ),

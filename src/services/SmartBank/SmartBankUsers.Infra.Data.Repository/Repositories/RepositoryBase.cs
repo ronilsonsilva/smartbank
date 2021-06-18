@@ -36,7 +36,7 @@ namespace SmartBank.Infra.Data.Repository.Repositories
         {
             try
             {
-                this._context.Set<TEntity>().Update(entity);
+                this._context.Set<TEntity>().Update(entity).State = EntityState.Modified;
                 this._context.Entry(entity).Property(x => x.Cadastro).IsModified = false;
                 await this._context.SaveChangesAsync();
                 return entity;
