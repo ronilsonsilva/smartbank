@@ -65,13 +65,15 @@ class _CodigoRedefinicaoState extends State<CodigoRedefinicao> {
     var senhaDefinida = await AuthService().redefinirSenha(model);
     if (senhaDefinida) {
       SbAlertDialog(
-          titulo: 'EXCELENTE!!!',
-          mensage: 'Senha alterada, agora já pode usar-la.',
-          textoConfirma: 'OK',
-          onConfirma: () {
-            finish(context);
-            SignIn(this.widget.camera).launch(context);
-          }).show(context);
+              titulo: 'EXCELENTE!!!',
+              mensage: 'Senha alterada, agora já pode usar-la.',
+              textoConfirma: 'OK',
+              onConfirma: () {})
+          .show(context)
+          .then((value) {
+        finish(context);
+        SignIn(this.widget.camera).launch(context);
+      });
     } else {
       SbAlertDialog(
               titulo: '',

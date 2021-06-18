@@ -42,12 +42,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     var codigoEnviado = await AuthService().codigoRedefinirSenha(cpf);
     if (codigoEnviado) {
       SbAlertDialog(
-          titulo: '',
-          mensage:
-              'Um código foi enviado para seu e-mail, use o mesmo para criar nova senha.',
-          textoConfirma: 'OK',
-          onConfirma: () => {}).show(context);
-      CodigoRedefinicao(camera: this.widget.camera).launch(context);
+              titulo: '',
+              mensage:
+                  'Um código foi enviado para seu e-mail, use o mesmo para criar nova senha.',
+              textoConfirma: 'OK',
+              onConfirma: () {})
+          .show(context)
+          .then((value) {
+        finish(context);
+        CodigoRedefinicao(camera: this.widget.camera).launch(context);
+      });
     } else {
       SbAlertDialog(
           titulo: '',
@@ -55,8 +59,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               'Cliente não localizado, verifique se preencheu o CPF corretamente.',
           textoConfirma: 'OK',
           onConfirma: () => {}).show(context);
-      finish(context);
-      SignIn(this.widget.camera).launch(context);
     }
     setState(() {
       this.onRequest = false;
