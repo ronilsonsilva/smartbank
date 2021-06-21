@@ -17,13 +17,25 @@ namespace SmartBank.Domain.Services
         protected readonly IRepository<ClienteBiometriaFacial> _repositoryBiometriaFacial;
         protected readonly IRepository<ClienteValidacaoCadastral> _repositoryValidacaoCadastral;
         protected readonly IRepository<ClienteSolicitacaoPendecia> _repositoryPendencias;
-        public ClienteSolicitacaoService(IRepository<ClienteSolicitacao> repository, NotificationContext notificationContext, IRepository<Cliente> repositoryCliente, IRepository<ClienteBiometriaFacial> repositoryBiometriaFacial, IRepository<ClienteValidacaoCadastral> repositoryValidacaoCadastral, IRepository<ClienteSolicitacaoPendecia> repositoryPendencias, IRepository<ClienteScore> repositoryScore) : base(repository, notificationContext)
+        protected readonly IRepository<ClienteSolicitacao> _repositorySolicitacao;
+        public ClienteSolicitacaoService(IRepository<ClienteSolicitacao> repository, NotificationContext notificationContext, IRepository<Cliente> repositoryCliente, IRepository<ClienteBiometriaFacial> repositoryBiometriaFacial, IRepository<ClienteValidacaoCadastral> repositoryValidacaoCadastral, IRepository<ClienteSolicitacaoPendecia> repositoryPendencias, IRepository<ClienteScore> repositoryScore, IRepository<ClienteSolicitacao> repositorySolicitacao) : base(repository, notificationContext)
         {
             _repositoryCliente = repositoryCliente;
             _repositoryBiometriaFacial = repositoryBiometriaFacial;
             _repositoryValidacaoCadastral = repositoryValidacaoCadastral;
             _repositoryPendencias = repositoryPendencias;
             _repositoryScore = repositoryScore;
+            _repositorySolicitacao = repositorySolicitacao;
+        }
+
+        public async Task<bool> Aceitar(Guid solicitacaoId)
+        {
+            var solicitacao = await this._repositorySolicitacao.Consultar(x => x.Id == solicitacaoId).FirstOrDefaultAsync();
+            if (solicitacao == null) return false;
+            solicitacao.Status = StatusSolicitacao.ACEITA;
+            solicitacao.ValorLiberado = solicitacao.ValorSolicitado;
+            await this.Atualizar(solicitacao);
+            return true;
         }
 
         public async override Task<ClienteSolicitacao> Adicionar(ClienteSolicitacao solicitacao)
@@ -97,6 +109,15 @@ namespace SmartBank.Domain.Services
             else solicitacao.Status = StatusSolicitacao.RECUSADA;
             await this.Atualizar(solicitacao);
             return solicitacao;
+        }
+
+        public async Task<bool> Recusar(Guid solicitacaoId)
+        {
+            var solicitacao = await this._repositorySolicitacao.Consultar(x => x.Id == solicitacaoId).FirstOrDefaultAsync();
+            if (solicitacao == null) return false;
+            solicitacao.Status = StatusSolicitacao.RECUSADA;
+            await this.Atualizar(solicitacao);
+            return true;
         }
     }
 }

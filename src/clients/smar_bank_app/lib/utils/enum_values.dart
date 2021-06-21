@@ -18,6 +18,8 @@ class EnumValues {
         return EnumValues(index: value.index, descricao: 'Reprovada');
       case StatusSolicitacao.INICIADA:
         return EnumValues(index: value.index, descricao: 'Iniciada');
+      case StatusSolicitacao.ACEITA:
+        return EnumValues(index: value.index, descricao: 'Aceita');
       default:
         return EnumValues(index: value.index, descricao: '');
     }

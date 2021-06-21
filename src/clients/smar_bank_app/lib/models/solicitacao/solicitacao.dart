@@ -91,4 +91,11 @@ class Solicitacao {
 
 enum TipoSolicitacao { EMPRESTIMO }
 
-enum StatusSolicitacao { INICIADA, CANCELADA, REPROVADA, EM_ANALISE, APROVADA }
+enum StatusSolicitacao {
+  INICIADA,
+  CANCELADA,
+  REPROVADA,
+  EM_ANALISE,
+  APROVADA,
+  ACEITA
+}

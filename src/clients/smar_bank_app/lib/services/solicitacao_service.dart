@@ -66,4 +66,48 @@ class SolicitacaoService {
       throw e;
     }
   }
+
+  Future<bool> aceitar(String id) async {
+    try {
+      var token = await AppSharedPreference().getToken();
+      final response = await http.put(
+        Uri.parse(api_cliente_base_uri + '/solicitacao/aceitar/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Authorization": "Bearer ${token.accessToken}"
+        },
+      );
+      if (response.statusCode != 200) {
+        return Future(() => false);
+      }
+      return Future(() => true);
+    } catch (e) {
+      print(e);
+      return Future(() => false);
+    }
+  }
+
+  Future<bool> recusar(String id) async {
+    try {
+      var token = await AppSharedPreference().getToken();
+      final response = await http.put(
+        Uri.parse(api_cliente_base_uri + '/solicitacao/recusar/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Authorization": "Bearer ${token.accessToken}"
+        },
+      );
+      if (response.statusCode != 200) {
+        return Future(() => false);
+      }
+      return Future(() => true);
+    } catch (e) {
+      print(e);
+      return Future(() => false);
+    }
+  }
 }

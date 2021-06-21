@@ -41,5 +41,15 @@ namespace SmartBank.Application.Services
             var retorno = await this._clienteSolicitacaoService.Adicionar(entityDomain);
             return new Response<ClienteSolicitacaoViewModel>(this._mapper.Map<ClienteSolicitacaoViewModel>(retorno));
         }
+
+        public async Task<bool> Aceitar(Guid solicitacaoId)
+        {
+            return await this._clienteSolicitacaoService.Aceitar(solicitacaoId);
+        }
+
+        public async Task<bool> Recusar(Guid solicitacaoId)
+        {
+            return await this._clienteSolicitacaoService.Recusar(solicitacaoId);
+        }
     }
 }

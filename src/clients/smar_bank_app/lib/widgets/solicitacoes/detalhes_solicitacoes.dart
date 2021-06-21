@@ -1,4 +1,6 @@
+import 'package:SmarBank/services/solicitacao_service.dart';
 import 'package:SmarBank/utils/enum_values.dart';
+import 'package:SmarBank/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/solicitacao/solicitacao.dart';
@@ -15,6 +17,59 @@ class DetalhesListaSolicitacao extends StatefulWidget {
 }
 
 class _DetalhesListaSolicitacaoState extends State<DetalhesListaSolicitacao> {
+  bool requestAceitar = false;
+  bool requestRecusar = false;
+
+  _aceitar() async {
+    setState(() {
+      this.requestAceitar = true;
+    });
+
+    var retorno =
+        await SolicitacaoService().aceitar(this.widget.solicitacao.id);
+    if (retorno == true) {
+      final snackBar =
+          SnackBar(content: Text('Solicitação aceita com sucesso.'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        this.widget.solicitacao.status = StatusSolicitacao.ACEITA;
+        this.requestAceitar = false;
+      });
+    } else {
+      setState(() {
+        final snackBar =
+            SnackBar(content: Text('Falha ao aceitar solicitação.'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        this.requestAceitar = false;
+      });
+    }
+  }
+
+  _recusar() async {
+    setState(() {
+      this.requestRecusar = true;
+    });
+
+    var retorno =
+        await SolicitacaoService().recusar(this.widget.solicitacao.id);
+    if (retorno == true) {
+      final snackBar =
+          SnackBar(content: Text('Solicitação recusada com sucesso.'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        this.widget.solicitacao.status = StatusSolicitacao.CANCELADA;
+        this.requestRecusar = false;
+      });
+    } else {
+      setState(() {
+        final snackBar =
+            SnackBar(content: Text('Falha ao recusar solicitação.'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        this.requestRecusar = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,6 +211,44 @@ class _DetalhesListaSolicitacaoState extends State<DetalhesListaSolicitacao> {
                           ],
                         ),
                       ),
+                      this.widget.solicitacao.status.index ==
+                              StatusSolicitacao.APROVADA.index
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+                              child: this.requestAceitar
+                                  ? CircularProgressIndicator(
+                                      semanticsLabel: "Solicitando...",
+                                    )
+                                  : Button(
+                                      textContent: 'Aceitar',
+                                      onPressed: () => this._aceitar(),
+                                    ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+                              child: Text(''),
+                            ),
+                      this.widget.solicitacao.status.index ==
+                              StatusSolicitacao.APROVADA.index
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+                              child: this.requestRecusar
+                                  ? CircularProgressIndicator(
+                                      semanticsLabel: "Solicitando...",
+                                    )
+                                  : Button(
+                                      textContent: 'Recusar',
+                                      onPressed: () => this._recusar(),
+                                    ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+                              child: Text(''),
+                            ),
                     ],
                   ),
                 ],
@@ -163,28 +256,6 @@ class _DetalhesListaSolicitacaoState extends State<DetalhesListaSolicitacao> {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Tem Certeza?'),
-            content: const Text(
-                'Se pressionar OK sua solicitação de empréstimo será cancelada. Realmente não precisa mais do dinheiro?'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => {},
-                child: const Text('Cancelar'),
-              ),
-              TextButton(
-                onPressed: () => {},
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        ),
-        child: const Icon(Icons.delete),
-        backgroundColor: Colors.red,
       ),
     );
   }

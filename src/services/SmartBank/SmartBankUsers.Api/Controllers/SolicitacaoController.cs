@@ -47,5 +47,18 @@ namespace SmartBank.Api.Controllers
             var clienteId = await this._clienteApplication.ObterIdAtualCliente(this.User.FindFirstValue(ClaimTypes.Email));
             return Ok(await this._application.ListarSolicitacoes(clienteId));
         }
+
+        [HttpPut("aceitar/{id}")]
+        public async Task<IActionResult> Aceitar(Guid id)
+        {
+            return Ok(await this._application.Aceitar(id));
+        }
+
+        [HttpPut("recusar/{id}")]
+        public async Task<IActionResult> Recusar(Guid id)
+        {
+            return Ok(await this._application.Recusar(id));
+        }
+
     }
 }
