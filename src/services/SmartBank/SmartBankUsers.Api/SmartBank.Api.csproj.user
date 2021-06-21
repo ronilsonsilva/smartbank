@@ -3,6 +3,6 @@
   <PropertyGroup>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
-    <NameOfLastUsedPublishProfile>C:\Users\Toctec\source\repos\ronilsonsilva\smartbank\src\services\SmartBank\SmartBankUsers.Api\Properties\PublishProfiles\sbcliente.ronilson.dev - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Toctec\Source\Repos\ronilsonsilva\smartbank\src\services\SmartBank\SmartBankUsers.Api\Properties\PublishProfiles\sbcliente.ronilson.dev - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
