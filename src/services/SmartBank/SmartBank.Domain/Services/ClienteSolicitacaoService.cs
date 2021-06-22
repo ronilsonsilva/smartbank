@@ -55,18 +55,18 @@ namespace SmartBank.Domain.Services
                 var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Renda mensal inválida."));
                 solicitacao.Pendencias.Add(pendencia);
             }
-            else
-            {
-                //Valor de parcela menor que 30% da renda
-                var juros = (solicitacao.ValorSolicitado * (decimal.Parse("0,05"))) * solicitacao.QuantidadeParcela;
-                var valorParcela = (solicitacao.ValorSolicitado / solicitacao.QuantidadeParcela) + juros;
-                //Parcela compromete Mais que 30% do salário
-                if (((valorParcela / cliente.RendaMensal) * 100) > 30)
-                {
-                    var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Parcela compromete mais de 30% da renda mensal."));
-                    solicitacao.Pendencias.Add(pendencia);
-                }
-            }
+            //else
+            //{
+            //    //Valor de parcela menor que 30% da renda
+            //    var juros = (solicitacao.ValorSolicitado * (decimal.Parse("0,05"))) * solicitacao.QuantidadeParcela;
+            //    var valorParcela = (solicitacao.ValorSolicitado / solicitacao.QuantidadeParcela) + (juros / solicitacao.QuantidadeParcela);
+            //    //Parcela compromete Mais que 30% do salário
+            //    if (((valorParcela / cliente.RendaMensal) * 100) > 30)
+            //    {
+            //        var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.RENDA_MENSAL, "Parcela compromete mais de 30% da renda mensal."));
+            //        solicitacao.Pendencias.Add(pendencia);
+            //    }
+            //}
 
             if (!cliente.ValidacaoFacial)
             {
@@ -81,7 +81,7 @@ namespace SmartBank.Domain.Services
                     var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"CPF Indisponível."));
                     solicitacao.Pendencias.Add(pendencia);
                 }
-                
+
                 if (cliente.ValidacaoCadastral?.SituaçãoCpf != true)
                 {
                     var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"CPF Indisponível."));
@@ -95,7 +95,7 @@ namespace SmartBank.Domain.Services
                 }
             }
 
-            if(cliente.Score.Score < 500)
+            if (cliente.Score.Score < 500)
             {
                 var pendencia = await this._repositoryPendencias.Adicionar(new ClienteSolicitacaoPendecia(DateTime.Now, StatusPendenciaSolicitacao.PENDENTE, solicitacao.Id, TipoPedencia.DOCUMENTOS_INVALIDO, $"Score muito baixo."));
                 solicitacao.Pendencias.Add(pendencia);
