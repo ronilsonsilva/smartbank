@@ -42,18 +42,7 @@ namespace SmartBank.Api.Controllers
 
             var usuarioRegistradoEvent = new ClienteRegistradoIntegrationEvent(nome: viewModel.Nome, email: viewModel.Contato.Email, usuario: viewModel.Cpf);
 
-            try
-            {
-                //var _bus = RabbitHutch.CreateBus("host=209.126.1.140;username=admin;password=Sig@2021");
-
-                //await _bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
-
-                await this._bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await this._bus.PublishAsync<ClienteRegistradoIntegrationEvent>(usuarioRegistradoEvent);
 
             return Ok(viewModel);
         }
